@@ -30,11 +30,16 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("move_up"):
 		upBufferTimer.start()
 		
-	if (Input.is_action_just_pressed("move_up") or upBufferTimer.get_time_left() != 0) and (is_on_floor() or coyoteTimer != 0):
+	if (Input.is_action_just_pressed("move_up") or upBufferTimer.get_time_left() != 0) and (is_on_floor() or coyoteTimer.get_time_left() != 0) and not jumping:
 		jumping = true
+		coyoteTimer.stop()
+		upBufferTimer.stop()
 		jumpingTimer.start()
 		
 	if jumping:
+		if Input.is_action_just_released("move_up"):
+			jumping = false
+		
 		if jumpingTimer.get_time_left() != 0 and Input.is_action_pressed("move_up"):
 			velocity.y -= jump_velocity * delta
 		else:
