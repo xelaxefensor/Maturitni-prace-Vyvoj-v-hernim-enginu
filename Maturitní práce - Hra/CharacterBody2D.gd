@@ -1,28 +1,55 @@
 extends CharacterBody2D
 
 
-const SPEED = 8000.0
-const JUMP_VELOCITY = 400.0
+var speed = 1000.0
+var maxSpeed = 400.0
+var jump_velocity = 10000.0
+var groundDrag = 7.0
+
+var jumpingTimer
+var upBufferTimer
+var coyoteTimer
+
+var jumping = false
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+func _ready():
+	jumpingTimer = self.get_node("JumpingTimer")
+	upBufferTimer = self.get_node("upBufferTimer")
+	coyoteTimer = self.get_node("coyoteTimer")
 
 func _physics_process(delta):
-	# Add the gravity.
 	if not is_on_floor():
 		velocity.y += gravity * delta
+		
+	if is_on_floor():
+		coyoteTimer.start()
 
-	# Handle Jump.
-	if Input.is_action_just_pressed("move_up") and is_on_floor():
-		velocity.y -= JUMP_VELOCITY
+	if Input.is_action_just_pressed("move_up"):
+		upBufferTimer.start()
+		
+	if (Input.is_action_just_pressed("move_up") or upBufferTimer.get_time_left() != 0) and (is_on_floor() or coyoteTimer != 0):
+		jumping = true
+		jumpingTimer.start()
+		
+	if jumping:
+		if jumpingTimer.get_time_left() != 0 and Input.is_action_pressed("move_up"):
+			velocity.y -= jump_velocity * delta
+		else:
+			jumping = false
+		
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction = Input.get_axis("move_left", "move_right")
-	if direction:
-		velocity.x = direction * SPEED * delta
+	if direction and abs(velocity.x) <= maxSpeed:
+		if is_on_floor():
+			velocity.x += direction * speed * delta
+		else:
+			velocity.x += direction * speed/2 * delta
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+		if is_on_floor():
+			velocity.x -= velocity.x * groundDrag * delta
 	
 	move_and_slide()
+

@@ -23,3 +23,14 @@ texture = ExtResource("2_emk7i")
 [node name="Camera2D" type="Camera2D" parent="."]
 position_smoothing_enabled = true
 rotation_smoothing_enabled = true
+
+[node name="JumpingTimer" type="Timer" parent="."]
+wait_time = 0.06
+one_shot = true
+
+[node name="upBufferTimer" type="Timer" parent="."]
+wait_time = 0.073
+one_shot = true
+
+[node name="coyoteTimer" type="Timer" parent="."]
+wait_time = 0.193

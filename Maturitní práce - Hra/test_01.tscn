@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dje3oj7pugdh7" path="res://icon.svg" id="3_curao"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_swhqi"]
-size = Vector2(254, 20)
+size = Vector2(1203, 20)
 
 [node name="Node2D" type="Node2D"]
 
@@ -19,10 +19,12 @@ position = Vector2(7, -55)
 position = Vector2(18, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-130, 9)
 shape = SubResource("RectangleShape2D_swhqi")
 
 [node name="Icon" type="Sprite2D" parent="."]
-position = Vector2(4, 54)
+position = Vector2(-111.001, 59)
+scale = Vector2(9.40626, 0.921875)
 texture = ExtResource("3_curao")
 
 [node name="Icon2" type="Sprite2D" parent="."]
