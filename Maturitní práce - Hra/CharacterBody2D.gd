@@ -1,9 +1,9 @@
 extends CharacterBody2D
 
 
-var speed = 1000.0
-var maxSpeed = 400.0
-var jump_velocity = 10000.0
+var speed = 2000.0
+var maxSpeed = 600.0
+var jump_velocity = 12000.0
 var groundDrag = 7.0
 
 var jumpingTimer
@@ -47,11 +47,12 @@ func _physics_process(delta):
 		
 
 	var direction = Input.get_axis("move_left", "move_right")
-	if direction and abs(velocity.x) <= maxSpeed:
-		if is_on_floor():
-			velocity.x += direction * speed * delta
-		else:
-			velocity.x += direction * speed/2 * delta
+	if direction:
+		if (direction > 0 and velocity.x <= maxSpeed * direction/abs(direction)) or (direction < 0 and velocity.x >= maxSpeed * direction/abs(direction)):
+			if is_on_floor():
+				velocity.x += direction * speed * delta
+			else:
+				velocity.x += direction * speed * delta * 0.5
 	else:
 		if is_on_floor():
 			velocity.x -= velocity.x * groundDrag * delta
