@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dje3oj7pugdh7" path="res://icon.svg" id="3_curao"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_swhqi"]
-size = Vector2(1203, 20)
+size = Vector2(1500, 20)
 
 [node name="Node2D" type="Node2D"]
 
@@ -23,10 +23,10 @@ position = Vector2(-130, 9)
 shape = SubResource("RectangleShape2D_swhqi")
 
 [node name="Icon" type="Sprite2D" parent="."]
-position = Vector2(-111.001, 59)
-scale = Vector2(9.40626, 0.921875)
+position = Vector2(-111.5, 58.5)
+scale = Vector2(11.7109, 0.929688)
 texture = ExtResource("3_curao")
 
 [node name="Icon2" type="Sprite2D" parent="."]
-position = Vector2(-170, -140)
+position = Vector2(-234, -208)
 texture = ExtResource("3_curao")
