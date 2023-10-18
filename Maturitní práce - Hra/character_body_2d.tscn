@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://4ko1lo1dtwmt"]
+
+[ext_resource type="Script" path="res://CharacterBody2D.gd" id="1_2wuew"]
+[ext_resource type="Texture2D" uid="uid://cpcsb6tybsnoc" path="res://sprites/player.png" id="2_emk7i"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6ix2o"]
+radius = 16.6667
+height = 59.3333
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+floor_constant_speed = true
+script = ExtResource("1_2wuew")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(2, 2)
+shape = SubResource("CapsuleShape2D_6ix2o")
+
+[node name="Player" type="Sprite2D" parent="."]
+position = Vector2(1, -2)
+scale = Vector2(2, 2)
+texture = ExtResource("2_emk7i")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true

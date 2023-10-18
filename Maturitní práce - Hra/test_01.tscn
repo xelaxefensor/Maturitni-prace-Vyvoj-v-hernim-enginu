@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://ta3b1d2vaveo"]
+
+[ext_resource type="Environment" uid="uid://dn5innowebx5y" path="res://enviroment_main.tres" id="1_4ex6q"]
+[ext_resource type="PackedScene" uid="uid://4ko1lo1dtwmt" path="res://character_body_2d.tscn" id="2_62tqp"]
+[ext_resource type="Texture2D" uid="uid://dje3oj7pugdh7" path="res://icon.svg" id="3_curao"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_swhqi"]
+size = Vector2(254, 20)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("1_4ex6q")
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("2_62tqp")]
+position = Vector2(7, -55)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(18, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_swhqi")
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(4, 54)
+texture = ExtResource("3_curao")
+
+[node name="Icon2" type="Sprite2D" parent="."]
+position = Vector2(-170, -140)
+texture = ExtResource("3_curao")
