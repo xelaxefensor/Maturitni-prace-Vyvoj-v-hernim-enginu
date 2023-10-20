@@ -2,12 +2,10 @@ extends CharacterBody2D
 
 
 var speed = 10000.0
-var maxSpeed = 600.0
-var jump_velocity = 12000.0
-var groundDrag = 15.0
-var airDrag = 1.0
-
-var maxGravity = 800
+var jump_velocity = 10000.0
+var groundDrag = 10.0
+var airDrag = 6.0
+var gravDrag = 1.0
 
 var jumpingTimer
 var upBufferTimer
@@ -25,11 +23,11 @@ func _ready():
 
 func _physics_process(delta):
 	if not is_on_floor():
-		maxGravity = 800
-		maxGravity *= (Input.get_action_strength("move_down")+1)
-		if (velocity.y < maxGravity):
-			velocity.y += gravity * delta * (Input.get_action_strength("move_down")+1)
-		
+		velocity.y += gravity * delta * (Input.get_action_strength("move_down")+1)
+		if velocity.y > 1:
+			velocity.y -= velocity.y * gravDrag * delta * (1.1-Input.get_action_strength("move_down"))
+			print(velocity.y)
+			
 	if is_on_floor():
 		coyoteTimer.start()
 
@@ -54,12 +52,12 @@ func _physics_process(delta):
 
 	var direction = Input.get_axis("move_left", "move_right")
 	if direction:
-		if (direction > 0 and velocity.x <= maxSpeed * direction/abs(direction)) or (direction < 0 and velocity.x >= maxSpeed * direction/abs(direction)):
-			if is_on_floor():
-				velocity.x += direction * speed * delta
-			else:
-				velocity.x += direction * speed * delta * 0.5
-	else:
+		if is_on_floor():
+			velocity.x += direction * speed * delta
+		else:
+			velocity.x += direction * speed * delta * 0.5
+	
+	if velocity.x:
 		if is_on_floor():
 			velocity.x -= velocity.x * groundDrag * delta
 		else:

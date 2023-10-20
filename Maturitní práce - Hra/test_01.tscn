@@ -14,6 +14,7 @@ environment = ExtResource("1_4ex6q")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(18, 0)
+scale = Vector2(3.8, 3.8)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(-130, 9)
@@ -24,26 +25,38 @@ position = Vector2(-129.5, 58.5)
 scale = Vector2(11.7109, 0.929688)
 texture = ExtResource("3_curao")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="StaticBody2D"]
-position = Vector2(-1145, -89)
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(-1127, -89)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
 position = Vector2(-130, 9)
 shape = SubResource("RectangleShape2D_swhqi")
 
-[node name="Icon" type="Sprite2D" parent="StaticBody2D/StaticBody2D"]
+[node name="Icon" type="Sprite2D" parent="StaticBody2D2"]
 position = Vector2(-129.5, 58.5)
 scale = Vector2(11.7109, 0.929688)
 texture = ExtResource("3_curao")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="StaticBody2D/StaticBody2D"]
-position = Vector2(-87, -101)
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+position = Vector2(-1214, -190)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D/StaticBody2D/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
 position = Vector2(-130, 9)
 shape = SubResource("RectangleShape2D_swhqi")
 
-[node name="Icon" type="Sprite2D" parent="StaticBody2D/StaticBody2D/StaticBody2D"]
+[node name="Icon" type="Sprite2D" parent="StaticBody2D3"]
+position = Vector2(-129.5, 58.5)
+scale = Vector2(11.7109, 0.929688)
+texture = ExtResource("3_curao")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="."]
+position = Vector2(-1257, -286)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
+position = Vector2(-130, 9)
+shape = SubResource("RectangleShape2D_swhqi")
+
+[node name="Icon" type="Sprite2D" parent="StaticBody2D4"]
 position = Vector2(-129.5, 58.5)
 scale = Vector2(11.7109, 0.929688)
 texture = ExtResource("3_curao")
