@@ -1,10 +1,11 @@
 extends CharacterBody2D
 
 
-var speed = 10000.0
+var speed = 6000.0
 var jump_velocity = 10000.0
+
 var groundDrag = 10.0
-var airDrag = 6.0
+var airDrag = 4.0
 var gravDrag = 1.0
 
 var jumpingTimer
@@ -25,8 +26,8 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta * (Input.get_action_strength("move_down")+1)
 		if velocity.y > 1:
-			velocity.y -= velocity.y * gravDrag * delta * (1.1-Input.get_action_strength("move_down"))
-			print(velocity.y)
+			velocity.y -= velocity.y * gravDrag * delta
+			
 			
 	if is_on_floor():
 		coyoteTimer.start()
@@ -49,19 +50,25 @@ func _physics_process(delta):
 		else:
 			jumping = false
 		
-
+	var run
+	if Input.is_action_pressed("move_run"):
+		run = 2.0
+	else:
+		run = 1.0
+	
 	var direction = Input.get_axis("move_left", "move_right")
 	if direction:
 		if is_on_floor():
-			velocity.x += direction * speed * delta
+			velocity.x += direction * speed * delta * run
 		else:
-			velocity.x += direction * speed * delta * 0.5
+			velocity.x += direction * speed * delta * 0.5 * run
 	
 	if velocity.x:
 		if is_on_floor():
 			velocity.x -= velocity.x * groundDrag * delta
 		else:
 			velocity.x -= velocity.x * airDrag * delta
+
 	
 	move_and_slide()
 
