@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://col2wvf22j34s"]
+
+[ext_resource type="Script" path="res://PlayerCamera.gd" id="1_q7a1d"]
+
+[node name="Camera2D" type="Camera2D"]
+offset = Vector2(0, -150)
+position_smoothing_enabled = true
+position_smoothing_speed = 3.0
+rotation_smoothing_enabled = true
+rotation_smoothing_speed = 3.0
+script = ExtResource("1_q7a1d")
+
+[node name="ResetTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="timeout" from="ResetTimer" to="." method="_on_reset_timer_timeout"]

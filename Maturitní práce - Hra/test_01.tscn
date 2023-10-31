@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bx4vhvu8j2m8n" path="res://Player.tscn" id="3_5rx83"]
 [ext_resource type="Texture2D" uid="uid://dje3oj7pugdh7" path="res://icon.svg" id="3_curao"]
 [ext_resource type="Texture2D" uid="uid://bfita84ixpc7e" path="res://sprites/untitled.png" id="4_gv1qk"]
-[ext_resource type="Script" path="res://PlayerCamera.gd" id="5_e7w22"]
+[ext_resource type="PackedScene" uid="uid://col2wvf22j34s" path="res://player_camera.tscn" id="5_5t1tx"]
 [ext_resource type="PackedScene" uid="uid://cks1e88uoy31b" path="res://weapon_1.tscn" id="6_b407r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n4wf7"]
@@ -37,10 +37,7 @@ offset_bottom = 9.5e+06
 texture = ExtResource("4_gv1qk")
 stretch_mode = 1
 
-[node name="Camera2D" type="Camera2D" parent="."]
-offset = Vector2(0, -150)
-position_smoothing_enabled = true
-script = ExtResource("5_e7w22")
+[node name="Camera2D" parent="." instance=ExtResource("5_5t1tx")]
 
 [node name="Weapon" parent="." instance=ExtResource("6_b407r")]
 position = Vector2(-80, -194)
