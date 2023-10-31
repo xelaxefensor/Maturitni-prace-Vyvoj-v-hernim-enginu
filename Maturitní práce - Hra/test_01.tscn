@@ -1,80 +1,23 @@
-[gd_scene load_steps=7 format=3 uid="uid://ta3b1d2vaveo"]
+[gd_scene load_steps=9 format=3 uid="uid://ta3b1d2vaveo"]
 
 [ext_resource type="Environment" uid="uid://dn5innowebx5y" path="res://enviroment_main.tres" id="1_4ex6q"]
 [ext_resource type="PackedScene" uid="uid://bx4vhvu8j2m8n" path="res://Player.tscn" id="3_5rx83"]
 [ext_resource type="Texture2D" uid="uid://dje3oj7pugdh7" path="res://icon.svg" id="3_curao"]
 [ext_resource type="Texture2D" uid="uid://bfita84ixpc7e" path="res://sprites/untitled.png" id="4_gv1qk"]
 [ext_resource type="Script" path="res://PlayerCamera.gd" id="5_e7w22"]
+[ext_resource type="PackedScene" uid="uid://cks1e88uoy31b" path="res://weapon_1.tscn" id="6_b407r"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_swhqi"]
-size = Vector2(1500, 20)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n4wf7"]
+size = Vector2(1411, 53)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cl0p0"]
+size = Vector2(286, 363)
 
 [node name="Node2D" type="Node2D"]
 z_index = 5
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("1_4ex6q")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-z_index = 5
-position = Vector2(18, 0)
-scale = Vector2(3.8, 3.8)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-z_index = 5
-position = Vector2(-130, 9)
-shape = SubResource("RectangleShape2D_swhqi")
-
-[node name="Icon" type="Sprite2D" parent="StaticBody2D"]
-z_index = 5
-position = Vector2(-129.5, 58.5)
-scale = Vector2(11.7109, 0.929688)
-texture = ExtResource("3_curao")
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="."]
-z_index = 5
-position = Vector2(-1127, -89)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
-z_index = 5
-position = Vector2(-130, 9)
-shape = SubResource("RectangleShape2D_swhqi")
-
-[node name="Icon" type="Sprite2D" parent="StaticBody2D2"]
-z_index = 5
-position = Vector2(-129.5, 58.5)
-scale = Vector2(11.7109, 0.929688)
-texture = ExtResource("3_curao")
-
-[node name="StaticBody2D3" type="StaticBody2D" parent="."]
-z_index = 5
-position = Vector2(-1214, -190)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
-z_index = 5
-position = Vector2(-130, 9)
-shape = SubResource("RectangleShape2D_swhqi")
-
-[node name="Icon" type="Sprite2D" parent="StaticBody2D3"]
-z_index = 5
-position = Vector2(-129.5, 58.5)
-scale = Vector2(11.7109, 0.929688)
-texture = ExtResource("3_curao")
-
-[node name="StaticBody2D4" type="StaticBody2D" parent="."]
-z_index = 5
-position = Vector2(-1257, -286)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
-z_index = 5
-position = Vector2(-130, 9)
-shape = SubResource("RectangleShape2D_swhqi")
-
-[node name="Icon" type="Sprite2D" parent="StaticBody2D4"]
-z_index = 5
-position = Vector2(-129.5, 58.5)
-scale = Vector2(11.7109, 0.929688)
-texture = ExtResource("3_curao")
 
 [node name="Icon2" type="Sprite2D" parent="."]
 z_index = 5
@@ -98,3 +41,18 @@ stretch_mode = 1
 offset = Vector2(0, -150)
 position_smoothing_enabled = true
 script = ExtResource("5_e7w22")
+
+[node name="Weapon" parent="." instance=ExtResource("6_b407r")]
+position = Vector2(-80, -194)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(231.5, 16.5)
+shape = SubResource("RectangleShape2D_n4wf7")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(772, -171.5)
+shape = SubResource("RectangleShape2D_cl0p0")
