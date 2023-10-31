@@ -25,7 +25,7 @@ func _ready():
 func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta * (Input.get_action_strength("move_down")+1)
-		if velocity.y > 1:
+		if velocity.y > 0:
 			velocity.y -= velocity.y * gravDrag * delta
 			
 			
