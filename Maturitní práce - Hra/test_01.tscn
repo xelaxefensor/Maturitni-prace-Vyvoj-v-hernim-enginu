@@ -97,4 +97,5 @@ stretch_mode = 1
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(0, -150)
 position_smoothing_enabled = true
+position_smoothing_speed = 3.0
 script = ExtResource("5_e7w22")

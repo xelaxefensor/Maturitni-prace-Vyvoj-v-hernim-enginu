@@ -6,7 +6,7 @@ var lookAhead = Vector2(0.8,0.3)
 var speed = 5
 
 var placeHolder
-var border = Vector2(150,150)
+var border = Vector2(100,150)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	target = self.get_node("../Player")
