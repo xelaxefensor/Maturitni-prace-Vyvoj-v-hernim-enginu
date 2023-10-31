@@ -28,7 +28,7 @@ func _ready():
 func _process(delta):
 	if Input.is_action_pressed("fire") && fireRateZero==true && magCount > 0 && reloading == false:
 		var bullet = preload("res://bullet.tscn").instantiate()
-		bullet.innitialize(bulletSpawn.global_position,Vector2(bulletForce,0))
+		bullet.innitialize(bulletSpawn.global_position,bulletForce,rotation)
 		get_node("/root").add_child(bullet)
 		
 		magCount -= 1
@@ -39,6 +39,7 @@ func _process(delta):
 		print("Mag: ", magCount)
 		print("Ammo: ", ammoCount)
 
+	rotation=(global_position.angle_to_point(global_position+(-get_viewport().size / 2.0 + get_viewport().get_mouse_position())))
 
 func _on_fire_rate_timer_timeout():
 	fireRateZero = true
