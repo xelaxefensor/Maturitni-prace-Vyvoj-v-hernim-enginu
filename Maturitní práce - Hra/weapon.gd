@@ -39,7 +39,8 @@ func _process(delta):
 		print("Mag: ", magCount)
 		print("Ammo: ", ammoCount)
 
-	rotation=(global_position.angle_to_point(global_position+(-get_viewport().size / 2.0 + get_viewport().get_mouse_position())))
+	var screenCords = self.get_global_transform_with_canvas().get_origin()
+	rotation=(screenCords.angle_to_point(get_viewport().get_mouse_position()))
 
 func _on_fire_rate_timer_timeout():
 	fireRateZero = true

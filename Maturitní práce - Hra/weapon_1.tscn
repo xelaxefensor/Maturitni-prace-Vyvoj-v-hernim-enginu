@@ -1,16 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://cks1e88uoy31b"]
+[gd_scene load_steps=5 format=3 uid="uid://cks1e88uoy31b"]
 
 [ext_resource type="Script" path="res://weapon.gd" id="1_ba2g6"]
-[ext_resource type="Texture2D" path="res://sprites/gun.png" id="1_joju6"]
+[ext_resource type="Texture2D" uid="uid://c7q88s7ri1qyc" path="res://sprites/gun.png" id="1_joju6"]
+[ext_resource type="Texture2D" uid="uid://dje3oj7pugdh7" path="res://icon.svg" id="3_gd0s8"]
+[ext_resource type="Script" path="res://addons/smoothing/smoothing_2d.gd" id="4_iinw4"]
 
 [node name="Weapon" type="Node2D"]
 script = ExtResource("1_ba2g6")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Smoothing2D" type="Node2D" parent="."]
+script = ExtResource("4_iinw4")
+
+[node name="Sprite2D" type="Sprite2D" parent="Smoothing2D"]
 texture = ExtResource("1_joju6")
 
 [node name="BulletSpawn" type="Node2D" parent="."]
-position = Vector2(30, -6)
+position = Vector2(35, -5)
 
 [node name="ReloadTimer" type="Timer" parent="."]
 one_shot = true
@@ -20,7 +25,14 @@ wait_time = 0.104
 one_shot = true
 autostart = true
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Icon" type="Sprite2D" parent="."]
+scale = Vector2(0.03125, 0.03125)
+texture = ExtResource("3_gd0s8")
+
+[node name="Icon2" type="Sprite2D" parent="."]
+position = Vector2(35, -5)
+scale = Vector2(0.0332031, 0.0332031)
+texture = ExtResource("3_gd0s8")
 
 [connection signal="timeout" from="ReloadTimer" to="." method="_on_reload_timer_timeout"]
 [connection signal="timeout" from="FireRateTimer" to="." method="_on_fire_rate_timer_timeout"]
