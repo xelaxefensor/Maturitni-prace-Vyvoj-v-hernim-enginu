@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://ta3b1d2vaveo"]
+[gd_scene load_steps=9 format=3 uid="uid://ta3b1d2vaveo"]
 
 [ext_resource type="Environment" uid="uid://dn5innowebx5y" path="res://enviroment_main.tres" id="1_4ex6q"]
 [ext_resource type="PackedScene" uid="uid://bx4vhvu8j2m8n" path="res://Player.tscn" id="3_5rx83"]
 [ext_resource type="Texture2D" uid="uid://dje3oj7pugdh7" path="res://icon.svg" id="3_curao"]
 [ext_resource type="Texture2D" uid="uid://bfita84ixpc7e" path="res://sprites/untitled.png" id="4_gv1qk"]
+[ext_resource type="PackedScene" uid="uid://cj6nb15yb76ka" path="res://player_ui.tscn" id="5_1hu1x"]
 [ext_resource type="PackedScene" uid="uid://cks1e88uoy31b" path="res://weapon_1.tscn" id="5_hblr7"]
 [ext_resource type="PackedScene" uid="uid://cu4gte2qdrwdc" path="res://player_camera.tscn" id="6_h6n6p"]
 
@@ -99,3 +100,11 @@ texture = ExtResource("4_gv1qk")
 stretch_mode = 1
 
 [node name="Camera2D" parent="." instance=ExtResource("6_h6n6p")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" parent="CanvasLayer" instance=ExtResource("5_1hu1x")]
+offset_left = -150.0
+offset_top = -77.0
+offset_right = -150.0
+offset_bottom = -77.0

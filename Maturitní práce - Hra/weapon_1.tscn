@@ -34,5 +34,6 @@ position = Vector2(35, -5)
 scale = Vector2(0.0332031, 0.0332031)
 texture = ExtResource("3_gd0s8")
 
+[connection signal="ammoChanged" from="." to="." method="_on_ammo_changed"]
 [connection signal="timeout" from="ReloadTimer" to="." method="_on_reload_timer_timeout"]
 [connection signal="timeout" from="FireRateTimer" to="." method="_on_fire_rate_timer_timeout"]
