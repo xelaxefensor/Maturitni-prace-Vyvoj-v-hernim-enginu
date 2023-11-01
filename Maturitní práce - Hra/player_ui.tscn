@@ -31,4 +31,6 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "20/120"
 label_settings = SubResource("LabelSettings_8ye4f")
+horizontal_alignment = 2
+vertical_alignment = 2
 script = ExtResource("1_fc8f4")
