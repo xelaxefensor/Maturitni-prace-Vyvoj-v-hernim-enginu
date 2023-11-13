@@ -11,9 +11,9 @@ config_version=5
 [application]
 
 config/name="Maturitní práce - Hra"
-run/main_scene="res://test_01.tscn"
+run/main_scene="res://scenes/test_01.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://sprites/icon.svg"
 
 [display]
 

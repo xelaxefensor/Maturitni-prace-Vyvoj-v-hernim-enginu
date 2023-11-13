@@ -1,12 +1,12 @@
 [gd_scene load_steps=9 format=3 uid="uid://ta3b1d2vaveo"]
 
-[ext_resource type="Environment" uid="uid://dn5innowebx5y" path="res://enviroment_main.tres" id="1_4ex6q"]
-[ext_resource type="PackedScene" uid="uid://bx4vhvu8j2m8n" path="res://Player.tscn" id="3_5rx83"]
-[ext_resource type="Texture2D" uid="uid://dje3oj7pugdh7" path="res://icon.svg" id="3_curao"]
-[ext_resource type="Texture2D" uid="uid://bfita84ixpc7e" path="res://sprites/untitled.png" id="4_gv1qk"]
-[ext_resource type="PackedScene" uid="uid://cj6nb15yb76ka" path="res://player_ui.tscn" id="5_1hu1x"]
-[ext_resource type="PackedScene" uid="uid://cks1e88uoy31b" path="res://weapon_1.tscn" id="5_hblr7"]
-[ext_resource type="PackedScene" uid="uid://cu4gte2qdrwdc" path="res://player_camera.tscn" id="6_h6n6p"]
+[ext_resource type="Environment" uid="uid://dn5innowebx5y" path="res://enviroment_main.tres" id="1_5jx3o"]
+[ext_resource type="Texture2D" uid="uid://dje3oj7pugdh7" path="res://sprites/icon.svg" id="2_kx5ch"]
+[ext_resource type="PackedScene" uid="uid://bx4vhvu8j2m8n" path="res://scenes/Player.tscn" id="3_krkyw"]
+[ext_resource type="PackedScene" uid="uid://cks1e88uoy31b" path="res://scenes/weapon_1.tscn" id="4_5pdqg"]
+[ext_resource type="Texture2D" uid="uid://bfita84ixpc7e" path="res://sprites/untitled.png" id="5_28eeh"]
+[ext_resource type="PackedScene" uid="uid://cu4gte2qdrwdc" path="res://scenes/player_camera.tscn" id="6_72b7l"]
+[ext_resource type="PackedScene" uid="uid://cj6nb15yb76ka" path="res://scenes/player_ui.tscn" id="7_obedy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_swhqi"]
 size = Vector2(1500, 20)
@@ -15,7 +15,7 @@ size = Vector2(1500, 20)
 z_index = 5
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource("1_4ex6q")
+environment = ExtResource("1_5jx3o")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 z_index = 5
@@ -31,7 +31,7 @@ shape = SubResource("RectangleShape2D_swhqi")
 z_index = 5
 position = Vector2(-129.5, 58.5)
 scale = Vector2(11.7109, 0.929688)
-texture = ExtResource("3_curao")
+texture = ExtResource("2_kx5ch")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
 z_index = 5
@@ -46,7 +46,7 @@ shape = SubResource("RectangleShape2D_swhqi")
 z_index = 5
 position = Vector2(-129.5, 58.5)
 scale = Vector2(11.7109, 0.929688)
-texture = ExtResource("3_curao")
+texture = ExtResource("2_kx5ch")
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="."]
 z_index = 5
@@ -61,7 +61,7 @@ shape = SubResource("RectangleShape2D_swhqi")
 z_index = 5
 position = Vector2(-129.5, 58.5)
 scale = Vector2(11.7109, 0.929688)
-texture = ExtResource("3_curao")
+texture = ExtResource("2_kx5ch")
 
 [node name="StaticBody2D4" type="StaticBody2D" parent="."]
 z_index = 5
@@ -76,18 +76,18 @@ shape = SubResource("RectangleShape2D_swhqi")
 z_index = 5
 position = Vector2(-129.5, 58.5)
 scale = Vector2(11.7109, 0.929688)
-texture = ExtResource("3_curao")
+texture = ExtResource("2_kx5ch")
 
 [node name="Icon2" type="Sprite2D" parent="."]
 z_index = 5
 position = Vector2(-234, -208)
-texture = ExtResource("3_curao")
+texture = ExtResource("2_kx5ch")
 
-[node name="Player" parent="." instance=ExtResource("3_5rx83")]
+[node name="Player" parent="." instance=ExtResource("3_krkyw")]
 z_index = 5
 position = Vector2(-150, -77)
 
-[node name="Weapon" parent="Player" instance=ExtResource("5_hblr7")]
+[node name="Weapon" parent="Player" instance=ExtResource("4_5pdqg")]
 position = Vector2(-0.999992, -106)
 
 [node name="TextureRect" type="TextureRect" parent="."]
@@ -96,14 +96,14 @@ offset_left = -500000.0
 offset_top = -500000.0
 offset_right = 9.5e+06
 offset_bottom = 9.5e+06
-texture = ExtResource("4_gv1qk")
+texture = ExtResource("5_28eeh")
 stretch_mode = 1
 
-[node name="Camera2D" parent="." instance=ExtResource("6_h6n6p")]
+[node name="Camera2D" parent="." instance=ExtResource("6_72b7l")]
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="Control" parent="UI" instance=ExtResource("5_1hu1x")]
+[node name="Control" parent="UI" instance=ExtResource("7_obedy")]
 offset_left = -150.0
 offset_top = -77.0
 offset_right = -150.0

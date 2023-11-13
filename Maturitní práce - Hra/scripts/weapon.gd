@@ -29,7 +29,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Input.is_action_pressed("fire") && fireRateZero==true && magCount > 0 && reloading == false:
-		var bullet = preload("res://bullet.tscn").instantiate()
+		var bullet = preload("res://scenes/bullet.tscn").instantiate()
 		bullet.innitialize(bulletSpawn.global_position,bulletForce,rotation)
 		get_node("/root").add_child(bullet)
 		
