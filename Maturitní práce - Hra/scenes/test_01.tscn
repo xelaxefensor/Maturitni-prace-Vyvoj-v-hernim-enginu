@@ -92,6 +92,7 @@ position = Vector2(-150, -77)
 
 [node name="Weapon" parent="Player/player_arm" instance=ExtResource("4_5pdqg")]
 position = Vector2(-0.999985, -106)
+scale = Vector2(0.75, 0.75)
 
 [node name="TextureRect" type="TextureRect" parent="."]
 z_as_relative = false

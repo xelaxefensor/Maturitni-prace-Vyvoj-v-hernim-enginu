@@ -14,10 +14,11 @@ script = ExtResource("4_iinw4")
 [node name="Sprite2D" type="Sprite2D" parent="Smoothing2D"]
 z_index = 15
 z_as_relative = false
+position = Vector2(-32, -1)
 texture = ExtResource("1_joju6")
 
 [node name="BulletSpawn" type="Node2D" parent="."]
-position = Vector2(35, -5)
+position = Vector2(2, 0)
 
 [node name="ReloadTimer" type="Timer" parent="."]
 one_shot = true
@@ -32,7 +33,7 @@ scale = Vector2(0.03125, 0.03125)
 texture = ExtResource("4_qn3g2")
 
 [node name="Icon2" type="Sprite2D" parent="."]
-position = Vector2(35, -5)
+position = Vector2(34, 0)
 scale = Vector2(0.0332031, 0.0332031)
 texture = ExtResource("4_qn3g2")
 

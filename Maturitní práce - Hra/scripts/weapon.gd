@@ -45,7 +45,7 @@ func _process(delta):
 
 	var screenCords = target.get_global_transform_with_canvas().get_origin()
 	rotation=(screenCords.angle_to_point(get_viewport().get_mouse_position()))
-	print(rotation)
+
 	if rotation < -1.5 or rotation > 1.5:
 		get_node("Smoothing2D/Sprite2D").set_flip_v(true)
 	else:
