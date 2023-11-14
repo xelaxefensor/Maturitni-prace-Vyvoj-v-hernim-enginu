@@ -4,7 +4,7 @@ extends Label
 var weapon
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	weapon = get_node("/root/Node2D/Player/Weapon")
+	weapon = get_node("/root/Node2D/Player/player_arm/Weapon")
 	weapon.ammoChanged.connect(_on_ammo_changed)
 
 

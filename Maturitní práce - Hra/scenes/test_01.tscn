@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://ta3b1d2vaveo"]
+[gd_scene load_steps=10 format=3 uid="uid://ta3b1d2vaveo"]
 
-[ext_resource type="Environment" uid="uid://dn5innowebx5y" path="res://enviroment_main.tres" id="1_5jx3o"]
+[ext_resource type="Environment" uid="uid://djgihexpv3200" path="res://enviroment_main.tres" id="1_5jx3o"]
 [ext_resource type="Texture2D" uid="uid://dje3oj7pugdh7" path="res://sprites/icon.svg" id="2_kx5ch"]
 [ext_resource type="PackedScene" uid="uid://bx4vhvu8j2m8n" path="res://scenes/Player.tscn" id="3_krkyw"]
 [ext_resource type="PackedScene" uid="uid://cks1e88uoy31b" path="res://scenes/weapon_1.tscn" id="4_5pdqg"]
+[ext_resource type="PackedScene" uid="uid://dkpputlp2gklf" path="res://scenes/player_arm.tscn" id="4_qsd50"]
 [ext_resource type="Texture2D" uid="uid://bfita84ixpc7e" path="res://sprites/untitled.png" id="5_28eeh"]
 [ext_resource type="PackedScene" uid="uid://cu4gte2qdrwdc" path="res://scenes/player_camera.tscn" id="6_72b7l"]
 [ext_resource type="PackedScene" uid="uid://cj6nb15yb76ka" path="res://scenes/player_ui.tscn" id="7_obedy"]
@@ -87,8 +88,10 @@ texture = ExtResource("2_kx5ch")
 z_index = 5
 position = Vector2(-150, -77)
 
-[node name="Weapon" parent="Player" instance=ExtResource("4_5pdqg")]
-position = Vector2(-0.999992, -106)
+[node name="player_arm" parent="Player" instance=ExtResource("4_qsd50")]
+
+[node name="Weapon" parent="Player/player_arm" instance=ExtResource("4_5pdqg")]
+position = Vector2(-0.999985, -106)
 
 [node name="TextureRect" type="TextureRect" parent="."]
 z_as_relative = false

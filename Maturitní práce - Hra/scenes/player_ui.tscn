@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cj6nb15yb76ka"]
 
-[ext_resource type="Script" path="res://scripts/AmmoLabel.gd" id="1_fc8f4"]
+[ext_resource type="Script" path="res://scripts/ammo_label.gd" id="1_fc8f4"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_8ye4f"]
 font_size = 58

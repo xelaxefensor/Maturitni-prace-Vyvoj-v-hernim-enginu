@@ -12,6 +12,8 @@ script = ExtResource("1_dvnar")
 script = ExtResource("4_iinw4")
 
 [node name="Sprite2D" type="Sprite2D" parent="Smoothing2D"]
+z_index = 15
+z_as_relative = false
 texture = ExtResource("1_joju6")
 
 [node name="BulletSpawn" type="Node2D" parent="."]
