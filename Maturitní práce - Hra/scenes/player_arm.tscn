@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://scripts/player_arm.gd" id="1_fth7e"]
 
-[node name="player_arm" type="Node2D"]
+[node name="PlayerArm" type="Node2D"]
 script = ExtResource("1_fth7e")
 
-[node name="arm_base" type="Node2D" parent="."]
+[node name="ArmBase" type="Node2D" parent="."]
 
-[node name="arm_end" type="Node2D" parent="."]
+[node name="ArmEnd" type="Node2D" parent="."]

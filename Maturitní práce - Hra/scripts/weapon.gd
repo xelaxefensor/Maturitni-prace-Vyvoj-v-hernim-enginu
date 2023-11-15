@@ -1,7 +1,7 @@
 extends Node2D
 
-var magSize = 20
-var ammoSize = 120
+@export var magSize:int = 20
+@export var ammoSize:int = 120
 var magCount
 var ammoCount
 
@@ -11,10 +11,13 @@ var fireRateTimer
 
 var fireRateZero
 
-var bulletForce = 3000
+@export var fireRateTime:float = 0.104
+@export var reloadTime:float = 1.0
+
+@export var bulletForce:float = 3000
 var reloading = false
 
-var target
+@export var target:Node2D
 
 signal ammoChanged(currentMagCount,currentAmmoCount)
 
@@ -27,7 +30,8 @@ func _ready():
 	reloadTimer = get_node("ReloadTimer")
 	fireRateTimer = get_node("FireRateTimer")
 	
-	target = get_node("/root/Node2D/Player")
+	reloadTimer.set_wait_time(reloadTime)
+	fireRateTimer.set_wait_time(fireRateTime)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -41,7 +45,6 @@ func _process(delta):
 		
 		fireRateZero = false
 		fireRateTimer.start()
-	print(target.position)
 
 	var screenCords = target.get_global_transform_with_canvas().get_origin()
 	rotation=(screenCords.angle_to_point(get_viewport().get_mouse_position()))

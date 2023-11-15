@@ -1,19 +1,22 @@
 extends Camera2D
 
-var maxZoomOut = Vector2(500,300)
-var target
-var lookAhead = Vector2(0.8,0.3)
-var speed = 5
+@export var maxZoomOut:Vector2 = Vector2(500,300)
+@export var target:Node2D
+@export var lookAhead:Vector2 = Vector2(0.8,0.3)
+@export var speed:float = 5
 
 var placeHolder
-var border = Vector2(100,150)
+@export var border:Vector2 = Vector2(100,150)
+
+@export var resetTime:float = 2.0
 
 var resetTimer
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	target = self.get_node("../Player")
 	resetTimer = get_node("ResetTimer")
 	placeHolder = target.global_position
+	
+	resetTimer.set_wait_time(resetTime)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

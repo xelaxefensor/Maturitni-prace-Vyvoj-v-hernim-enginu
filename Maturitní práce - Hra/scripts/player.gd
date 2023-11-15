@@ -1,16 +1,19 @@
 extends CharacterBody2D
 
 
-var speed = 6000.0
-var jump_velocity = 10000.0
+@export var speed:float = 6000.0
+@export var jumpVelocity:float = 10000.0
 
-var groundDrag = 10.0
-var airDrag = 4.0
-var gravDrag = 1.0
+@export var groundDrag:float = 10.0
+@export var airDrag:float = 4.0
+@export var gravDrag:float = 1.0
 
 var jumpingTimer
+@export var jumpingTime:float = 0.076
 var upBufferTimer
+@export var upBufferTime:float = 0.073
 var coyoteTimer
+@export var coyoteTime:float = 0.193
 
 var jumping = false
 
@@ -19,8 +22,12 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready():
 	jumpingTimer = self.get_node("JumpingTimer")
-	upBufferTimer = self.get_node("upBufferTimer")
-	coyoteTimer = self.get_node("coyoteTimer")
+	upBufferTimer = self.get_node("UpBufferTimer")
+	coyoteTimer = self.get_node("CoyoteTimer")
+	
+	jumpingTimer.set_wait_time(jumpingTime)
+	upBufferTimer.set_wait_time(upBufferTime)
+	coyoteTimer.set_wait_time(coyoteTime)
 
 func _physics_process(delta):
 	if not is_on_floor():
@@ -46,7 +53,7 @@ func _physics_process(delta):
 			jumping = false
 		
 		if jumpingTimer.get_time_left() != 0 and Input.is_action_pressed("move_up"):
-			velocity.y -= jump_velocity * delta
+			velocity.y -= jumpVelocity * delta
 		else:
 			jumping = false
 		

@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cks1e88uoy31b"]
+[gd_scene load_steps=4 format=3 uid="uid://cks1e88uoy31b"]
 
 [ext_resource type="Script" path="res://scripts/weapon.gd" id="1_dvnar"]
 [ext_resource type="Texture2D" uid="uid://c7q88s7ri1qyc" path="res://sprites/gun.png" id="1_joju6"]
 [ext_resource type="Script" path="res://addons/smoothing/smoothing_2d.gd" id="4_iinw4"]
-[ext_resource type="Texture2D" uid="uid://dje3oj7pugdh7" path="res://sprites/icon.svg" id="4_qn3g2"]
 
 [node name="Weapon" type="Node2D"]
 script = ExtResource("1_dvnar")
@@ -24,18 +23,9 @@ position = Vector2(2, 0)
 one_shot = true
 
 [node name="FireRateTimer" type="Timer" parent="."]
-wait_time = 0.104
+wait_time = 0.001
 one_shot = true
 autostart = true
-
-[node name="Icon" type="Sprite2D" parent="."]
-scale = Vector2(0.03125, 0.03125)
-texture = ExtResource("4_qn3g2")
-
-[node name="Icon2" type="Sprite2D" parent="."]
-position = Vector2(34, 0)
-scale = Vector2(0.0332031, 0.0332031)
-texture = ExtResource("4_qn3g2")
 
 [connection signal="ammoChanged" from="." to="." method="_on_ammo_changed"]
 [connection signal="timeout" from="ReloadTimer" to="." method="_on_reload_timer_timeout"]

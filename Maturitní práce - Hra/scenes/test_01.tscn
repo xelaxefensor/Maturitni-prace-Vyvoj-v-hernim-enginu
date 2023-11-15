@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dkpputlp2gklf" path="res://scenes/player_arm.tscn" id="4_qsd50"]
 [ext_resource type="Texture2D" uid="uid://bfita84ixpc7e" path="res://sprites/untitled.png" id="5_28eeh"]
 [ext_resource type="PackedScene" uid="uid://cu4gte2qdrwdc" path="res://scenes/player_camera.tscn" id="6_72b7l"]
-[ext_resource type="PackedScene" uid="uid://cj6nb15yb76ka" path="res://scenes/player_ui.tscn" id="7_obedy"]
+[ext_resource type="PackedScene" uid="uid://dinux23ammpq6" path="res://scenes/ammo_label.tscn" id="8_d63sg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_swhqi"]
 size = Vector2(1500, 20)
@@ -88,11 +88,14 @@ texture = ExtResource("2_kx5ch")
 z_index = 5
 position = Vector2(-150, -77)
 
-[node name="player_arm" parent="Player" instance=ExtResource("4_qsd50")]
+[node name="player_arm" parent="Player" node_paths=PackedStringArray("itemInHand") instance=ExtResource("4_qsd50")]
+itemInHand = NodePath("Weapon")
 
-[node name="Weapon" parent="Player/player_arm" instance=ExtResource("4_5pdqg")]
+[node name="Weapon" parent="Player/player_arm" node_paths=PackedStringArray("target") instance=ExtResource("4_5pdqg")]
 position = Vector2(-0.999985, -106)
 scale = Vector2(0.75, 0.75)
+ammoSize = 9999999
+target = NodePath("../..")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 z_as_relative = false
@@ -103,12 +106,21 @@ offset_bottom = 9.5e+06
 texture = ExtResource("5_28eeh")
 stretch_mode = 1
 
-[node name="Camera2D" parent="." instance=ExtResource("6_72b7l")]
+[node name="Camera2D" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_72b7l")]
+target = NodePath("../Player")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="Control" parent="UI" instance=ExtResource("7_obedy")]
-offset_left = -150.0
-offset_top = -77.0
-offset_right = -150.0
-offset_bottom = -77.0
+[node name="Control" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="AmmoLabel" parent="UI/Control" node_paths=PackedStringArray("weapon") instance=ExtResource("8_d63sg")]
+layout_mode = 1
+offset_left = -269.0
+offset_top = -130.0
+offset_right = -81.0
+offset_bottom = -48.0
+weapon = NodePath("../../../Player/player_arm/Weapon")

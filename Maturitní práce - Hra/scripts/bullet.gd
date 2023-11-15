@@ -13,7 +13,7 @@ func _process(delta):
 	pass
 
 func innitialize(position, startForce, rotation):
-	self.position=position
+	self.position = position
 	self.startForce = startForce
 	self.rotation = rotation
 

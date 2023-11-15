@@ -2,14 +2,13 @@ extends Node2D
 
 var armBase
 var armEnd
-var itemInHand
-var armLenght =	120.0
+@export var itemInHand:Node2D
+@export var armLenght:float = 120.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	armBase = get_node("arm_base")
-	armEnd = get_node("arm_end")
-	itemInHand = get_node("Weapon")
+	armBase = get_node("ArmBase")
+	armEnd = get_node("ArmEnd")
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
