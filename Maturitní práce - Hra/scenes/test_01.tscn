@@ -119,8 +119,8 @@ offset_bottom = 1080.0
 
 [node name="AmmoLabel" parent="UI/Control" node_paths=PackedStringArray("weapon") instance=ExtResource("8_d63sg")]
 layout_mode = 1
-offset_left = -269.0
-offset_top = -130.0
-offset_right = -81.0
-offset_bottom = -48.0
+offset_left = -295.0
+offset_top = -168.0
+offset_right = -107.0
+offset_bottom = -86.0
 weapon = NodePath("../../../Player/player_arm/Weapon")
