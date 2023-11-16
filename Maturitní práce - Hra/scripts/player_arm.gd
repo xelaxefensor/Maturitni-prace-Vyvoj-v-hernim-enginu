@@ -21,7 +21,7 @@ func _process(delta):
 	itemInHand.position = armEnd.position
 
 
-	var middlePoint = armBase.position + (armLenght / 2) - Vector2((armLenght-armEnd.position.y-armBase.position.y), (armLenght-armEnd.position.x-armBase.position.x))
+	var middlePoint = armBase.position - (armBase.position-armEnd.position) / 2 + Vector2((armLenght-armBase.position.distance_to(armEnd.position)),(armLenght-armBase.position.distance_to(armEnd.position))/2)
 
 	upperArmSprite.position = armBase.position
 	upperArmSprite.rotation = armBase.position.angle_to_point(middlePoint)
