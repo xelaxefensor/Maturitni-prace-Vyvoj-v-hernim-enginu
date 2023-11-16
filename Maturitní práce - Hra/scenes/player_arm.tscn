@@ -1,10 +1,25 @@
-[gd_scene load_steps=2 format=3 uid="uid://dkpputlp2gklf"]
+[gd_scene load_steps=3 format=3 uid="uid://dkpputlp2gklf"]
 
 [ext_resource type="Script" path="res://scripts/player_arm.gd" id="1_fth7e"]
+[ext_resource type="Texture2D" uid="uid://b1xjmuga15han" path="res://sprites/arm.png" id="2_nj4to"]
 
-[node name="PlayerArm" type="Node2D"]
+[node name="PlayerArm" type="Node2D" node_paths=PackedStringArray("upperArmSprite", "lowerArmSprite")]
 script = ExtResource("1_fth7e")
+upperArmSprite = NodePath("Arm")
+lowerArmSprite = NodePath("Arm2")
 
 [node name="ArmBase" type="Node2D" parent="."]
 
 [node name="ArmEnd" type="Node2D" parent="."]
+
+[node name="Arm" type="Sprite2D" parent="."]
+position = Vector2(22, 75)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("2_nj4to")
+offset = Vector2(30, 0)
+
+[node name="Arm2" type="Sprite2D" parent="."]
+position = Vector2(44, 150)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("2_nj4to")
+offset = Vector2(30, 0)
