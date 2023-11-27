@@ -5,8 +5,7 @@ var armEnd
 @export var itemInHand:Node2D
 @export var armLenght:float = 120.0
 
-@export var upperArmSprite:Node2D
-@export var lowerArmSprite:Node2D
+@export var ArmSprite:Node2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	armBase = get_node("ArmBase")
@@ -21,10 +20,6 @@ func _process(delta):
 	itemInHand.position = armEnd.position
 
 
-	var middlePoint = armBase.position - (armBase.position-armEnd.position) / 2 + Vector2(0,(armLenght-armBase.position.distance_to(armEnd.position))/PI)
-
-	upperArmSprite.position = armBase.position
-	upperArmSprite.rotation = armBase.position.angle_to_point(middlePoint)
+	ArmSprite.position = armBase.position
+	ArmSprite.rotation = armBase.position.angle_to_point(armEnd.position)
 	
-	lowerArmSprite.position = middlePoint
-	lowerArmSprite.rotation = middlePoint.angle_to_point(armEnd.position)
