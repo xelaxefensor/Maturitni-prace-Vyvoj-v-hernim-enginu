@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://b7awkek7726bo"]
+
+[ext_resource type="PackedScene" uid="uid://cvrioh23u641c" path="res://scenes/menu.tscn" id="1_tuks5"]
+[ext_resource type="PackedScene" uid="uid://bakvv61kx0mox" path="res://scenes/multiplayer.tscn" id="2_v8ijf"]
+
+[node name="Main" type="Node"]
+
+[node name="Menu" parent="." instance=ExtResource("1_tuks5")]
+unique_name_in_owner = true
+
+[node name="Multiplayer" parent="." instance=ExtResource("2_v8ijf")]

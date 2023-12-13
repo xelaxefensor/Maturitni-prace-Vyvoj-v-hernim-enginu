@@ -1,0 +1,152 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvrioh23u641c"]
+
+[ext_resource type="Script" path="res://scripts/menu.gd" id="1_i0hbu"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i0hbu")
+
+[node name="StartMenu" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.311
+anchor_top = 0.117
+anchor_right = 0.711
+anchor_bottom = 0.861
+offset_left = -0.272034
+offset_top = 0.183998
+offset_right = -0.0720215
+offset_bottom = 0.0719604
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Play" type="Button" parent="StartMenu"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Hrát"
+
+[node name="HSeparator" type="HSeparator" parent="StartMenu"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.39
+
+[node name="Settings" type="Button" parent="StartMenu"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Nastavení"
+
+[node name="HSeparator2" type="HSeparator" parent="StartMenu"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.39
+
+[node name="Exit" type="Button" parent="StartMenu"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Odejít"
+
+[node name="MPMenu" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+anchor_left = 0.303819
+anchor_top = 0.0570988
+anchor_right = 0.703993
+anchor_bottom = 0.930556
+metadata/_edit_use_anchors_ = true
+
+[node name="PlayerName" type="LineEdit" parent="MPMenu"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="MPMenu"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.39
+
+[node name="Address" type="LineEdit" parent="MPMenu"]
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "1.1.1.1"
+alignment = 1
+
+[node name="Connect" type="Button" parent="MPMenu"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Připojit"
+
+[node name="HSeparator" type="HSeparator" parent="MPMenu"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.39
+
+[node name="Host" type="Button" parent="MPMenu"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Hostovat"
+
+[node name="HSeparator3" type="HSeparator" parent="MPMenu"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.39
+
+[node name="Back" type="Button" parent="MPMenu"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Zpét"
+
+[node name="FailedToConnectMenu" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 0
+anchor_left = 0.202257
+anchor_top = 0.0617284
+anchor_right = 0.876736
+anchor_bottom = 0.787037
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="FailedToConnectMenu"]
+layout_mode = 2
+text = "Failed to connect to a server"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Back" type="Button" parent="FailedToConnectMenu"]
+layout_mode = 2
+text = "Zpět"
+
+[node name="ConnectingMenu" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.202257
+anchor_top = 0.0617284
+anchor_right = 0.876736
+anchor_bottom = 0.787037
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="ConnectingMenu"]
+layout_mode = 2
+text = "Připojuji..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Abort" type="Button" parent="ConnectingMenu"]
+layout_mode = 2
+text = "Přerušit"
+
+[connection signal="pressed" from="StartMenu/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="StartMenu/Exit" to="." method="_on_exit_pressed"]
+[connection signal="text_changed" from="MPMenu/PlayerName" to="." method="_on_player_name_text_changed"]
+[connection signal="pressed" from="MPMenu/Connect" to="." method="_on_connect_pressed"]
+[connection signal="pressed" from="MPMenu/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="MPMenu/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="FailedToConnectMenu/Back" to="." method="_on_failed_to_connect_back_pressed"]
+[connection signal="pressed" from="ConnectingMenu/Abort" to="." method="_on_abort_pressed"]
