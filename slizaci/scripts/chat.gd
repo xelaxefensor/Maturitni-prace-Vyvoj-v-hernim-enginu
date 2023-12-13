@@ -16,8 +16,11 @@ func player_connected(id, info):
 
 
 func _on_line_edit_text_submitted(new_text):
+	if new_text.is_empty():
+		return
 	chat_text += new_text
 	send_text_message.rpc(new_text)
+	$VBoxContainer/LineEdit.text = ""
 
 @rpc("any_peer", "call_local", "reliable", 2)
 func send_text_message(text):
