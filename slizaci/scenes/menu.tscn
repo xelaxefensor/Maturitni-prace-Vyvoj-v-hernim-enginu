@@ -113,7 +113,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="FailedToConnectMenu"]
 layout_mode = 2
-text = "Failed to connect to a server"
+text = "Nepodařilo se navázat spojení"
 horizontal_alignment = 1
 vertical_alignment = 1
 
