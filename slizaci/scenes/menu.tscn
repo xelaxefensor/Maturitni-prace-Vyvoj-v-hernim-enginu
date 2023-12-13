@@ -103,43 +103,51 @@ text = "Zpét"
 
 [node name="FailedToConnectMenu" type="VBoxContainer" parent="."]
 visible = false
-layout_mode = 0
-anchor_left = 0.202257
-anchor_top = 0.0617284
-anchor_right = 0.876736
-anchor_bottom = 0.787037
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.392361
+anchor_top = 0.274691
+anchor_right = 0.644097
+anchor_bottom = 0.626543
+offset_top = 1.52588e-05
+grow_horizontal = 2
+grow_vertical = 2
 alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="FailedToConnectMenu"]
 layout_mode = 2
+size_flags_vertical = 6
 text = "Nepodařilo se navázat spojení"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Back" type="Button" parent="FailedToConnectMenu"]
 layout_mode = 2
+size_flags_vertical = 3
 text = "Zpět"
 
 [node name="ConnectingMenu" type="VBoxContainer" parent="."]
 visible = false
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.202257
-anchor_top = 0.0617284
-anchor_right = 0.876736
-anchor_bottom = 0.787037
+anchor_left = 0.381944
+anchor_top = 0.324074
+anchor_right = 0.638889
+anchor_bottom = 0.601852
 alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="ConnectingMenu"]
 layout_mode = 2
+size_flags_vertical = 6
 text = "Připojuji..."
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Abort" type="Button" parent="ConnectingMenu"]
 layout_mode = 2
+size_flags_vertical = 3
 text = "Přerušit"
 
 [connection signal="pressed" from="StartMenu/Play" to="." method="_on_play_pressed"]
