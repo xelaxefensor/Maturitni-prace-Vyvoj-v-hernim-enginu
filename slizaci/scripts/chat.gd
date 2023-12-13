@@ -21,4 +21,5 @@ func _on_line_edit_text_submitted(new_text):
 
 @rpc("any_peer", "call_local", "reliable", 2)
 func send_text_message(text):
-	$VBoxContainer/VScrollBar/Label.text += str($/root/Main/Multiplayer.players[multiplayer.get_remote_sender_id()].name)+": " + text + "\n"
+	$VBoxContainer/Label.text += str($/root/Main/Multiplayer.players[multiplayer.get_remote_sender_id()].name)+": " + text + "\n"
+	$VBoxContainer/Label.lines_skipped = $VBoxContainer/Label.get_line_count()-$VBoxContainer/Label.get_visible_line_count()
