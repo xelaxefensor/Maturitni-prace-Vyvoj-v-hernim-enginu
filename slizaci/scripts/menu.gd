@@ -8,10 +8,6 @@ func _ready():
 	$/root/Main/Multiplayer.failed_to_connect.connect(failed_to_connect)
 	$/root/Main/Multiplayer.player_connected.connect(player_connected)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
 
 func _on_play_pressed():
 	get_node("StartMenu").visible = false

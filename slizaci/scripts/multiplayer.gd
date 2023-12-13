@@ -35,6 +35,8 @@ func join_game(address = ""):
 		return error
 	multiplayer.multiplayer_peer = peer
 
+	player_info = {"name" = PlayerSettings.player_name}
+	
 
 func create_game():
 	var peer = ENetMultiplayerPeer.new()
@@ -43,6 +45,8 @@ func create_game():
 		return error
 	multiplayer.multiplayer_peer = peer
 
+	player_info = {"name" = PlayerSettings.player_name}
+	
 	players[1] = player_info
 	player_connected.emit(1, player_info)
 
