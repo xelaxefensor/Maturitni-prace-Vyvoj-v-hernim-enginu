@@ -10,7 +10,8 @@ func _ready():
 func player_connected(id, info):
 	if id == multiplayer.get_unique_id():
 		self.visible = true
-	send_text_message.rpc(str(info.name)+" se připojil")
+	else:
+		send_text_message.rpc(str(info.name)+" se připojil")
 	
 
 func player_disconnected(id, info):

@@ -2,15 +2,20 @@ extends Node
 
 var game_phase = "menu"
 #menu
-#wait_time
+#loading_game
 #round_start
 #game
 #round_end
 
+var map = "res://scenes/maps/test_01"
+var player_size = 8
+var round_time = 300
+
+var players = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	MultiplayerManager.player_connected.connect(player_connected)
+	MultiplayerManager.succeded_to_connect.connect(connected)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -18,5 +23,13 @@ func _process(delta):
 	pass
 
 
-func player_connected(id, info):
-	game_phase = "wait_time"
+func connected():
+	game_phase = "loading_game"
+	
+	
+func server_load_game(map, player_size, time):
+	self.map = map
+	self.player_size = player_size
+	round_time = time
+	
+	

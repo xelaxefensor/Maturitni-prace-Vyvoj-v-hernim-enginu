@@ -6,11 +6,11 @@ extends Node
 #3 - gameplay
 
 
-
 signal player_connected(peer_id, player_info)
 signal player_disconnected(peer_id, player_info)
 signal server_disconnected
 signal failed_to_connect
+signal succeded_to_connect
 
 var max_connections = 16
 const PORT = 7000
@@ -86,7 +86,7 @@ func _on_player_connected(id):
 	_register_player.rpc_id(id, player_info)
 
 
-@rpc("any_peer", "call_local",  "reliable", 1)
+@rpc("any_peer", "call_remote",  "reliable", 1)
 func _register_player(new_player_info):
 	var new_player_id = multiplayer.get_remote_sender_id()
 	players[new_player_id] = new_player_info
@@ -103,6 +103,8 @@ func _on_connected_ok():
 	var peer_id = multiplayer.get_unique_id()
 	players[peer_id] = player_info
 	player_connected.emit(peer_id, player_info)
+	succeded_to_connect.emit()
+	
 
 
 func _on_connected_fail():
