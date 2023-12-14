@@ -5,8 +5,8 @@ signal host_client()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_node("MPMenu/PlayerName").text = PlayerSettings.player_name
-	$/root/Main/Multiplayer.failed_to_connect.connect(failed_to_connect)
-	$/root/Main/Multiplayer.player_connected.connect(player_connected)
+	MultiplayerManager.failed_to_connect.connect(failed_to_connect)
+	MultiplayerManager.player_connected.connect(player_connected)
 
 
 func _on_play_pressed():
@@ -37,8 +37,9 @@ func _on_connect_pressed():
 	$ConnectingMenu.visible = true
 	
 	
-func player_connected(_id, _info):
-	menus_invisible()
+func player_connected(id, _info):
+	if id == multiplayer.get_unique_id():
+		menus_invisible()
 
 
 func _on_host_pressed():
@@ -62,3 +63,19 @@ func _on_failed_to_connect_back_pressed():
 func _on_abort_pressed():
 	menus_invisible()
 	$MPMenu.visible = true
+	
+func _input(event):
+	if event.is_action_pressed("pause_menu") && GameManager.game_phase != "menu":
+		menus_invisible()
+		$PauseMenu.visible = true
+		
+		
+func _on_disconnect_pressed():
+	multiplayer.multiplayer_peer = null
+	menus_invisible()
+	$/root/Main/Chat.visible = false
+	$StartMenu.visible = true
+
+
+func _on_resume_pressed():
+	menus_invisible()

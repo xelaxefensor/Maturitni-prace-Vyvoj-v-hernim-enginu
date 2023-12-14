@@ -150,6 +150,40 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "Přerušit"
 
+[node name="PauseMenu" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 0
+anchor_left = 0.326389
+anchor_top = 0.125
+anchor_right = 0.686632
+anchor_bottom = 0.834877
+metadata/_edit_use_anchors_ = true
+
+[node name="settings" type="Button" parent="PauseMenu"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Nastavení"
+
+[node name="HSeparator" type="HSeparator" parent="PauseMenu"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.14
+
+[node name="disconnect" type="Button" parent="PauseMenu"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Odpojit se"
+
+[node name="HSeparator2" type="HSeparator" parent="PauseMenu"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.14
+
+[node name="resume" type="Button" parent="PauseMenu"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Zpět do hry"
+
 [connection signal="pressed" from="StartMenu/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="StartMenu/Exit" to="." method="_on_exit_pressed"]
 [connection signal="text_changed" from="MPMenu/PlayerName" to="." method="_on_player_name_text_changed"]
@@ -158,3 +192,5 @@ text = "Přerušit"
 [connection signal="pressed" from="MPMenu/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="FailedToConnectMenu/Back" to="." method="_on_failed_to_connect_back_pressed"]
 [connection signal="pressed" from="ConnectingMenu/Abort" to="." method="_on_abort_pressed"]
+[connection signal="pressed" from="PauseMenu/disconnect" to="." method="_on_disconnect_pressed"]
+[connection signal="pressed" from="PauseMenu/resume" to="." method="_on_resume_pressed"]

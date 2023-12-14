@@ -1,7 +1,14 @@
 extends Node
 
+#rpc channels
+#1 - multiplayer inner workings
+#2 - game chat
+#3 - gameplay
+
+
+
 signal player_connected(peer_id, player_info)
-signal player_disconnected(peer_id)
+signal player_disconnected(peer_id, player_info)
 signal server_disconnected
 signal failed_to_connect
 
@@ -57,14 +64,14 @@ func remove_multiplayer_peer():
 
 # When the server decides to start the game from a UI scene,
 # do Lobby.load_game.rpc(filepath)
-@rpc("call_local", "reliable")
+@rpc("authority", "call_local", "reliable", 1)
 func load_game(game_scene_path):
 	#get_tree().change_scene_to_file(game_scene_path)
 	pass
 
 
 # Every peer will call this when they have loaded the game scene.
-@rpc("any_peer", "call_local", "reliable")
+@rpc("any_peer", "call_local", "reliable", 1)
 func player_loaded():
 	if multiplayer.is_server():
 		players_loaded += 1
@@ -79,7 +86,7 @@ func _on_player_connected(id):
 	_register_player.rpc_id(id, player_info)
 
 
-@rpc("any_peer", "reliable")
+@rpc("any_peer", "call_local",  "reliable", 1)
 func _register_player(new_player_info):
 	var new_player_id = multiplayer.get_remote_sender_id()
 	players[new_player_id] = new_player_info
@@ -87,8 +94,9 @@ func _register_player(new_player_info):
 
 
 func _on_player_disconnected(id):
+	player_disconnected.emit(id, players[id])
 	players.erase(id)
-	player_disconnected.emit(id)
+
 
 
 func _on_connected_ok():
