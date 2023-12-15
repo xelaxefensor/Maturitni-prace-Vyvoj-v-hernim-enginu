@@ -10,12 +10,14 @@ func _ready():
 func player_connected(id, info):
 	if id == multiplayer.get_unique_id():
 		self.visible = true
-	else:
+	
+	if multiplayer.is_server():
 		send_text_message.rpc(str(info.name)+" se připojil")
 	
 
 func player_disconnected(id, info):
-	send_text_message.rpc(str(info.name)+" se odpojil")
+	if multiplayer.is_server():
+		send_text_message.rpc(str(info.name)+" se odpojil")
 
 
 func _on_line_edit_text_submitted(new_text):

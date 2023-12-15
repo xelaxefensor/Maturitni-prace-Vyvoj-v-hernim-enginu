@@ -28,6 +28,7 @@ func connected():
 	
 	
 func server_load_game(map, player_size, time):
+	game_phase = "loading_game"
 	self.map = map
 	self.player_size = player_size
 	round_time = time
