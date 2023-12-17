@@ -6,7 +6,7 @@ var chat_text = ""
 func _ready():
 	MultiplayerManager.player_connected.connect(player_connected)
 	MultiplayerManager.player_disconnected.connect(player_disconnected)
-	MultiplayerManager.server_disconnected.connect(server_disconnected)
+	MultiplayerManager.connection_lost.connect(connection_lost)
 
 func player_connected(id, info):
 	if id == multiplayer.get_unique_id():
@@ -21,7 +21,7 @@ func player_disconnected(id, info):
 		send_text_message.rpc(str(info.name)+" se odpojil")
 	
 
-func server_disconnected():
+func connection_lost():
 	clear_chat()
 
 

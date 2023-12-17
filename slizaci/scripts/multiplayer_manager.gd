@@ -11,6 +11,7 @@ signal player_disconnected(peer_id, player_info)
 signal server_disconnected
 signal failed_to_connect
 signal succeded_to_connect
+signal connection_lost
 
 var max_connections = 16
 const PORT = 7000
@@ -62,6 +63,7 @@ func create_game():
 func remove_multiplayer_peer():
 	multiplayer.multiplayer_peer = null
 	players.clear()
+	connection_lost.emit()
 
 
 # When the server decides to start the game from a UI scene,
