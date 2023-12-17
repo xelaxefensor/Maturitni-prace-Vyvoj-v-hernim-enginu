@@ -2,11 +2,13 @@ extends Control
 
 signal connect_client(address)
 signal host_client()
+signal disconnect_player()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_node("MPMenu/PlayerName").text = PlayerSettings.player_name
 	MultiplayerManager.failed_to_connect.connect(failed_to_connect)
 	MultiplayerManager.player_connected.connect(player_connected)
+	MultiplayerManager.server_disconnected.connect(server_disconnected)
 
 
 func _on_play_pressed():
@@ -30,8 +32,8 @@ func menus_invisible():
 
 
 func _on_connect_pressed():
-	if get_node("MPMenu/Address").text.is_empty():
-		return
+	#if get_node("MPMenu/Address").text.is_empty():
+	#	return
 	connect_client.emit(get_node("MPMenu/Address").text)
 	menus_invisible()
 	$ConnectingMenu.visible = true
@@ -61,17 +63,22 @@ func _on_failed_to_connect_back_pressed():
 
 
 func _on_abort_pressed():
+	disconnect_player.emit()
 	menus_invisible()
 	$MPMenu.visible = true
 	
+	
 func _input(event):
 	if event.is_action_pressed("pause_menu") && GameManager.game_phase != "menu":
-		menus_invisible()
-		$PauseMenu.visible = true
+		if $PauseMenu.visible == false:
+			menus_invisible()
+			$PauseMenu.visible = true
+		else:
+			menus_invisible()
 		
 		
 func _on_disconnect_pressed():
-	multiplayer.multiplayer_peer = null
+	disconnect_player.emit()
 	menus_invisible()
 	$/root/Main/Chat.visible = false
 	$StartMenu.visible = true
@@ -79,3 +86,10 @@ func _on_disconnect_pressed():
 
 func _on_resume_pressed():
 	menus_invisible()
+
+
+func server_disconnected():
+	disconnect_player.emit()
+	menus_invisible()
+	$/root/Main/Chat.visible = false
+	$ServerDisconnectedMenu.visible = true

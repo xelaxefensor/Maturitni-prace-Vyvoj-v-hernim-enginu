@@ -14,7 +14,7 @@ signal succeded_to_connect
 
 var max_connections = 16
 const PORT = 7000
-const DEFAULT_SERVER_IP = "1.1.1.1"
+const DEFAULT_SERVER_IP = "192.168.0.58"
 
 var player_info = {"name" = PlayerSettings.player_name}
 
@@ -25,13 +25,12 @@ var players_loaded = 0
 func _ready():
 	get_node("/root/Main/Menu").connect_client.connect(join_game)
 	get_node("/root/Main/Menu").host_client.connect(create_game)
-	$/root/Main/Menu/ConnectingMenu/Abort.pressed.connect(abort_connecting)
 	multiplayer.peer_connected.connect(_on_player_connected)
 	multiplayer.peer_disconnected.connect(_on_player_disconnected)
 	multiplayer.connected_to_server.connect(_on_connected_ok)
 	multiplayer.connection_failed.connect(_on_connected_fail)
 	multiplayer.server_disconnected.connect(_on_server_disconnected)
-
+	$/root/Main/Menu.disconnect_player.connect(remove_multiplayer_peer)
 
 func join_game(address = ""):
 	if address.is_empty():
@@ -62,6 +61,7 @@ func create_game():
 
 func remove_multiplayer_peer():
 	multiplayer.multiplayer_peer = null
+	players.clear()
 
 
 # When the server decides to start the game from a UI scene,
@@ -100,7 +100,6 @@ func _on_player_disconnected(id):
 	players.erase(id)
 
 
-
 func _on_connected_ok():
 	var peer_id = multiplayer.get_unique_id()
 	players[peer_id] = player_info
@@ -108,16 +107,11 @@ func _on_connected_ok():
 	succeded_to_connect.emit()
 	
 
-
 func _on_connected_fail():
-	multiplayer.multiplayer_peer = null
+	remove_multiplayer_peer()
 	failed_to_connect.emit()
 
+
 func _on_server_disconnected():
-	multiplayer.multiplayer_peer = null
-	players.clear()
+	remove_multiplayer_peer()
 	server_disconnected.emit()
-	
-func abort_connecting():
-	multiplayer.multiplayer_peer = null
-	players.clear()
