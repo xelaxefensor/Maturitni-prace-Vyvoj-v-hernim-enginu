@@ -9,3 +9,5 @@
 unique_name_in_owner = true
 
 [node name="Chat" parent="." instance=ExtResource("3_rd5o7")]
+
+[node name="Game" type="Node2D" parent="."]

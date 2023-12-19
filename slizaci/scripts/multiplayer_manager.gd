@@ -57,7 +57,7 @@ func create_game():
 	players[1] = player_info
 	player_connected.emit(1, player_info)
 	
-	GameManager.server_load_game("", 0, 0)
+	GameManager.server_load_game("res://scenes/maps/test_01.tscn", 0, 0)
 
 
 func remove_multiplayer_peer():
