@@ -24,14 +24,14 @@ var players_loaded = 0
 
 	
 func _ready():
-	get_node("/root/Main/Menu").connect_client.connect(join_game)
-	get_node("/root/Main/Menu").host_client.connect(create_game)
+	get_node("/root/Main/UI/Menu").connect_client.connect(join_game)
+	get_node("/root/Main/UI/Menu").host_client.connect(create_game)
 	multiplayer.peer_connected.connect(_on_player_connected)
 	multiplayer.peer_disconnected.connect(_on_player_disconnected)
 	multiplayer.connected_to_server.connect(_on_connected_ok)
 	multiplayer.connection_failed.connect(_on_connected_fail)
 	multiplayer.server_disconnected.connect(_on_server_disconnected)
-	$/root/Main/Menu.disconnect_player.connect(remove_multiplayer_peer)
+	$/root/Main/UI/Menu.disconnect_player.connect(remove_multiplayer_peer)
 
 func join_game(address = ""):
 	if address.is_empty():
@@ -57,7 +57,7 @@ func create_game():
 	players[1] = player_info
 	player_connected.emit(1, player_info)
 	
-	GameManager.server_load_game("res://scenes/maps/test_01.tscn", 0, 0)
+	$/root/Main/Game.server_load_game("res://scenes/levels/test_01.tscn", 0, 0)
 
 
 func remove_multiplayer_peer():

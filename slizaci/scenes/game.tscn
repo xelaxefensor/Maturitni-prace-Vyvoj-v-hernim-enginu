@@ -1,18 +1,29 @@
-[gd_scene load_steps=2 format=3 uid="uid://cmmpm655rnpnq"]
+[gd_scene load_steps=3 format=3 uid="uid://cmmpm655rnpnq"]
 
-[sub_resource type="GDScript" id="GDScript_yhtej"]
-script/source = "extends Node2D
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_ovdom"]
+
+[sub_resource type="GDScript" id="GDScript_kikvy"]
+script/source = "extends MultiplayerSpawner
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-"
+# Called every frame. 'delta' is the elapsed time since the previous frame"
 
-[node name="Game" type="Node2D"]
-script = SubResource("GDScript_yhtej")
+[node name="Game" type="Node"]
+script = ExtResource("1_ovdom")
+
+[node name="RoundTimer" type="Timer" parent="."]
+
+[node name="LevelSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/levels/test_01.tscn")
+spawn_path = NodePath("..")
+spawn_limit = 1
+script = SubResource("GDScript_kikvy")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Level" type="Node" parent="."]
