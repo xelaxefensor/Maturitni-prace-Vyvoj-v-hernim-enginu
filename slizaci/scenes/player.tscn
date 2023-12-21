@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://b153tcsd2evxl"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2vrrx"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_1iofq"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Player" type="CharacterBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_2vrrx")
+
+[node name="InputSynchronizer" type="MultiplayerSynchronizer" parent="."]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_1iofq")
+
+[node name="Camera2D" type="Camera2D" parent="."]

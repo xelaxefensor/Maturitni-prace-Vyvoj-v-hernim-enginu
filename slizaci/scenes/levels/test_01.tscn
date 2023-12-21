@@ -1,14 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://dniv0f850dpf1"]
+[gd_scene load_steps=4 format=3 uid="uid://dniv0f850dpf1"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_lp4xt"]
 [ext_resource type="Texture2D" uid="uid://b23dqssbqleu8" path="res://icon.svg" id="1_y0wmj"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6voww"]
+size = Vector2(1261, 312)
+
 [node name="Level" type="Node2D"]
 script = ExtResource("1_lp4xt")
-
-[node name="Icon" type="Sprite2D" parent="."]
-position = Vector2(11, 107)
-texture = ExtResource("1_y0wmj")
 
 [node name="Icon2" type="Sprite2D" parent="."]
 position = Vector2(594, -45)
@@ -16,4 +15,15 @@ texture = ExtResource("1_y0wmj")
 
 [node name="Icon3" type="Sprite2D" parent="."]
 position = Vector2(202, -55)
+texture = ExtResource("1_y0wmj")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(85, 452)
+shape = SubResource("RectangleShape2D_6voww")
+
+[node name="Icon" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(86, 454)
+scale = Vector2(9.90625, 2.45313)
 texture = ExtResource("1_y0wmj")

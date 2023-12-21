@@ -10,12 +10,19 @@ var players = {}
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	MultiplayerManager.succeded_to_connect.connect(connected)
-
+	MultiplayerManager.connection_lost.connect(connection_lost)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+
+
+func connection_lost():
+	var level = $Level
+	for c in level.get_children():
+		level.remove_child(c)
+		c.queue_free()
 
 
 func connected():
@@ -32,6 +39,7 @@ func server_load_game(map, player_size, time):
 	$Level.add_child(game_load)
 	
 
+@rpc("any_peer", "call_remote", "reliable", 4)
 func level_loaded():
 	print("Loaded")
 	

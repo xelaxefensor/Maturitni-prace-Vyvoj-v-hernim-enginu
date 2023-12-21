@@ -80,7 +80,7 @@ func _input(event):
 func _on_disconnect_pressed():
 	disconnect_player.emit()
 	menus_invisible()
-	$/root/Main/Chat.visible = false
+	$/root/Main/UI/Chat.visible = false
 	$StartMenu.visible = true
 
 
@@ -91,5 +91,5 @@ func _on_resume_pressed():
 func server_disconnected():
 	disconnect_player.emit()
 	menus_invisible()
-	$/root/Main/Chat.visible = false
+	$/root/Main/UI/Chat.visible = false
 	$ServerDisconnectedMenu.visible = true

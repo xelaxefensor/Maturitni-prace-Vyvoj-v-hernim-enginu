@@ -20,7 +20,7 @@ script = ExtResource("1_ovdom")
 
 [node name="LevelSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://scenes/levels/test_01.tscn")
-spawn_path = NodePath("..")
+spawn_path = NodePath("../Level")
 spawn_limit = 1
 script = SubResource("GDScript_kikvy")
 
