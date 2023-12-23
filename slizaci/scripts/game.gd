@@ -19,7 +19,7 @@ func _process(delta):
 
 
 func connection_lost():
-	var level = $Level
+	var level = $LevelSpawner
 	for c in level.get_children():
 		level.remove_child(c)
 		c.queue_free()
@@ -36,10 +36,10 @@ func server_load_game(map, player_size, time):
 	round_time = time
 	
 	var game_load = load(map).instantiate()
-	$Level.add_child(game_load)
+	$LevelSpawner.add_child(game_load)
 	
 
-@rpc("any_peer", "call_remote", "reliable", 4)
+@rpc("any_peer", "call_local", "reliable", 1)
 func level_loaded():
 	print("Loaded")
 	

@@ -5,7 +5,6 @@ extends Node
 #2 - game chat
 #3 - gameplay
 
-
 signal player_connected(peer_id, player_info)
 signal player_disconnected(peer_id, player_info)
 signal server_disconnected
@@ -17,11 +16,9 @@ var max_connections = 16
 const PORT = 7000
 const DEFAULT_SERVER_IP = "192.168.0.58"
 
-var player_info = {"name" = PlayerSettings.player_name}
+var player_info = {"name" = PlayerSettings.player_name, "color" = PlayerSettings.player_color}
 
-var players = {}
-var players_loaded = 0
-
+var players = {} #Dictionary with all player infos
 	
 func _ready():
 	get_node("/root/Main/UI/Menu").connect_client.connect(join_game)
@@ -33,6 +30,9 @@ func _ready():
 	multiplayer.server_disconnected.connect(_on_server_disconnected)
 	$/root/Main/UI/Menu.disconnect_player.connect(remove_multiplayer_peer)
 
+
+#Connects to server
+#Sets player_info
 func join_game(address = ""):
 	if address.is_empty():
 		address = DEFAULT_SERVER_IP
@@ -42,9 +42,12 @@ func join_game(address = ""):
 		return error
 	multiplayer.multiplayer_peer = peer
 
-	player_info = {"name" = PlayerSettings.player_name}
+	player_info = {"name" = PlayerSettings.player_name, "color" = PlayerSettings.player_color}
 	
 
+#Creates server
+#Sets player_info and players[]
+#Calls server load func
 func create_game():
 	var peer = ENetMultiplayerPeer.new()
 	var error = peer.create_server(PORT, max_connections)
@@ -52,7 +55,7 @@ func create_game():
 		return error
 	multiplayer.multiplayer_peer = peer
 
-	player_info = {"name" = PlayerSettings.player_name}
+	player_info = {"name" = PlayerSettings.player_name, "color" = PlayerSettings.player_color}
 	
 	players[1] = player_info
 	player_connected.emit(1, player_info)
@@ -60,28 +63,11 @@ func create_game():
 	$/root/Main/Game.server_load_game("res://scenes/levels/test_01.tscn", 0, 0)
 
 
+#Disconects MP peer
 func remove_multiplayer_peer():
 	multiplayer.multiplayer_peer = null
 	players.clear()
 	connection_lost.emit()
-
-
-# When the server decides to start the game from a UI scene,
-# do Lobby.load_game.rpc(filepath)
-@rpc("authority", "call_local", "reliable", 1)
-func load_game(game_scene_path):
-	#get_tree().change_scene_to_file(game_scene_path)
-	pass
-
-
-# Every peer will call this when they have loaded the game scene.
-@rpc("any_peer", "call_local", "reliable", 1)
-func player_loaded():
-	if multiplayer.is_server():
-		players_loaded += 1
-		if players_loaded == players.size():
-			#$/root/Game.start_game()
-			players_loaded = 0
 
 
 # When a peer connects, send them my player info.
@@ -90,6 +76,7 @@ func _on_player_connected(id):
 	_register_player.rpc_id(id, player_info)
 
 
+#registers new player in players[]
 @rpc("any_peer", "call_remote",  "reliable", 1)
 func _register_player(new_player_info):
 	var new_player_id = multiplayer.get_remote_sender_id()

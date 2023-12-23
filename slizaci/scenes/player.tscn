@@ -1,4 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://b153tcsd2evxl"]
+[gd_scene load_steps=4 format=3 uid="uid://b153tcsd2evxl"]
+
+[ext_resource type="Texture2D" uid="uid://dy1mm01m1lpvw" path="res://sprites/player.png" id="1_1nkqf"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2vrrx"]
 
@@ -18,3 +20,9 @@ shape = SubResource("CapsuleShape2D_2vrrx")
 replication_config = SubResource("SceneReplicationConfig_1iofq")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Player" type="Sprite2D" parent="."]
+position = Vector2(0, -2)
+scale = Vector2(0.617188, 0.617188)
+texture = ExtResource("1_1nkqf")
+offset = Vector2(2.82, 0)
