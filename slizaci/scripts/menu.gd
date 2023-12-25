@@ -69,7 +69,7 @@ func _on_abort_pressed():
 	
 	
 func _input(event):
-	if event.is_action_pressed("pause_menu") && GameManager.game_phase != "menu":
+	if event.is_action_pressed("pause_menu") && GameManager.game_status != "menu":
 		if $PauseMenu.visible == false:
 			menus_invisible()
 			$PauseMenu.visible = true

@@ -1,8 +1,6 @@
 extends Node
 
-var game_phase = "menu"
+var game_status = "menu"
 #menu
-#loading_game
-#round_start
-#game
-#round_end
+#ingame
+#loading

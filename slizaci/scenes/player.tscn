@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://b153tcsd2evxl"]
+[gd_scene load_steps=5 format=3 uid="uid://b153tcsd2evxl"]
 
 [ext_resource type="Texture2D" uid="uid://dy1mm01m1lpvw" path="res://sprites/player.png" id="1_1nkqf"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_lje8l"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2vrrx"]
 
@@ -8,13 +9,16 @@
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
+properties/1/path = NodePath(".:id")
+properties/1/spawn = true
+properties/1/replication_mode = 1
 
 [node name="Player" type="CharacterBody2D"]
+scale = Vector2(3.08, 3.08)
+script = ExtResource("1_lje8l")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_2vrrx")
-
-[node name="InputSynchronizer" type="MultiplayerSynchronizer" parent="."]
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_1iofq")

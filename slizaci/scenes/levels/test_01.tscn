@@ -1,29 +1,40 @@
-[gd_scene load_steps=4 format=3 uid="uid://dniv0f850dpf1"]
+[gd_scene load_steps=5 format=3 uid="uid://dniv0f850dpf1"]
 
-[ext_resource type="Script" path="res://scripts/level.gd" id="1_lp4xt"]
 [ext_resource type="Texture2D" uid="uid://b23dqssbqleu8" path="res://sprites/icon.svg" id="1_y0wmj"]
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_y7cou"]
+[ext_resource type="PackedScene" uid="uid://c80ffgj0t7avt" path="res://scenes/player_spaw_point.tscn" id="2_jlcus"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6voww"]
 size = Vector2(1261, 312)
 
-[node name="Level" type="Node2D"]
-script = ExtResource("1_lp4xt")
+[node name="Map" type="Node2D"]
+script = ExtResource("1_y7cou")
 
-[node name="Icon2" type="Sprite2D" parent="."]
+[node name="Geometry" type="Node2D" parent="."]
+
+[node name="Icon2" type="Sprite2D" parent="Geometry"]
 position = Vector2(594, -45)
 texture = ExtResource("1_y0wmj")
 
-[node name="Icon3" type="Sprite2D" parent="."]
+[node name="Icon3" type="Sprite2D" parent="Geometry"]
 position = Vector2(202, -55)
 texture = ExtResource("1_y0wmj")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="StaticBody2D" type="StaticBody2D" parent="Geometry"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Geometry/StaticBody2D"]
 position = Vector2(85, 452)
 shape = SubResource("RectangleShape2D_6voww")
 
-[node name="Icon" type="Sprite2D" parent="StaticBody2D"]
+[node name="Icon" type="Sprite2D" parent="Geometry/StaticBody2D"]
 position = Vector2(86, 454)
 scale = Vector2(9.90625, 2.45313)
 texture = ExtResource("1_y0wmj")
+
+[node name="PlayerSpawnPoints" type="Node2D" parent="."]
+
+[node name="PlayerSpawnPoint2" parent="PlayerSpawnPoints" instance=ExtResource("2_jlcus")]
+position = Vector2(310, 70)
+
+[node name="PlayerSpawnPoint" parent="PlayerSpawnPoints" instance=ExtResource("2_jlcus")]
+position = Vector2(-262, 61)

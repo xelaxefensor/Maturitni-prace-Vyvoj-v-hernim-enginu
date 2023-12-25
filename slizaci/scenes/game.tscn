@@ -2,31 +2,29 @@
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_ovdom"]
 
-[sub_resource type="GDScript" id="GDScript_kikvy"]
-script/source = "extends MultiplayerSpawner
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame
-"
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3khk3"]
+properties/0/path = NodePath(".:server_game_phase")
+properties/0/spawn = true
+properties/0/replication_mode = 1
 
 [node name="Game" type="Node"]
 script = ExtResource("1_ovdom")
 
-[node name="RoundTimer" type="Timer" parent="."]
-
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="StageCamera2D" type="Camera2D" parent="."]
 
 [node name="LevelSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://scenes/levels/test_01.tscn")
-spawn_path = NodePath(".")
+spawn_path = NodePath("../Level")
 spawn_limit = 1
-script = SubResource("GDScript_kikvy")
 
-[node name="Players" type="Node" parent="."]
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/player.tscn")
+spawn_path = NodePath("../Players")
+spawn_limit = 32
 
-[node name="Projectiles" type="Node" parent="."]
+[node name="Players" type="Node2D" parent="."]
+
+[node name="Level" type="Node2D" parent="."]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_3khk3")
