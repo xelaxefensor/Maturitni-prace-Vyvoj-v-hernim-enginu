@@ -16,9 +16,14 @@ var max_connections = 16
 const PORT = 7000
 const DEFAULT_SERVER_IP = "192.168.0.58"
 
+var is_online = false
+
 var player_info = {"name" = PlayerSettings.player_name, "color" = PlayerSettings.player_color}
 
 var players = {} #Dictionary with all player infos
+
+var latency_counter_is_stopped = true
+var latency_time_elapsed := 0.0
 	
 func _ready():
 	get_node("/root/Main/UI/Menu").connect_client.connect(join_game)
@@ -61,6 +66,8 @@ func create_game():
 	player_connected.emit(1, player_info)
 	
 	$/root/Main/Game.server_load_game("res://scenes/levels/test_01.tscn", 0, 0)
+	
+	is_online = true
 
 
 #Disconects MP peer
@@ -68,6 +75,8 @@ func remove_multiplayer_peer():
 	multiplayer.multiplayer_peer = null
 	players.clear()
 	connection_lost.emit()
+	
+	is_online = false
 
 
 # When a peer connects, send them my player info.
@@ -95,6 +104,8 @@ func _on_connected_ok():
 	player_connected.emit(peer_id, player_info)
 	succeded_to_connect.emit()
 	
+	is_online = true
+	
 
 func _on_connected_fail():
 	remove_multiplayer_peer()
@@ -104,3 +115,29 @@ func _on_connected_fail():
 func _on_server_disconnected():
 	remove_multiplayer_peer()
 	server_disconnected.emit()
+	
+	
+#PING
+func latency_ping():
+	if is_online:
+		latency_counter_is_stopped = false
+		server_received_latance_ping.rpc_id(1)
+	
+	
+@rpc("any_peer", "call_local", "reliable", 5)
+func server_received_latance_ping():
+	client_received_latance_ping.rpc_id(multiplayer.get_remote_sender_id())
+
+
+@rpc("authority", "call_local", "reliable", 5)
+func client_received_latance_ping():
+	latency_counter_is_stopped = true
+	print(latency_time_elapsed)
+	latency_time_elapsed = 0.0
+
+
+func _process(delta):
+	if latency_counter_is_stopped:
+		latency_ping()
+	if !latency_counter_is_stopped:
+		latency_time_elapsed += delta
