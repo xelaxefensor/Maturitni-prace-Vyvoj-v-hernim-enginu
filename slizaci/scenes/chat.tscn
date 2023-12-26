@@ -44,4 +44,14 @@ size_flags_stretch_ratio = 0.0
 root_path = NodePath("../VBoxContainer/RichTextLabel")
 replication_config = SubResource("SceneReplicationConfig_tns0c")
 
+[node name="Latency" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -153.0
+offset_bottom = 51.0
+grow_horizontal = 0
+vertical_alignment = 1
+
 [connection signal="text_submitted" from="VBoxContainer/LineEdit" to="." method="_on_line_edit_text_submitted"]

@@ -133,6 +133,7 @@ func server_received_latance_ping():
 func client_received_latance_ping():
 	latency_counter_is_stopped = true
 	print(latency_time_elapsed)
+	$/root/Main/UI/Chat/Latency.text = str(latency_time_elapsed*1000)+" ms"
 	latency_time_elapsed = 0.0
 
 
