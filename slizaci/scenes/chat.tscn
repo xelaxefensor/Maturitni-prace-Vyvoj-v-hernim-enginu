@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://udpyhold72yy"]
+[gd_scene load_steps=3 format=3 uid="uid://dkfkkp04qeu1w"]
 
 [ext_resource type="Script" path="res://scripts/chat.gd" id="1_u3go2"]
 
@@ -7,7 +7,7 @@ properties/0/path = NodePath(".:text")
 properties/0/spawn = true
 properties/0/replication_mode = 2
 
-[node name="PlayerUI" type="Control"]
+[node name="Chat" type="Control"]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -16,9 +16,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+script = ExtResource("1_u3go2")
 metadata/_edit_use_anchors_ = true
 
-[node name="Chat" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.0164931
@@ -26,22 +27,21 @@ anchor_top = 0.510802
 anchor_right = 0.296875
 anchor_bottom = 0.958333
 alignment = 2
-script = ExtResource("1_u3go2")
 metadata/_edit_use_anchors_ = true
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Chat"]
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 bbcode_enabled = true
 scroll_active = false
 scroll_following = true
 
-[node name="LineEdit" type="LineEdit" parent="Chat"]
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_stretch_ratio = 0.0
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-root_path = NodePath("../Chat/RichTextLabel")
+root_path = NodePath("../VBoxContainer/RichTextLabel")
 replication_config = SubResource("SceneReplicationConfig_tns0c")
 
 [node name="Latency" type="Label" parent="."]
@@ -54,5 +54,4 @@ offset_bottom = 51.0
 grow_horizontal = 0
 vertical_alignment = 1
 
-[connection signal="text_submitted" from="Chat/LineEdit" to="Chat" method="_on_line_edit_text_submitted"]
-[connection signal="tree_exiting" from="Chat/LineEdit" to="Chat" method="_on_line_edit_tree_exiting"]
+[connection signal="text_submitted" from="VBoxContainer/LineEdit" to="." method="_on_line_edit_text_submitted"]
