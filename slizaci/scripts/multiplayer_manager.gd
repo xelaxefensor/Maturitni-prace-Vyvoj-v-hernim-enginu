@@ -134,7 +134,7 @@ func server_received_latance_ping():
 @rpc("authority", "call_local", "reliable", 5)
 func client_received_latance_ping():
 	latency_counter_is_stopped = true
-	$/root/Main/UI/Chat/Latency.text = str(snapped(latency_time_elapsed*1000,1))+" ms"
+	$/root/Main/UI/PlayerUI/Latency.text = str(snapped(latency_time_elapsed*1000,1))+" ms"
 	latency_time_elapsed = 0.0
 	await get_tree().create_timer(1.0).timeout
 	send_latency_signal = true

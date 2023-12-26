@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cvrioh23u641c" path="res://scenes/menu.tscn" id="1_tuks5"]
 [ext_resource type="PackedScene" uid="uid://cmmpm655rnpnq" path="res://scenes/game.tscn" id="3_ar0jb"]
-[ext_resource type="PackedScene" uid="uid://bnd5of6lgukop" path="res://scenes/chat.tscn" id="3_rd5o7"]
+[ext_resource type="PackedScene" uid="uid://bnd5of6lgukop" path="res://scenes/PlayerUI.tscn" id="3_rd5o7"]
 
 [node name="Main" type="Node"]
 
@@ -14,5 +14,5 @@ unique_name_in_owner = true
 [node name="Menu" parent="UI" instance=ExtResource("1_tuks5")]
 unique_name_in_owner = true
 
-[node name="Chat" parent="UI" instance=ExtResource("3_rd5o7")]
+[node name="PlayerUI" parent="UI" instance=ExtResource("3_rd5o7")]
 unique_name_in_owner = true
