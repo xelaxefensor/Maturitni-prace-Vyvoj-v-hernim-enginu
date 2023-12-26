@@ -22,6 +22,7 @@ var player_info = {"name" = PlayerSettings.player_name, "color" = PlayerSettings
 
 var players = {} #Dictionary with all player infos
 
+var send_latency_signal = true
 var latency_counter_is_stopped = true
 var latency_time_elapsed := 0.0
 	
@@ -121,6 +122,7 @@ func _on_server_disconnected():
 func latency_ping():
 	if is_online:
 		latency_counter_is_stopped = false
+		send_latency_signal = false
 		server_received_latance_ping.rpc_id(1)
 	
 	
@@ -132,13 +134,15 @@ func server_received_latance_ping():
 @rpc("authority", "call_local", "reliable", 5)
 func client_received_latance_ping():
 	latency_counter_is_stopped = true
-	print(latency_time_elapsed)
-	$/root/Main/UI/Chat/Latency.text = str(latency_time_elapsed*1000)+" ms"
+	$/root/Main/UI/Chat/Latency.text = str(snapped(latency_time_elapsed*1000,1))+" ms"
 	latency_time_elapsed = 0.0
+	await get_tree().create_timer(1.0).timeout
+	send_latency_signal = true
 
 
 func _process(delta):
-	if latency_counter_is_stopped:
+	if send_latency_signal:
 		latency_ping()
+		
 	if !latency_counter_is_stopped:
 		latency_time_elapsed += delta
