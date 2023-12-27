@@ -42,7 +42,7 @@ func _ready():
 	upBufferTimer.set_wait_time(upBufferTime)
 	coyoteTimer.set_wait_time(coyoteTime)
 	
-	set_physics_process(multiplayer.is_server())
+	#set_physics_process(multiplayer.is_server())
 	
 
 func player_is_on_floor():
