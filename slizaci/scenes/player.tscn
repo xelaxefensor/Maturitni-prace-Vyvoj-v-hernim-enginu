@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b153tcsd2evxl"]
+[gd_scene load_steps=7 format=3 uid="uid://b153tcsd2evxl"]
 
 [ext_resource type="Texture2D" uid="uid://dy1mm01m1lpvw" path="res://sprites/player.png" id="1_1nkqf"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_lje8l"]
+[ext_resource type="Script" path="res://scripts/Input_Synchronizer.gd" id="3_mbccx"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2vrrx"]
 
@@ -10,6 +11,26 @@ properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 properties/1/path = NodePath(".:id")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:velocity")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("JumpingTimer:wait_time")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("UpBufferTimer:wait_time")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("CoyoteTimer:wait_time")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7jxfx"]
+properties/0/path = NodePath("InputSynchronizer:horizontal_direction")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("InputSynchronizer:jumping")
 properties/1/spawn = true
 properties/1/replication_mode = 1
 
@@ -30,3 +51,23 @@ position = Vector2(0, -2)
 scale = Vector2(0.617188, 0.617188)
 texture = ExtResource("1_1nkqf")
 offset = Vector2(2.82, 0)
+
+[node name="InputSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_7jxfx")
+script = ExtResource("3_mbccx")
+
+[node name="JumpingTimer" type="Timer" parent="."]
+wait_time = 0.076
+one_shot = true
+
+[node name="UpBufferTimer" type="Timer" parent="."]
+wait_time = 0.073
+one_shot = true
+
+[node name="CoyoteTimer" type="Timer" parent="."]
+wait_time = 0.193
+one_shot = true
+
+[connection signal="timeout" from="JumpingTimer" to="." method="_on_jumping_timer_timeout"]
+[connection signal="timeout" from="UpBufferTimer" to="." method="_on_up_buffer_timer_timeout"]
+[connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
