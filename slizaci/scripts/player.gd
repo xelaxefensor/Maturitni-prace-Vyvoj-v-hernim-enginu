@@ -1,6 +1,11 @@
 extends CharacterBody2D
 
-@export var id = 0
+@export var id := 1 :
+	set(player_id):
+		id = player_id
+		add_to_group("id"+str(id))
+		# Give authority over the player input to the appropriate peer.
+		$InputSynchronizer.set_multiplayer_authority(id)
 
 @export var speed:float = 6000.0
 @export var jumpVelocity:float = 10000.0
@@ -24,12 +29,7 @@ var can_still_jump = false
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-
-func set_id(id):
-	self.id = id
-	add_to_group("id"+str(id))
 	
-
 func _ready():
 	if id == multiplayer.get_unique_id():
 		$Camera2D.make_current()
@@ -41,16 +41,19 @@ func _ready():
 	jumpingTimer.set_wait_time(jumpingTime)
 	upBufferTimer.set_wait_time(upBufferTime)
 	coyoteTimer.set_wait_time(coyoteTime)
-
+	
+	set_physics_process(multiplayer.is_server())
+	
 
 func player_is_on_floor():
 	is_on_coyote_floor = true
 	coyoteTimer.start()
-	jump_buffer = true
+
 
 @rpc("any_peer", "call_local", "reliable", 2)
 func jump_just_pressed():
 	upBufferTimer.start()
+	jump_buffer = true
 	start_jumping()
 
 
@@ -81,6 +84,7 @@ func jump_just_released():
 
 func _on_jumping_timer_timeout():
 	can_still_jump = false
+	jumping = false
 
 
 func _physics_process(delta):
@@ -92,11 +96,8 @@ func _physics_process(delta):
 	if is_on_floor():
 		player_is_on_floor()
 		
-	if jumping:	
-		if can_still_jump and $InputSynchronizer.jumping:
-			velocity.y -= jumpVelocity * delta
-		else:
-			jumping = false
+	if jumping and can_still_jump and $InputSynchronizer.jumping:
+		velocity.y -= jumpVelocity * delta
 		
 	#var run
 	#if Input.is_action_pressed("move_run"):

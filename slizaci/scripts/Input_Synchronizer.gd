@@ -8,9 +8,12 @@ var player
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	player = get_parent()
-	self.set_multiplayer_authority(player.id)
-	set_process(get_multiplayer_authority() == multiplayer.get_unique_id())
+	set_process(player.id == multiplayer.get_unique_id())
 	
+	
+func _enter_tree():
+	player = get_parent()
+	set_multiplayer_authority(player.id)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

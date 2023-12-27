@@ -61,6 +61,6 @@ func server_load_game(map, player_size, time):
 @rpc("any_peer", "call_local", "reliable", 1)
 func level_loaded():
 	var player = preload("res://scenes/player.tscn").instantiate()
-	player.set_id(multiplayer.get_remote_sender_id())
+	player.id = multiplayer.get_remote_sender_id()
 	$Players.add_child(player, true)
 	
