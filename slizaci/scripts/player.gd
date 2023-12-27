@@ -48,7 +48,7 @@ func player_is_on_floor():
 	coyoteTimer.start()
 	jump_buffer = true
 
-@rpc("any_peer", "call_local", "unreliable", 2)
+@rpc("any_peer", "call_local", "reliable", 2)
 func jump_just_pressed():
 	upBufferTimer.start()
 	start_jumping()
@@ -73,7 +73,7 @@ func start_jumping():
 		can_still_jump = true
 
 
-@rpc("any_peer", "call_local", "unreliable", 2)
+@rpc("any_peer", "call_local", "reliable", 2)
 func jump_just_released():
 	jumping = false
 	can_still_jump = false
