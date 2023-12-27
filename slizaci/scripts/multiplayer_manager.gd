@@ -95,8 +95,9 @@ func _register_player(new_player_info):
 
 
 func _on_player_disconnected(id):
-	player_disconnected.emit(id, players[id])
-	players.erase(id)
+	if players.has(id):
+		player_disconnected.emit(id, players[id])
+		players.erase(id)
 
 
 func _on_connected_ok():
