@@ -1,57 +1,31 @@
-[gd_scene load_steps=3 format=3 uid="uid://dkfkkp04qeu1w"]
+[gd_scene load_steps=2 format=3 uid="uid://3vc4a3e0tc4w"]
 
 [ext_resource type="Script" path="res://scripts/chat.gd" id="1_u3go2"]
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_tns0c"]
-properties/0/path = NodePath(".:text")
-properties/0/spawn = true
-properties/0/replication_mode = 2
-
-[node name="Chat" type="Control"]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("1_u3go2")
-metadata/_edit_use_anchors_ = true
-
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
+[node name="Chat" type="VBoxContainer"]
 anchors_preset = -1
 anchor_left = 0.0164931
 anchor_top = 0.510802
 anchor_right = 0.296875
 anchor_bottom = 0.958333
 alignment = 2
+script = ExtResource("1_u3go2")
 metadata/_edit_use_anchors_ = true
 
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
 layout_mode = 2
 size_flags_vertical = 3
 bbcode_enabled = true
-scroll_active = false
 scroll_following = true
+context_menu_enabled = true
 
-[node name="LineEdit" type="LineEdit" parent="VBoxContainer"]
+[node name="LineEdit" type="LineEdit" parent="."]
 layout_mode = 2
 size_flags_stretch_ratio = 0.0
+clear_button_enabled = true
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-root_path = NodePath("../VBoxContainer/RichTextLabel")
-replication_config = SubResource("SceneReplicationConfig_tns0c")
-
-[node name="Latency" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -153.0
-offset_bottom = 51.0
-grow_horizontal = 0
-vertical_alignment = 1
-
-[connection signal="text_submitted" from="VBoxContainer/LineEdit" to="." method="_on_line_edit_text_submitted"]
+[connection signal="focus_entered" from="RichTextLabel" to="." method="_on_rich_text_label_focus_entered"]
+[connection signal="focus_exited" from="RichTextLabel" to="." method="_on_rich_text_label_focus_exited"]
+[connection signal="focus_entered" from="LineEdit" to="." method="_on_line_edit_focus_entered"]
+[connection signal="text_submitted" from="LineEdit" to="." method="_on_line_edit_text_submitted"]
+[connection signal="tree_exiting" from="LineEdit" to="." method="_on_line_edit_tree_exiting"]

@@ -142,8 +142,9 @@ func client_received_latance_ping():
 
 
 func _process(delta):
-	if send_latency_signal:
-		latency_ping()
-		
-	if !latency_counter_is_stopped:
-		latency_time_elapsed += delta
+	if $/root/Main/UI/PlayerUI/Latency.visible:
+		if send_latency_signal:
+			latency_ping()
+			
+		if !latency_counter_is_stopped:
+			latency_time_elapsed += delta

@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bnd5of6lgukop"]
+[gd_scene load_steps=4 format=3 uid="uid://bnd5of6lgukop"]
 
-[ext_resource type="Script" path="res://scripts/chat.gd" id="1_u3go2"]
+[ext_resource type="PackedScene" uid="uid://3vc4a3e0tc4w" path="res://scenes/chat.tscn" id="1_iwg8h"]
+[ext_resource type="Script" path="res://scripts/PhaseTimer.gd" id="2_bc161"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_tns0c"]
 properties/0/path = NodePath(".:text")
@@ -18,27 +19,15 @@ grow_vertical = 2
 mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="Chat" type="VBoxContainer" parent="."]
+[node name="Chat" parent="." instance=ExtResource("1_iwg8h")]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.0164931
-anchor_top = 0.510802
-anchor_right = 0.296875
-anchor_bottom = 0.958333
-alignment = 2
-script = ExtResource("1_u3go2")
-metadata/_edit_use_anchors_ = true
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Chat"]
-layout_mode = 2
-size_flags_vertical = 3
-bbcode_enabled = true
-scroll_active = false
-scroll_following = true
-
-[node name="LineEdit" type="LineEdit" parent="Chat"]
-layout_mode = 2
-size_flags_stretch_ratio = 0.0
+anchor_left = 0.0208333
+anchor_top = 0.975309
+anchor_right = 0.0208333
+anchor_bottom = 0.975309
+offset_top = -304.0
+offset_right = 261.0
+grow_vertical = 0
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 root_path = NodePath("../Chat/RichTextLabel")
@@ -46,13 +35,26 @@ replication_config = SubResource("SceneReplicationConfig_tns0c")
 
 [node name="Latency" type="Label" parent="."]
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
+anchors_preset = -1
+anchor_left = 0.975694
+anchor_top = 0.0354938
+anchor_right = 0.975694
+anchor_bottom = 0.0354938
 offset_left = -153.0
 offset_bottom = 51.0
 grow_horizontal = 0
+horizontal_alignment = 2
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
-[connection signal="text_submitted" from="Chat/LineEdit" to="Chat" method="_on_line_edit_text_submitted"]
-[connection signal="tree_exiting" from="Chat/LineEdit" to="Chat" method="_on_line_edit_tree_exiting"]
+[node name="PhaseTimer" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -55.0
+offset_right = 55.0
+offset_bottom = 76.0
+grow_horizontal = 2
+vertical_alignment = 1
+script = ExtResource("2_bc161")

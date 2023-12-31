@@ -1,15 +1,42 @@
 extends Node
 
 @export var server_game_phase = "loading"
-#loading
-#warmup
-#round_start
-#game
-#round_end
+#loading		- Loading map at new level
+
+#warmup 		- pre game phase with freeroam around the map
+#			 	- players can spawn
+
+#round_start	- short phase before round start
+#				- players are frozen in place and waiting for round to start
+#			 	- players can spawn
+
+#round_play 	- actual game play phase
+#				- players can spawn based on gamemode
+
+#round_end 		- short phase at the end of a round
+#				- players can not spawn
+
+#game_end 		- post game phase, 
+#				- players are forzen in place
+#				- players can not spawn
+
+
+const DEFAULT_WARMUP_TIME = 120.0
+const DEFAULT_ROUND_START_TIME = 10.0
+const DEFAULT_ROUND_PLAY_TIME = 300.0
+const DEFAULT_ROUND_END_TIME = 5.0
+const DEFAULT_GAME_END_TIME = 30.0
+
+var number_of_rounds = 1
+var current_round_number = 0
+
+
+@export var players_can_spawn = false
 
 var map = "res://scenes/levels/test_01.tscn"
+var minimal_player_size = 2
 var player_size = 8
-var round_time = 300
+var round_time = 300.0
 
 var players = {}
 
@@ -23,6 +50,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+	
 
 
 func connection_lost():
@@ -49,7 +77,7 @@ func player_disconnected(id, _info):
 	
 func server_load_game(map, player_size, time):
 	GameManager.game_status = "loading"
-	server_game_phase = "loading_game"
+	server_game_phase = "loading"
 	self.map = map
 	self.player_size = player_size
 	round_time = time
@@ -64,3 +92,81 @@ func level_loaded():
 	player.id = multiplayer.get_remote_sender_id()
 	$Players.add_child(player, true)
 	
+	
+	if multiplayer.get_remote_sender_id() == 1:
+		server_set_warmup(DEFAULT_WARMUP_TIME)
+	
+
+func server_set_warmup(time):
+	server_game_phase = "warmup"
+	
+	if time == 0:
+		$PhaseTimer.wait_time = DEFAULT_WARMUP_TIME
+	else:
+		$PhaseTimer.wait_time = time
+	
+	$PhaseTimer.start()	
+	
+
+func server_set_round_start(time):
+	server_game_phase = "round_start"
+	
+	if time == 0:
+		$PhaseTimer.wait_time = DEFAULT_ROUND_START_TIME
+	else:
+		$PhaseTimer.wait_time = time
+	
+	$PhaseTimer.start()	
+	
+	
+func server_set_round_play(time):
+	server_game_phase = "round_play"
+	
+	if time == 0:
+		$PhaseTimer.wait_time = DEFAULT_ROUND_PLAY_TIME
+	else:
+		$PhaseTimer.wait_time = time
+	
+	$PhaseTimer.start()	
+	
+	
+func server_set_round_end(time):
+	server_game_phase = "round_end"
+	
+	if time == 0:
+		$PhaseTimer.wait_time = DEFAULT_ROUND_END_TIME
+	else:
+		$PhaseTimer.wait_time = time
+		
+	$PhaseTimer.start()	
+
+
+func server_set_game_end(time):
+	server_game_phase = "game_end"
+
+	if time == 0:
+		$PhaseTimer.wait_time = DEFAULT_GAME_END_TIME
+	else:
+		$PhaseTimer.wait_time = time
+
+	$PhaseTimer.start()	
+
+
+func _on_game_timer_timeout():
+	match server_game_phase:
+		"warmup":
+			server_set_round_start(DEFAULT_ROUND_START_TIME)
+		"round_start":
+			server_set_round_play(DEFAULT_ROUND_PLAY_TIME)
+		"round_play":
+			server_set_round_end(DEFAULT_ROUND_END_TIME)
+		"round_end":
+			if current_round_number == number_of_rounds:
+				server_set_game_end(DEFAULT_GAME_END_TIME)
+			else:
+				current_round_number += 1
+				server_set_round_start(DEFAULT_ROUND_START_TIME)
+		"game_end":
+			server_load_game(map, player_size, round_time)
+		
+		

@@ -38,3 +38,5 @@ position = Vector2(310, 70)
 
 [node name="PlayerSpawnPoint" parent="PlayerSpawnPoints" instance=ExtResource("2_jlcus")]
 position = Vector2(-262, 61)
+
+[node name="LevelCamera2D" type="Camera2D" parent="."]
