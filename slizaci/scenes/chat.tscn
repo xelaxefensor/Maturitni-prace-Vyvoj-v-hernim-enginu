@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://3vc4a3e0tc4w"]
+[gd_scene load_steps=3 format=3 uid="uid://3vc4a3e0tc4w"]
 
 [ext_resource type="Script" path="res://scripts/chat.gd" id="1_u3go2"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_bry54"]
+properties/0/path = NodePath("RichTextLabel:text")
+properties/0/spawn = true
+properties/0/replication_mode = 2
 
 [node name="Chat" type="VBoxContainer"]
 anchors_preset = -1
@@ -8,11 +13,11 @@ anchor_left = 0.0164931
 anchor_top = 0.510802
 anchor_right = 0.296875
 anchor_bottom = 0.958333
-alignment = 2
 script = ExtResource("1_u3go2")
 metadata/_edit_use_anchors_ = true
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 bbcode_enabled = true
@@ -20,9 +25,13 @@ scroll_following = true
 context_menu_enabled = true
 
 [node name="LineEdit" type="LineEdit" parent="."]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_stretch_ratio = 0.0
 clear_button_enabled = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_bry54")
 
 [connection signal="focus_entered" from="RichTextLabel" to="." method="_on_rich_text_label_focus_entered"]
 [connection signal="focus_exited" from="RichTextLabel" to="." method="_on_rich_text_label_focus_exited"]

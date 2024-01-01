@@ -2,222 +2,193 @@
 
 [ext_resource type="Script" path="res://scripts/menu.gd" id="1_i0hbu"]
 
-[node name="Menu" type="Control"]
-layout_mode = 3
+[node name="Menu" type="CanvasLayer"]
+script = ExtResource("1_i0hbu")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_i0hbu")
+theme_override_constants/margin_left = 300
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 300
+theme_override_constants/margin_bottom = 50
 
-[node name="StartMenu" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.311
-anchor_top = 0.117
-anchor_right = 0.711
-anchor_bottom = 0.861
-offset_left = -0.272034
-offset_top = 0.183998
-offset_right = -0.0720215
-offset_bottom = 0.0719604
-grow_horizontal = 2
-grow_vertical = 2
+[node name="StartMenu" type="VBoxContainer" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
 alignment = 1
 
-[node name="Play" type="Button" parent="StartMenu"]
+[node name="Play" type="Button" parent="MarginContainer/StartMenu"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Hrát"
 
-[node name="HSeparator" type="HSeparator" parent="StartMenu"]
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/StartMenu"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.39
 
-[node name="Settings" type="Button" parent="StartMenu"]
+[node name="Settings" type="Button" parent="MarginContainer/StartMenu"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Nastavení"
 
-[node name="HSeparator2" type="HSeparator" parent="StartMenu"]
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/StartMenu"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.39
 
-[node name="Exit" type="Button" parent="StartMenu"]
+[node name="Exit" type="Button" parent="MarginContainer/StartMenu"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Odejít"
 
-[node name="MPMenu" type="VBoxContainer" parent="."]
+[node name="MultiplayerMenu" type="VBoxContainer" parent="MarginContainer"]
+unique_name_in_owner = true
 visible = false
 layout_mode = 2
-anchor_left = 0.303819
-anchor_top = 0.0570988
-anchor_right = 0.703993
-anchor_bottom = 0.930556
 metadata/_edit_use_anchors_ = true
 
-[node name="PlayerName" type="LineEdit" parent="MPMenu"]
+[node name="PlayerName" type="LineEdit" parent="MarginContainer/MultiplayerMenu"]
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="HSeparator2" type="HSeparator" parent="MPMenu"]
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/MultiplayerMenu"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.39
 
-[node name="Address" type="LineEdit" parent="MPMenu"]
+[node name="Address" type="LineEdit" parent="MarginContainer/MultiplayerMenu"]
 layout_mode = 2
 size_flags_vertical = 3
 placeholder_text = "1.1.1.1"
 alignment = 1
 
-[node name="Connect" type="Button" parent="MPMenu"]
+[node name="Connect" type="Button" parent="MarginContainer/MultiplayerMenu"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Připojit"
 
-[node name="HSeparator" type="HSeparator" parent="MPMenu"]
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/MultiplayerMenu"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.39
 
-[node name="Host" type="Button" parent="MPMenu"]
+[node name="Host" type="Button" parent="MarginContainer/MultiplayerMenu"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Hostovat"
 
-[node name="HSeparator3" type="HSeparator" parent="MPMenu"]
+[node name="HSeparator3" type="HSeparator" parent="MarginContainer/MultiplayerMenu"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.39
 
-[node name="Back" type="Button" parent="MPMenu"]
+[node name="Back" type="Button" parent="MarginContainer/MultiplayerMenu"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Zpét"
 
-[node name="FailedToConnectMenu" type="VBoxContainer" parent="."]
+[node name="FailedToConnectMenu" type="VBoxContainer" parent="MarginContainer"]
+unique_name_in_owner = true
 visible = false
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.392361
-anchor_top = 0.274691
-anchor_right = 0.644097
-anchor_bottom = 0.626543
-offset_top = 1.52588e-05
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Label" type="Label" parent="FailedToConnectMenu"]
+[node name="Label" type="Label" parent="MarginContainer/FailedToConnectMenu"]
 layout_mode = 2
 size_flags_vertical = 6
 text = "Nepodařilo se navázat spojení"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Back" type="Button" parent="FailedToConnectMenu"]
+[node name="Back" type="Button" parent="MarginContainer/FailedToConnectMenu"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Zpět"
 
-[node name="ConnectingMenu" type="VBoxContainer" parent="."]
+[node name="ConnectingMenu" type="VBoxContainer" parent="MarginContainer"]
+unique_name_in_owner = true
 visible = false
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.381944
-anchor_top = 0.324074
-anchor_right = 0.638889
-anchor_bottom = 0.601852
+layout_mode = 2
 alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Label" type="Label" parent="ConnectingMenu"]
+[node name="Label" type="Label" parent="MarginContainer/ConnectingMenu"]
 layout_mode = 2
 size_flags_vertical = 6
 text = "Připojuji..."
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Abort" type="Button" parent="ConnectingMenu"]
+[node name="Abort" type="Button" parent="MarginContainer/ConnectingMenu"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Přerušit"
 
-[node name="PauseMenu" type="VBoxContainer" parent="."]
+[node name="PauseMenu" type="VBoxContainer" parent="MarginContainer"]
+unique_name_in_owner = true
 visible = false
-layout_mode = 0
-anchor_left = 0.326389
-anchor_top = 0.125
-anchor_right = 0.686632
-anchor_bottom = 0.834877
+layout_mode = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="resume" type="Button" parent="PauseMenu"]
+[node name="resume" type="Button" parent="MarginContainer/PauseMenu"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Zpět do hry"
 
-[node name="HSeparator" type="HSeparator" parent="PauseMenu"]
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/PauseMenu"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.14
 
-[node name="settings" type="Button" parent="PauseMenu"]
+[node name="settings" type="Button" parent="MarginContainer/PauseMenu"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Nastavení"
 
-[node name="HSeparator2" type="HSeparator" parent="PauseMenu"]
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/PauseMenu"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.14
 
-[node name="disconnect" type="Button" parent="PauseMenu"]
+[node name="disconnect" type="Button" parent="MarginContainer/PauseMenu"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Odpojit se"
 
-[node name="ServerDisconnectedMenu" type="VBoxContainer" parent="."]
+[node name="ServerDisconnectedMenu" type="VBoxContainer" parent="MarginContainer"]
+unique_name_in_owner = true
 visible = false
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.392361
-anchor_top = 0.274691
-anchor_right = 0.644097
-anchor_bottom = 0.626543
-offset_top = 1.52588e-05
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Label" type="Label" parent="ServerDisconnectedMenu"]
+[node name="Label" type="Label" parent="MarginContainer/ServerDisconnectedMenu"]
 layout_mode = 2
 size_flags_vertical = 6
 text = "Spojení se servrem přerušeno"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Back" type="Button" parent="ServerDisconnectedMenu"]
+[node name="Back" type="Button" parent="MarginContainer/ServerDisconnectedMenu"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Zpět"
 
-[connection signal="pressed" from="StartMenu/Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="StartMenu/Exit" to="." method="_on_exit_pressed"]
-[connection signal="text_changed" from="MPMenu/PlayerName" to="." method="_on_player_name_text_changed"]
-[connection signal="pressed" from="MPMenu/Connect" to="." method="_on_connect_pressed"]
-[connection signal="pressed" from="MPMenu/Host" to="." method="_on_host_pressed"]
-[connection signal="pressed" from="MPMenu/Back" to="." method="_on_back_pressed"]
-[connection signal="pressed" from="FailedToConnectMenu/Back" to="." method="_on_failed_to_connect_back_pressed"]
-[connection signal="pressed" from="ConnectingMenu/Abort" to="." method="_on_abort_pressed"]
-[connection signal="pressed" from="PauseMenu/resume" to="." method="_on_resume_pressed"]
-[connection signal="pressed" from="PauseMenu/disconnect" to="." method="_on_disconnect_pressed"]
-[connection signal="pressed" from="ServerDisconnectedMenu/Back" to="." method="_on_failed_to_connect_back_pressed"]
+[connection signal="pressed" from="MarginContainer/StartMenu/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="MarginContainer/StartMenu/Exit" to="." method="_on_exit_pressed"]
+[connection signal="text_changed" from="MarginContainer/MultiplayerMenu/PlayerName" to="." method="_on_player_name_text_changed"]
+[connection signal="pressed" from="MarginContainer/MultiplayerMenu/Connect" to="." method="_on_connect_pressed"]
+[connection signal="pressed" from="MarginContainer/MultiplayerMenu/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="MarginContainer/MultiplayerMenu/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="MarginContainer/FailedToConnectMenu/Back" to="." method="_on_failed_to_connect_back_pressed"]
+[connection signal="pressed" from="MarginContainer/ConnectingMenu/Abort" to="." method="_on_abort_pressed"]
+[connection signal="pressed" from="MarginContainer/PauseMenu/resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="MarginContainer/PauseMenu/disconnect" to="." method="_on_disconnect_pressed"]
+[connection signal="pressed" from="MarginContainer/ServerDisconnectedMenu/Back" to="." method="_on_failed_to_connect_back_pressed"]

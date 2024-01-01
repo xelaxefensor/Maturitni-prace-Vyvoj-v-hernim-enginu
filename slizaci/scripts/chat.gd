@@ -29,13 +29,13 @@ func _on_line_edit_text_submitted(new_text):
 	if new_text.is_empty():
 		return
 	send_text_message.rpc("[color=" + str(MultiplayerManager.player_info.color) + "]" + str(MultiplayerManager.player_info.name) + ":[/color] " + new_text)
-	$LineEdit.text = ""
+	%LineEdit.text = ""
 
 
 @rpc("any_peer", "call_local", "reliable", 2)
 func send_text_message(text):
-	$RichTextLabel.text += text + "\n"
+	%RichTextLabel.text += text + "\n"
 	
 	
 func clear_chat():
-	$RichTextLabel.text = ""
+	%RichTextLabel.text = ""

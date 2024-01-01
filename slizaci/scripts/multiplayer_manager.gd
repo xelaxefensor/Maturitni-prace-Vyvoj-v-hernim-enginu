@@ -26,15 +26,16 @@ var send_latency_signal = true
 var latency_counter_is_stopped = true
 var latency_time_elapsed := 0.0
 	
+	
 func _ready():
-	get_node("/root/Main/UI/Menu").connect_client.connect(join_game)
-	get_node("/root/Main/UI/Menu").host_client.connect(create_game)
+	$/root/Main/%Menu.connect_client.connect(join_game)
+	$/root/Main/%Menu.host_client.connect(create_game)
 	multiplayer.peer_connected.connect(_on_player_connected)
 	multiplayer.peer_disconnected.connect(_on_player_disconnected)
 	multiplayer.connected_to_server.connect(_on_connected_ok)
 	multiplayer.connection_failed.connect(_on_connected_fail)
 	multiplayer.server_disconnected.connect(_on_server_disconnected)
-	$/root/Main/UI/Menu.disconnect_player.connect(remove_multiplayer_peer)
+	$/root/Main/%Menu.disconnect_player.connect(remove_multiplayer_peer)
 
 
 #Connects to server
@@ -135,14 +136,14 @@ func server_received_latance_ping():
 @rpc("authority", "call_local", "reliable", 5)
 func client_received_latance_ping():
 	latency_counter_is_stopped = true
-	$/root/Main/UI/PlayerUI/Latency.text = str(snapped(latency_time_elapsed*1000,1))+" ms"
+	$/root/Main/%PlayerHUD/%Latency.text = str(snapped(latency_time_elapsed*1000,1))+" ms"
 	latency_time_elapsed = 0.0
 	await get_tree().create_timer(1.0).timeout
 	send_latency_signal = true
 
 
 func _process(delta):
-	if $/root/Main/UI/PlayerUI/Latency.visible:
+	if $/root/Main/%PlayerHUD/%Latency.visible:
 		if send_latency_signal:
 			latency_ping()
 			

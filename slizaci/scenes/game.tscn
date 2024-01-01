@@ -6,12 +6,9 @@
 properties/0/path = NodePath(".:server_game_phase")
 properties/0/spawn = true
 properties/0/replication_mode = 2
-properties/1/path = NodePath(".:players_can_spawn")
+properties/1/path = NodePath(".:can_players_spawn")
 properties/1/spawn = true
 properties/1/replication_mode = 2
-properties/2/path = NodePath("PhaseTimer:wait_time")
-properties/2/spawn = true
-properties/2/replication_mode = 1
 
 [node name="Game" type="Node"]
 script = ExtResource("1_ovdom")
@@ -27,13 +24,16 @@ spawn_path = NodePath("../Players")
 spawn_limit = 32
 
 [node name="Players" type="Node2D" parent="."]
+unique_name_in_owner = true
 
 [node name="Level" type="Node2D" parent="."]
+unique_name_in_owner = true
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_3khk3")
 
 [node name="PhaseTimer" type="Timer" parent="."]
+unique_name_in_owner = true
 wait_time = 4096.0
 one_shot = true
 

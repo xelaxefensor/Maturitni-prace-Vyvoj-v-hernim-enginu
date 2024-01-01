@@ -31,13 +31,14 @@ var number_of_rounds = 1
 var current_round_number = 0
 
 
-@export var players_can_spawn = false
+@export var can_players_spawn = false
 
 var map = "res://scenes/levels/test_01.tscn"
 var minimal_player_size = 2
 var player_size = 8
 var round_time = 300.0
 
+var player_info = {"name" = PlayerSettings.player_name, "color" = PlayerSettings.player_color, "team" = "none", }
 var players = {}
 
 # Called when the node enters the scene tree for the first time.
@@ -56,17 +57,18 @@ func _process(delta):
 func connection_lost():
 	GameManager.game_status = "menu"
 	
-	var level = $Level
+	var level = %Level
 	for c in level.get_children():
 		c.queue_free()
 		
-	var players = $Players
+	var players = %Players
 	for c in players.get_children():
 		c.queue_free()
 
 
 func succeded_to_connect():
 	GameManager.game_status = "loading_game"
+	$/root/Main/%PlayerHUD.visible = true
 
 	
 func player_disconnected(id, _info):
@@ -76,6 +78,7 @@ func player_disconnected(id, _info):
 	
 	
 func server_load_game(map, player_size, time):
+	$/root/Main/%PlayerHUD.visible = true
 	GameManager.game_status = "loading"
 	server_game_phase = "loading"
 	self.map = map
@@ -83,15 +86,14 @@ func server_load_game(map, player_size, time):
 	round_time = time
 	
 	var game_load = load(map).instantiate()
-	$Level.add_child(game_load, true)
+	%Level.add_child(game_load, true)
 	
 
 @rpc("any_peer", "call_local", "reliable", 1)
 func level_loaded():
 	var player = preload("res://scenes/player.tscn").instantiate()
 	player.id = multiplayer.get_remote_sender_id()
-	$Players.add_child(player, true)
-	
+	%Players.add_child(player, true)
 	
 	if multiplayer.get_remote_sender_id() == 1:
 		server_set_warmup(DEFAULT_WARMUP_TIME)
@@ -99,62 +101,69 @@ func level_loaded():
 
 func server_set_warmup(time):
 	server_game_phase = "warmup"
+	can_players_spawn = true
+	
 	
 	if time == 0:
-		$PhaseTimer.wait_time = DEFAULT_WARMUP_TIME
+		%PhaseTimer.wait_time = DEFAULT_WARMUP_TIME
 	else:
-		$PhaseTimer.wait_time = time
+		%PhaseTimer.wait_time = time
 	
-	$PhaseTimer.start()	
+	%PhaseTimer.start()	
 	
 
 func server_set_round_start(time):
 	server_game_phase = "round_start"
+	can_players_spawn = true
 	
 	if time == 0:
-		$PhaseTimer.wait_time = DEFAULT_ROUND_START_TIME
+		%PhaseTimer.wait_time = DEFAULT_ROUND_START_TIME
 	else:
-		$PhaseTimer.wait_time = time
+		%PhaseTimer.wait_time = time
 	
-	$PhaseTimer.start()	
+	%PhaseTimer.start()	
 	
 	
 func server_set_round_play(time):
 	server_game_phase = "round_play"
+	can_players_spawn = true
 	
 	if time == 0:
-		$PhaseTimer.wait_time = DEFAULT_ROUND_PLAY_TIME
+		%PhaseTimer.wait_time = DEFAULT_ROUND_PLAY_TIME
 	else:
-		$PhaseTimer.wait_time = time
+		%PhaseTimer.wait_time = time
 	
-	$PhaseTimer.start()	
+	%PhaseTimer.start()	
 	
 	
 func server_set_round_end(time):
 	server_game_phase = "round_end"
+	can_players_spawn = false
 	
 	if time == 0:
-		$PhaseTimer.wait_time = DEFAULT_ROUND_END_TIME
+		%PhaseTimer.wait_time = DEFAULT_ROUND_END_TIME
 	else:
-		$PhaseTimer.wait_time = time
+		%PhaseTimer.wait_time = time
 		
-	$PhaseTimer.start()	
+	%PhaseTimer.start()	
 
 
 func server_set_game_end(time):
 	server_game_phase = "game_end"
+	can_players_spawn = false
 
 	if time == 0:
-		$PhaseTimer.wait_time = DEFAULT_GAME_END_TIME
+		%PhaseTimer.wait_time = DEFAULT_GAME_END_TIME
 	else:
-		$PhaseTimer.wait_time = time
+		%PhaseTimer.wait_time = time
 
-	$PhaseTimer.start()	
+	%PhaseTimer.start()	
 
 
 func _on_game_timer_timeout():
 	match server_game_phase:
 		"warmup":
+			current_round_number = 1
 			server_set_round_start(DEFAULT_ROUND_START_TIME)
 		"round_start":
 			server_set_round_play(DEFAULT_ROUND_PLAY_TIME)
