@@ -89,7 +89,7 @@ func _on_disconnect_pressed():
 
 
 func _on_resume_pressed():
-	visible = false
+	visible = false   
 	menus_invisible()
 
 
