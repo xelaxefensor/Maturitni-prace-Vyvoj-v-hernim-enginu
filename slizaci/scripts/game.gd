@@ -55,7 +55,6 @@ func _ready():
 	MultiplayerManager.connection_lost.connect(connection_lost)
 	MultiplayerManager.player_disconnected.connect(player_disconnected)
 	MultiplayerManager.succeded_to_connect.connect(succeded_to_connect)
-	MultiplayerManager.connection_lost.connect(on_game_ended)
 	$/root/Main/%TeamSelect.team_selected.connect(team_selected)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -65,9 +64,12 @@ func _process(delta):
 		player_spawned = true
 	
 
-
 func connection_lost():
 	GameManager.game_status = "menu"
+	player_info.team = 0
+	player_spawned = false
+	players = {}
+	can_players_spawn = false
 	
 	var level = %Level
 	for c in level.get_children():
@@ -77,6 +79,8 @@ func connection_lost():
 	var players = %Players
 	for c in players.get_children():
 		c.queue_free()
+		
+	game_ended.emit()
 
 
 func succeded_to_connect():
@@ -136,13 +140,24 @@ func team_selected_apply(team):
 func spawn_player():
 	var player = preload("res://scenes/player.tscn").instantiate()
 	player.id = multiplayer.get_remote_sender_id()
+
+	var spawn_points = get_tree().get_nodes_in_group("player_spawn_point_team_"+str(players[multiplayer.get_remote_sender_id()]["team"]))
+
+	if spawn_points.is_empty():
+		return
+		
+	if spawn_points.size() == 1:
+		player.position = spawn_points[0].position
+	else:
+		var rng = RandomNumberGenerator.new()
+		var my_random_number = rng.randf_range(0, spawn_points.size()-1)
+		player.position = spawn_points[my_random_number].position
+	
 	%Players.add_child(player, true)
 	
-		
-func on_game_ended():
-	emit_signal("game_ended")
 	
 	
+
 
 func server_set_warmup(time):
 	server_game_phase = "warmup"

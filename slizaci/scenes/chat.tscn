@@ -35,6 +35,5 @@ replication_config = SubResource("SceneReplicationConfig_bry54")
 
 [connection signal="focus_entered" from="RichTextLabel" to="." method="_on_rich_text_label_focus_entered"]
 [connection signal="focus_exited" from="RichTextLabel" to="." method="_on_rich_text_label_focus_exited"]
-[connection signal="focus_entered" from="LineEdit" to="." method="_on_line_edit_focus_entered"]
 [connection signal="text_submitted" from="LineEdit" to="." method="_on_line_edit_text_submitted"]
 [connection signal="tree_exiting" from="LineEdit" to="." method="_on_line_edit_tree_exiting"]

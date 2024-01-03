@@ -10,4 +10,5 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if visible:
-		text = str(snapped(timer.time_left,0.01))
+		if MultiplayerManager.is_online:
+			text = str(snapped(timer.time_left,0.01))

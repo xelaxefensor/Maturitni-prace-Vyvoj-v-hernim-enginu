@@ -27,12 +27,12 @@ var is_on_coyote_floor = false
 var can_still_jump = false  
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+@export var gravity = 1200
 
 	
 func _ready():
 	if id == multiplayer.get_unique_id():
-		$Camera2D.make_current()
+		$PlayerCamera.make_current()
 		
 	jumpingTimer = self.get_node("JumpingTimer")
 	upBufferTimer = self.get_node("UpBufferTimer")
@@ -46,8 +46,9 @@ func _ready():
 	
 
 func player_is_on_floor():
-	is_on_coyote_floor = true
-	coyoteTimer.start()
+	if !jumping:
+		is_on_coyote_floor = true
+		coyoteTimer.start()
 
 
 @rpc("any_peer", "call_local", "reliable", 2)
@@ -67,13 +68,13 @@ func _on_coyote_timer_timeout():
 
 func start_jumping():
 	if jump_buffer and !jumping and (is_on_coyote_floor or is_on_floor()):
-		jumping = true
 		coyoteTimer.stop()
 		upBufferTimer.stop()
 		jumpingTimer.start()
 		jump_buffer = false
 		is_on_coyote_floor = false
 		can_still_jump = true
+		jumping = true
 
 
 @rpc("any_peer", "call_local", "reliable", 2)
@@ -88,8 +89,14 @@ func _on_jumping_timer_timeout():
 
 
 func _physics_process(delta):
+	var direction = $InputSynchronizer.direction
+	
 	if not is_on_floor():
-		velocity.y += gravity * delta# * (Input.get_action_strength("move_down")+1)
+		if direction.y > 0:
+			velocity.y += gravity * delta * (direction.y+1)
+		else:
+			velocity.y += gravity * delta
+			
 		if velocity.y > 0:
 			velocity.y -= velocity.y * gravDrag * delta
 			
@@ -99,18 +106,18 @@ func _physics_process(delta):
 	if jumping and can_still_jump and $InputSynchronizer.jumping:
 		velocity.y -= jumpVelocity * delta
 		
-	#var run
-	#if Input.is_action_pressed("move_run"):
-	#	run = 2.0
-	#else:
-	#	run = 1.0
+	var run
+	if $InputSynchronizer.running:
+		run = 2.0
+	else:
+		run = 1.0
 	
-	var direction = $InputSynchronizer.horizontal_direction
-	if direction:
+	
+	if direction.x:
 		if is_on_floor():
-			velocity.x += direction * speed * delta# * run
+			velocity.x += direction.x * speed * delta * run
 		else:
-			velocity.x += direction * speed * delta * 0.5# * run
+			velocity.x += direction.x * speed * delta * 0.5 * run
 	
 	if velocity.x:
 		if is_on_floor():

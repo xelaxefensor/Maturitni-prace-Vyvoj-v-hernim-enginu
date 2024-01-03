@@ -1,8 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://bnd5of6lgukop"]
+[gd_scene load_steps=5 format=3 uid="uid://bnd5of6lgukop"]
 
 [ext_resource type="PackedScene" uid="uid://3vc4a3e0tc4w" path="res://scenes/chat.tscn" id="1_iwg8h"]
 [ext_resource type="Script" path="res://scripts/player_hud.gd" id="1_kr1e0"]
 [ext_resource type="Script" path="res://scripts/PhaseTimer.gd" id="2_bc161"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wxkcq"]
+properties/0/path = NodePath("PhaseTimer:text")
+properties/0/spawn = true
+properties/0/replication_mode = 1
 
 [node name="PlayerHUD" type="CanvasLayer"]
 visible = false
@@ -47,6 +52,9 @@ size_flags_vertical = 0
 horizontal_alignment = 2
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+replication_config = SubResource("SceneReplicationConfig_wxkcq")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2

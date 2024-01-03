@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dy1mm01m1lpvw" path="res://sprites/player.png" id="1_1nkqf"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_lje8l"]
-[ext_resource type="Script" path="res://scripts/Input_Synchronizer.gd" id="3_jas5g"]
+[ext_resource type="Script" path="res://scripts/player_input.gd" id="3_ffrwj"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2vrrx"]
 
@@ -27,24 +27,28 @@ properties/5/spawn = true
 properties/5/replication_mode = 1
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_2uvcr"]
-properties/0/path = NodePath("InputSynchronizer:horizontal_direction")
+properties/0/path = NodePath("InputSynchronizer:jumping")
 properties/0/spawn = false
 properties/0/replication_mode = 1
-properties/1/path = NodePath("InputSynchronizer:jumping")
+properties/1/path = NodePath("InputSynchronizer:direction")
 properties/1/spawn = false
 properties/1/replication_mode = 1
+properties/2/path = NodePath("InputSynchronizer:running")
+properties/2/spawn = true
+properties/2/replication_mode = 1
 
 [node name="Player" type="CharacterBody2D"]
 scale = Vector2(3.08, 3.08)
 script = ExtResource("1_lje8l")
+jumpVelocity = 15000.0
+gravity = 3000
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(1, 1)
 shape = SubResource("CapsuleShape2D_2vrrx")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_1iofq")
-
-[node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Player" type="Sprite2D" parent="."]
 position = Vector2(0, -2)
@@ -66,7 +70,9 @@ one_shot = true
 
 [node name="InputSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_2uvcr")
-script = ExtResource("3_jas5g")
+script = ExtResource("3_ffrwj")
+
+[node name="PlayerCamera" type="Camera2D" parent="."]
 
 [connection signal="timeout" from="JumpingTimer" to="." method="_on_jumping_timer_timeout"]
 [connection signal="timeout" from="UpBufferTimer" to="." method="_on_up_buffer_timer_timeout"]
