@@ -27,6 +27,11 @@ const DEFAULT_ROUND_PLAY_TIME = 300.0
 const DEFAULT_ROUND_END_TIME = 5.0
 const DEFAULT_GAME_END_TIME = 30.0
 
+
+signal game_loaded
+signal game_ended
+
+
 var number_of_rounds = 1
 var current_round_number = 0
 
@@ -38,7 +43,11 @@ var minimal_player_size = 2
 var player_size = 8
 var round_time = 300.0
 
-var player_info = {"name" = PlayerSettings.player_name, "color" = PlayerSettings.player_color, "team" = "none", }
+var player_info = {"name" = PlayerSettings.player_name, 
+	"color" = PlayerSettings.player_color, 
+	"team" = "spectate", 
+	"kills" = 0, 
+	"deaths" = 0}
 var players = {}
 
 # Called when the node enters the scene tree for the first time.
@@ -46,7 +55,8 @@ func _ready():
 	MultiplayerManager.connection_lost.connect(connection_lost)
 	MultiplayerManager.player_disconnected.connect(player_disconnected)
 	MultiplayerManager.succeded_to_connect.connect(succeded_to_connect)
-
+	MultiplayerManager.connection_lost.connect(on_game_ended)
+	$/root/Main/%TeamSelect.team_selected.connect(team_selected)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -68,7 +78,6 @@ func connection_lost():
 
 func succeded_to_connect():
 	GameManager.game_status = "loading_game"
-	$/root/Main/%PlayerHUD.visible = true
 
 	
 func player_disconnected(id, _info):
@@ -78,7 +87,6 @@ func player_disconnected(id, _info):
 	
 	
 func server_load_game(map, player_size, time):
-	$/root/Main/%PlayerHUD.visible = true
 	GameManager.game_status = "loading"
 	server_game_phase = "loading"
 	self.map = map
@@ -90,19 +98,47 @@ func server_load_game(map, player_size, time):
 	
 
 @rpc("any_peer", "call_local", "reliable", 1)
-func level_loaded():
-	var player = preload("res://scenes/player.tscn").instantiate()
-	player.id = multiplayer.get_remote_sender_id()
-	%Players.add_child(player, true)
+func peer_loaded():
+	if multiplayer.is_server():
+		var player = preload("res://scenes/player.tscn").instantiate()
+		player.id = multiplayer.get_remote_sender_id()
+		%Players.add_child(player, true)
 	
-	if multiplayer.get_remote_sender_id() == 1:
-		server_set_warmup(DEFAULT_WARMUP_TIME)
+		if multiplayer.get_remote_sender_id() == 1:
+			server_set_warmup(DEFAULT_WARMUP_TIME)
+			
+			
+func on_game_loaded():
+	GameManager.game_status = "in_game"
+	_register_player.rpc_id(1, player_info)
+	emit_signal("game_loaded")
+	
+	
+#registers new player in players[]
+@rpc("any_peer", "call_local",  "reliable", 1)
+func _register_player(new_player_info):
+	var new_player_id = multiplayer.get_remote_sender_id()
+	players[new_player_id] = new_player_info
+	
+	
+func team_selected(team):
+	team_selected_apply.rpc_id(1, team)
+	
+
+@rpc("any_peer", "call_local",  "reliable", 1)
+func team_selected_apply(team):
+	var id = multiplayer.get_remote_sender_id()
+	print(players[id][team])
+	
+		
+func on_game_ended():
+	emit_signal("game_ended")
+	
 	
 
 func server_set_warmup(time):
 	server_game_phase = "warmup"
 	can_players_spawn = true
-	
 	
 	if time == 0:
 		%PhaseTimer.wait_time = DEFAULT_WARMUP_TIME

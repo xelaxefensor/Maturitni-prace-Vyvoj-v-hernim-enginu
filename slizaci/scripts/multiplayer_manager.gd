@@ -12,6 +12,7 @@ signal failed_to_connect
 signal succeded_to_connect
 signal connection_lost
 
+
 var max_connections = 16
 const PORT = 7000
 const DEFAULT_SERVER_IP = "192.168.0.58"
@@ -52,7 +53,7 @@ func join_game(address = ""):
 	player_info = {"name" = PlayerSettings.player_name, "color" = PlayerSettings.player_color}
 	
 
-#Creates server
+#Creates serverconnection_lost
 #Sets player_info and players[]
 #Calls server load func
 func create_game():

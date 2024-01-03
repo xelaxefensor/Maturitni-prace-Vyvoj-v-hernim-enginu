@@ -1,10 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://bnd5of6lgukop"]
+[gd_scene load_steps=4 format=3 uid="uid://bnd5of6lgukop"]
 
 [ext_resource type="PackedScene" uid="uid://3vc4a3e0tc4w" path="res://scenes/chat.tscn" id="1_iwg8h"]
+[ext_resource type="Script" path="res://scripts/player_hud.gd" id="1_kr1e0"]
 [ext_resource type="Script" path="res://scripts/PhaseTimer.gd" id="2_bc161"]
 
 [node name="PlayerHUD" type="CanvasLayer"]
 visible = false
+script = ExtResource("1_kr1e0")
 metadata/_edit_use_anchors_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="."]

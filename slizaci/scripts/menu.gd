@@ -84,7 +84,6 @@ func _input(event):
 func _on_disconnect_pressed():
 	disconnect_player.emit()
 	menus_invisible()
-	$/root/Main/%PlayerHUD.visible = false
 	%StartMenu.visible = true
 
 
@@ -96,5 +95,4 @@ func _on_resume_pressed():
 func server_disconnected():
 	disconnect_player.emit()
 	menus_invisible()
-	$/root/Main/%PlayerHUD.visible = false
 	$ServerDisconnectedMenu.visible = true
