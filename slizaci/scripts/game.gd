@@ -35,8 +35,8 @@ signal game_ended
 var number_of_rounds = 1
 var current_round_number = 0
 
-
 @export var can_players_spawn = false
+var player_spawned = false
 
 var map = "res://scenes/levels/test_01.tscn"
 var minimal_player_size = 2
@@ -45,10 +45,10 @@ var round_time = 300.0
 
 var player_info = {"name" = PlayerSettings.player_name, 
 	"color" = PlayerSettings.player_color, 
-	"team" = "spectate", 
+	"team" = 0, #0 = spactate, 1 or more = actual teams 
 	"kills" = 0, 
 	"deaths" = 0}
-var players = {}
+@export var players = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -60,7 +60,9 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	if !player_info.team == 0 and !player_spawned and can_players_spawn:
+		spawn_player.rpc_id(1)
+		player_spawned = true
 	
 
 
@@ -70,7 +72,8 @@ func connection_lost():
 	var level = %Level
 	for c in level.get_children():
 		c.queue_free()
-		
+	
+	player_spawned = false
 	var players = %Players
 	for c in players.get_children():
 		c.queue_free()
@@ -100,35 +103,40 @@ func server_load_game(map, player_size, time):
 @rpc("any_peer", "call_local", "reliable", 1)
 func peer_loaded():
 	if multiplayer.is_server():
-		var player = preload("res://scenes/player.tscn").instantiate()
-		player.id = multiplayer.get_remote_sender_id()
-		%Players.add_child(player, true)
-	
 		if multiplayer.get_remote_sender_id() == 1:
 			server_set_warmup(DEFAULT_WARMUP_TIME)
 			
 			
 func on_game_loaded():
 	GameManager.game_status = "in_game"
-	_register_player.rpc_id(1, player_info)
+	players_info_changed.rpc_id(1, player_info)
 	emit_signal("game_loaded")
 	
 	
 #registers new player in players[]
 @rpc("any_peer", "call_local",  "reliable", 1)
-func _register_player(new_player_info):
+func players_info_changed(new_player_info):
 	var new_player_id = multiplayer.get_remote_sender_id()
 	players[new_player_id] = new_player_info
 	
 	
 func team_selected(team):
-	team_selected_apply.rpc_id(1, team)
+	players_info_changed
+	team_selected_apply.rpc(team)
+	player_info.team = team
 	
 
 @rpc("any_peer", "call_local",  "reliable", 1)
 func team_selected_apply(team):
 	var id = multiplayer.get_remote_sender_id()
-	print(players[id][team])
+	players[id]["team"] = team
+	
+
+@rpc("any_peer", "call_local", "reliable", 7)
+func spawn_player():
+	var player = preload("res://scenes/player.tscn").instantiate()
+	player.id = multiplayer.get_remote_sender_id()
+	%Players.add_child(player, true)
 	
 		
 func on_game_ended():
