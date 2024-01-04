@@ -37,7 +37,6 @@ var number_of_rounds = 1
 var current_round_number = 0
 
 @export var can_players_spawn = false
-var player_spawned = false
 
 var map = "res://scenes/levels/test_01.tscn"
 var minimal_player_size = 2
@@ -48,13 +47,14 @@ var player_info = {"name" = PlayerSettings.player_name,
 	"color" = PlayerSettings.player_color, 
 	"team" = -1, #0 = spactate, 1 or more = actual teams 
 	"kills" = 0, 
-	"deaths" = 0}
+	"deaths" = 0,
+	"spawned" = false}
 
 @export var players = {}
 
 var number_of_teams = 2
 var team_info = {"is_full" = false,
-	 "max_players" = 1,
+	 "max_players" = 4,
 	 "players" = 0,
 	 "can_join" = true}
 
@@ -71,15 +71,17 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if !player_info.team == 0 and !player_spawned and can_players_spawn:
+	if player_info.team > 0 and !player_info.spawned and can_players_spawn:
+		player_info.spawned = true
 		spawn_player.rpc_id(1)
-		player_spawned = true
+
+
 	
 
 func connection_lost():
 	GameManager.game_status = "menu"
 	player_info.team = 0
-	player_spawned = false
+	player_info.spawned = false
 	players = {}
 	teams = {}
 	can_players_spawn = false
@@ -88,7 +90,6 @@ func connection_lost():
 	for c in level.get_children():
 		c.queue_free()
 	
-	player_spawned = false
 	var players = %Players
 	for c in players.get_children():
 		c.queue_free()
@@ -135,7 +136,7 @@ func on_game_loaded():
 		teams[i+1] = team_info.duplicate()
 	
 	GameManager.game_status = "in_game"
-	players_info_changed.rpc_id(1, player_info)
+	players_info_changed.rpc(player_info)
 	emit_signal("game_loaded")
 	team_select.emit()
 	team_selected(0)
@@ -161,6 +162,7 @@ func team_changed(team):
 	if !players[id]["team"] == -1:
 		var old_team = players[id]["team"]
 		teams[old_team]["players"] -= 1
+		
 		if teams[old_team]["players"] <= teams[old_team]["max_players"]:
 			teams[old_team]["is_full"] = false
 	
@@ -169,6 +171,7 @@ func team_changed(team):
 		teams[team]["is_full"] = true
 		
 	players[id]["team"] = team
+	despawn_player.rpc_id(1, id)
 	
 
 @rpc("any_peer", "call_local", "reliable", 7)
@@ -189,6 +192,21 @@ func spawn_player():
 		player.position = spawn_points[my_random_number].position
 	
 	%Players.add_child(player, true)
+	
+	
+@rpc("any_peer", "call_local", "reliable", 2)
+func despawn_player(id):
+	var player = get_tree().get_nodes_in_group("id"+str(id))
+	for c in player:
+		c.queue_free()
+	
+	player_despawned.rpc_id(id)
+	
+
+@rpc("any_peer", "call_local", "reliable", 2)
+func player_despawned():
+	player_info.spawned = false
+	print(player_info.spawned)
 	
 
 func server_set_warmup(time):
