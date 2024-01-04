@@ -76,8 +76,6 @@ func _process(delta):
 		spawn_player.rpc_id(1)
 
 
-	
-
 func connection_lost():
 	GameManager.game_status = "menu"
 	player_info.team = 0
@@ -105,6 +103,9 @@ func player_disconnected(id, _info):
 	var nd = get_tree().get_nodes_in_group("id"+str(id))
 	for c in nd:
 		c.queue_free()
+		
+	var old_team = players[id]["team"]
+	teams[old_team]["players"] -= 1
 	
 	
 func server_load_game(map, player_size, time):
@@ -150,7 +151,7 @@ func players_info_changed(new_player_info):
 	
 func team_selected(team):
 	if teams[team]["can_join"] and !teams[team]["is_full"]:
-		team_changed.rpc(team)
+		team_changed.rpc_id(1, team)
 		player_info.team = team
 		players_info_changed.rpc(player_info)
 		
@@ -197,6 +198,9 @@ func spawn_player():
 @rpc("any_peer", "call_local", "reliable", 2)
 func despawn_player(id):
 	var player = get_tree().get_nodes_in_group("id"+str(id))
+	
+	if player.is_empty():
+		return
 	for c in player:
 		c.queue_free()
 	
@@ -206,7 +210,6 @@ func despawn_player(id):
 @rpc("any_peer", "call_local", "reliable", 2)
 func player_despawned():
 	player_info.spawned = false
-	print(player_info.spawned)
 	
 
 func server_set_warmup(time):
