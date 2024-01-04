@@ -30,6 +30,7 @@ const DEFAULT_GAME_END_TIME = 30.0
 
 signal game_loaded
 signal game_ended
+signal team_select
 
 
 var number_of_rounds = 1
@@ -40,15 +41,25 @@ var player_spawned = false
 
 var map = "res://scenes/levels/test_01.tscn"
 var minimal_player_size = 2
-var player_size = 8
+var max_team_players = 8
 var round_time = 300.0
 
 var player_info = {"name" = PlayerSettings.player_name, 
 	"color" = PlayerSettings.player_color, 
-	"team" = 0, #0 = spactate, 1 or more = actual teams 
+	"team" = -1, #0 = spactate, 1 or more = actual teams 
 	"kills" = 0, 
 	"deaths" = 0}
+
 @export var players = {}
+
+var number_of_teams = 2
+var team_info = {"is_full" = false,
+	 "max_players" = 1,
+	 "players" = 0,
+	 "can_join" = true}
+
+@export var teams = {}
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -56,6 +67,7 @@ func _ready():
 	MultiplayerManager.player_disconnected.connect(player_disconnected)
 	MultiplayerManager.succeded_to_connect.connect(succeded_to_connect)
 	$/root/Main/%TeamSelect.team_selected.connect(team_selected)
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -69,6 +81,7 @@ func connection_lost():
 	player_info.team = 0
 	player_spawned = false
 	players = {}
+	teams = {}
 	can_players_spawn = false
 	
 	var level = %Level
@@ -97,9 +110,9 @@ func server_load_game(map, player_size, time):
 	GameManager.game_status = "loading"
 	server_game_phase = "loading"
 	self.map = map
-	self.player_size = player_size
+	max_team_players = player_size
 	round_time = time
-	
+		
 	var game_load = load(map).instantiate()
 	%Level.add_child(game_load, true)
 	
@@ -112,12 +125,22 @@ func peer_loaded():
 			
 			
 func on_game_loaded():
+	player_info["name"] = PlayerSettings.player_name	
+	player_info["color"] = PlayerSettings.player_color
+	
+	teams[0] = team_info.duplicate()
+	teams[0]["max_players"] = 99
+
+	for i in number_of_teams:
+		teams[i+1] = team_info.duplicate()
+	
 	GameManager.game_status = "in_game"
 	players_info_changed.rpc_id(1, player_info)
 	emit_signal("game_loaded")
+	team_select.emit()
+	team_selected(0)
 	
-	
-#registers new player in players[]
+
 @rpc("any_peer", "call_local",  "reliable", 1)
 func players_info_changed(new_player_info):
 	var new_player_id = multiplayer.get_remote_sender_id()
@@ -125,14 +148,26 @@ func players_info_changed(new_player_info):
 	
 	
 func team_selected(team):
-	players_info_changed
-	team_selected_apply.rpc(team)
-	player_info.team = team
-	
-
+	if teams[team]["can_join"] and !teams[team]["is_full"]:
+		team_changed.rpc(team)
+		player_info.team = team
+		players_info_changed.rpc(player_info)
+		
+		
 @rpc("any_peer", "call_local",  "reliable", 1)
-func team_selected_apply(team):
+func team_changed(team):
 	var id = multiplayer.get_remote_sender_id()
+	
+	if !players[id]["team"] == -1:
+		var old_team = players[id]["team"]
+		teams[old_team]["players"] -= 1
+		if teams[old_team]["players"] <= teams[old_team]["max_players"]:
+			teams[old_team]["is_full"] = false
+	
+	teams[team]["players"] += 1
+	if teams[team]["players"] >= teams[team]["max_players"]:
+		teams[team]["is_full"] = true
+		
 	players[id]["team"] = team
 	
 
@@ -155,9 +190,6 @@ func spawn_player():
 	
 	%Players.add_child(player, true)
 	
-	
-	
-
 
 func server_set_warmup(time):
 	server_game_phase = "warmup"
@@ -235,6 +267,9 @@ func _on_game_timer_timeout():
 				current_round_number += 1
 				server_set_round_start(DEFAULT_ROUND_START_TIME)
 		"game_end":
-			server_load_game(map, player_size, round_time)
+			server_load_game(map, max_team_players, round_time)
 		
-		
+	
+func _input(event):
+	if event.is_action_pressed("team_select"):
+		team_select.emit()

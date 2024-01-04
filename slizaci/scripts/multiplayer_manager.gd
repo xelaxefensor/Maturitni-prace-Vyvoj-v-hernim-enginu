@@ -68,7 +68,7 @@ func create_game():
 	players[1] = player_info
 	player_connected.emit(1, player_info)
 	
-	$/root/Main/Game.server_load_game("res://scenes/levels/test_01.tscn", 0, 0)
+	$/root/Main/Game.server_load_game("res://scenes/levels/test_01.tscn", max_connections, 3000)
 	
 	is_online = true
 
@@ -94,6 +94,7 @@ func _register_player(new_player_info):
 	var new_player_id = multiplayer.get_remote_sender_id()
 	players[new_player_id] = new_player_info
 	player_connected.emit(new_player_id, new_player_info)
+
 
 
 func _on_player_disconnected(id):
