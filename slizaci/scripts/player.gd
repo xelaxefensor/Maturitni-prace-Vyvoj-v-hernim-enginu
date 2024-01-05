@@ -73,17 +73,22 @@ func start_jumping():
 		jump_buffer = false
 		is_on_coyote_floor = false
 		jumping = true
-
+		
+		while true:
+			velocity.y -= jumpVelocity
+			await get_tree().create_timer(0.01).timeout
+			if !jumping or !$InputSynchronizer.jumping:
+				break
+			
 
 @rpc("any_peer", "call_local", "unreliable", 2)
 func jump_just_released():
 	jumping = false
-	print(multiplayer.get_unique_id())
 	
 
 func _on_jumping_timer_timeout():
 	jumping = false
-
+	
 
 func _physics_process(delta):
 	var direction = $InputSynchronizer.direction
@@ -102,8 +107,7 @@ func _physics_process(delta):
 		player_is_on_floor()
 		
 		
-	if jumping and input_jumping:
-		velocity.y -= jumpVelocity * delta
+
 		
 
 		

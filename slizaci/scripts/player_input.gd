@@ -5,6 +5,7 @@ extends MultiplayerSynchronizer
 @export var running = false
 
 var player
+var can_process = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,23 +17,27 @@ func _ready():
 	
 	
 func cannot_process_input():
-	set_process(false)
+	can_process = false
+	direction = Vector2(0.0, 0.0)
+	jumping = false
+	running = false
 	
 	
 func can_process_input():
-	set_process(true)
+	can_process = true
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	direction = Input.get_vector("player_left", "player_right", "player_up", "player_down")
-	
-	jumping = Input.is_action_pressed("player_jump")
-	
-	if Input.is_action_just_pressed("player_jump"):
-		player.jump_just_pressed.rpc()
-
-	if Input.is_action_just_released("player_jump"):
-		player.jump_just_released.rpc()
+	if can_process:
+		direction = Input.get_vector("player_left", "player_right", "player_up", "player_down")
 		
-	running = Input.is_action_pressed("player_run")
+		jumping = Input.is_action_pressed("player_jump")
+		
+		if Input.is_action_just_pressed("player_jump"):
+			player.jump_just_pressed.rpc()
+
+		if Input.is_action_just_released("player_jump"):
+			player.jump_just_released.rpc()
+			
+		running = Input.is_action_pressed("player_run")
