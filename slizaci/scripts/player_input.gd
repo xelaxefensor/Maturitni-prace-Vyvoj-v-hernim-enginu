@@ -15,11 +15,6 @@ func _ready():
 	$/root/Main/%PlayerHUD/%Chat/%LineEdit.focus_exited.connect(can_process_input)
 	
 	
-func _enter_tree():
-	player = get_parent()
-	set_multiplayer_authority(player.id)
-	
-	
 func cannot_process_input():
 	set_process(false)
 	
@@ -32,10 +27,7 @@ func can_process_input():
 func _process(delta):
 	direction = Input.get_vector("player_left", "player_right", "player_up", "player_down")
 	
-	if Input.is_action_pressed("player_jump"):
-		jumping = true
-	else:
-		jumping = false
+	jumping = Input.is_action_pressed("player_jump")
 	
 	if Input.is_action_just_pressed("player_jump"):
 		player.jump_just_pressed.rpc()
@@ -43,8 +35,4 @@ func _process(delta):
 	if Input.is_action_just_released("player_jump"):
 		player.jump_just_released.rpc()
 		
-	
-	if Input.is_action_pressed("player_run"):
-		running = true
-	else:
-		running = false
+	running = Input.is_action_pressed("player_run")

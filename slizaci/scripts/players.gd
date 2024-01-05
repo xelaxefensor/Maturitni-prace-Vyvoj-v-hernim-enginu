@@ -18,3 +18,4 @@ func clear_players():
 		
 
 func spawn_player():
+	pass

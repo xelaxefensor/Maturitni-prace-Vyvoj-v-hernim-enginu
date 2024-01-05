@@ -15,7 +15,7 @@ signal connection_lost
 
 var max_connections = 16
 const PORT = 7000
-const DEFAULT_SERVER_IP = "192.168.0.58"
+const DEFAULT_SERVER_IP = "localhost"
 
 var is_online = false
 

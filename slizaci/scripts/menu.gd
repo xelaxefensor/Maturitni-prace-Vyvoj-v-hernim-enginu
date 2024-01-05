@@ -93,6 +93,6 @@ func _on_resume_pressed():
 
 
 func server_disconnected():
-	disconnect_player.emit()
+	visible = true
 	menus_invisible()
-	$ServerDisconnectedMenu.visible = true
+	%ServerDisconnectedMenu.visible = true

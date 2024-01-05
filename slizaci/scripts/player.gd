@@ -24,7 +24,6 @@ var coyoteTimer
 var jumping = false
 var jump_buffer = false
 var is_on_coyote_floor = false
-var can_still_jump = false  
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 @export var gravity = 1200
@@ -51,7 +50,7 @@ func player_is_on_floor():
 		coyoteTimer.start()
 
 
-@rpc("any_peer", "call_local", "reliable", 2)
+@rpc("any_peer", "call_local", "unreliable", 2)
 func jump_just_pressed():
 	upBufferTimer.start()
 	jump_buffer = true
@@ -73,23 +72,22 @@ func start_jumping():
 		jumpingTimer.start()
 		jump_buffer = false
 		is_on_coyote_floor = false
-		can_still_jump = true
 		jumping = true
 
 
-@rpc("any_peer", "call_local", "reliable", 2)
+@rpc("any_peer", "call_local", "unreliable", 2)
 func jump_just_released():
 	jumping = false
-	can_still_jump = false
+	print(multiplayer.get_unique_id())
 	
 
 func _on_jumping_timer_timeout():
-	can_still_jump = false
 	jumping = false
 
 
 func _physics_process(delta):
 	var direction = $InputSynchronizer.direction
+	var input_jumping = $InputSynchronizer.jumping
 	
 	if not is_on_floor():
 		if direction.y > 0:
@@ -103,8 +101,11 @@ func _physics_process(delta):
 	if is_on_floor():
 		player_is_on_floor()
 		
-	if jumping and can_still_jump and $InputSynchronizer.jumping:
+		
+	if jumping and input_jumping:
 		velocity.y -= jumpVelocity * delta
+		
+
 		
 	var run
 	if $InputSynchronizer.running:

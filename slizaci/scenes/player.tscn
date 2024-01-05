@@ -9,33 +9,24 @@
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_1iofq"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
-properties/0/replication_mode = 1
+properties/0/replication_mode = 0
 properties/1/path = NodePath(".:id")
 properties/1/spawn = true
 properties/1/replication_mode = 2
 properties/2/path = NodePath(".:velocity")
 properties/2/spawn = true
-properties/2/replication_mode = 1
-properties/3/path = NodePath("JumpingTimer:wait_time")
-properties/3/spawn = true
-properties/3/replication_mode = 1
-properties/4/path = NodePath("UpBufferTimer:wait_time")
-properties/4/spawn = true
-properties/4/replication_mode = 1
-properties/5/path = NodePath("CoyoteTimer:wait_time")
-properties/5/spawn = true
-properties/5/replication_mode = 1
+properties/2/replication_mode = 0
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_2uvcr"]
-properties/0/path = NodePath("InputSynchronizer:jumping")
-properties/0/spawn = false
-properties/0/replication_mode = 2
-properties/1/path = NodePath("InputSynchronizer:direction")
-properties/1/spawn = false
-properties/1/replication_mode = 2
-properties/2/path = NodePath("InputSynchronizer:running")
-properties/2/spawn = false
-properties/2/replication_mode = 2
+properties/0/path = NodePath(".:direction")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:jumping")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:running")
+properties/2/spawn = true
+properties/2/replication_mode = 1
 
 [node name="Player" type="CharacterBody2D"]
 scale = Vector2(3.08, 3.08)
@@ -68,6 +59,7 @@ wait_time = 0.193
 one_shot = true
 
 [node name="InputSynchronizer" type="MultiplayerSynchronizer" parent="."]
+root_path = NodePath(".")
 replication_config = SubResource("SceneReplicationConfig_2uvcr")
 script = ExtResource("3_ffrwj")
 
