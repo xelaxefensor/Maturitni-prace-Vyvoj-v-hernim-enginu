@@ -70,7 +70,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if player_info.team > 0 and !player_info.spawned and can_players_spawn:
 		player_info.spawned = true
 		spawn_player.rpc_id(1)
@@ -88,8 +88,8 @@ func connection_lost():
 	for c in level.get_children():
 		c.queue_free()
 	
-	var players = %Players
-	for c in players.get_children():
+	var del_players = %Players
+	for c in del_players.get_children():
 		c.queue_free()
 		
 	game_ended.emit()

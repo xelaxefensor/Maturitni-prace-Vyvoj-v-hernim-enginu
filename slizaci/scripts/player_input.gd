@@ -1,7 +1,6 @@
 extends MultiplayerSynchronizer
 
 @export var direction = Vector2(0.0, 0.0)
-@export var jumping = false
 @export var running = false
 
 var player
@@ -19,7 +18,6 @@ func _ready():
 func cannot_process_input():
 	can_process = false
 	direction = Vector2(0.0, 0.0)
-	jumping = false
 	running = false
 	
 	
@@ -28,11 +26,9 @@ func can_process_input():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if can_process:
 		direction = Input.get_vector("player_left", "player_right", "player_up", "player_down")
-		
-		jumping = Input.is_action_pressed("player_jump")
 		
 		if Input.is_action_just_pressed("player_jump"):
 			player.jump_just_pressed.rpc()

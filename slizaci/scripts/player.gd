@@ -14,7 +14,6 @@ extends CharacterBody2D
 @export var airDrag:float = 4.0
 @export var gravDrag:float = 1.0
 
-var jumpingTimer
 @export var jumpingTime:float = 0.076
 var upBufferTimer
 @export var upBufferTime:float = 0.073
@@ -25,6 +24,9 @@ var jumping = false
 var jump_buffer = false
 var is_on_coyote_floor = false
 
+var input_jump_pressed = false
+var jumping_timer = 0.0
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 @export var gravity = 1200
 
@@ -33,11 +35,9 @@ func _ready():
 	if id == multiplayer.get_unique_id():
 		$PlayerCamera.make_current()
 		
-	jumpingTimer = self.get_node("JumpingTimer")
 	upBufferTimer = self.get_node("UpBufferTimer")
 	coyoteTimer = self.get_node("CoyoteTimer")
 	
-	jumpingTimer.set_wait_time(jumpingTime)
 	upBufferTimer.set_wait_time(upBufferTime)
 	coyoteTimer.set_wait_time(coyoteTime)
 	
@@ -54,6 +54,7 @@ func player_is_on_floor():
 func jump_just_pressed():
 	upBufferTimer.start()
 	jump_buffer = true
+	input_jump_pressed = true
 	start_jumping()
 
 
@@ -69,21 +70,15 @@ func start_jumping():
 	if jump_buffer and !jumping and (is_on_coyote_floor or is_on_floor()):
 		coyoteTimer.stop()
 		upBufferTimer.stop()
-		jumpingTimer.start()
 		jump_buffer = false
 		is_on_coyote_floor = false
 		jumping = true
-		
-		while true:
-			velocity.y -= jumpVelocity
-			await get_tree().create_timer(0.01).timeout
-			if !jumping or !$InputSynchronizer.jumping:
-				break
 			
 
 @rpc("any_peer", "call_local", "unreliable", 2)
 func jump_just_released():
 	jumping = false
+	input_jump_pressed = false
 	
 
 func _on_jumping_timer_timeout():
@@ -92,7 +87,6 @@ func _on_jumping_timer_timeout():
 
 func _physics_process(delta):
 	var direction = $InputSynchronizer.direction
-	var input_jumping = $InputSynchronizer.jumping
 	
 	if not is_on_floor():
 		if direction.y > 0:
@@ -107,8 +101,13 @@ func _physics_process(delta):
 		player_is_on_floor()
 		
 		
-
+	if jumping_timer >= 0.1:
+		jumping = false
+		jumping_timer = 0.0
 		
+	if jumping and input_jump_pressed:
+		jumping_timer += delta
+		velocity.y -= jumpVelocity * delta
 
 		
 	var run

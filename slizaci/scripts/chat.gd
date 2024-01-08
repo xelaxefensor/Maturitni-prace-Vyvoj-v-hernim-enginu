@@ -15,7 +15,7 @@ func player_connected(id, info):
 		send_text_message.rpc("[color=green]" + str(info.name) + " se připojil[/color]")
 	
 
-func player_disconnected(id, info):
+func player_disconnected(_id, info):
 	if multiplayer.is_server():
 		send_text_message.rpc("[color=red]" + str(info.name) +" se odpojil[/color]")
 	

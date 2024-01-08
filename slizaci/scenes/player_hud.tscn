@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://scripts/PhaseTimer.gd" id="2_bc161"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wxkcq"]
-properties/0/path = NodePath("PhaseTimer:text")
+properties/0/path = NodePath("PhaseTimer:phase_time")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
