@@ -10,7 +10,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	if visible:
+	if is_visible_in_tree():
 		if multiplayer.is_server():
 			phase_time = timer.time_left
 		

@@ -96,3 +96,22 @@ func server_disconnected():
 	visible = true
 	menus_invisible()
 	%ServerDisconnectedMenu.visible = true
+
+
+func _on_player_color_color_changed(color):
+	PlayerSettings.player_color = color.to_html()
+
+
+func _on_max_fps_value_changed(value):
+	Engine.max_fps = value
+
+
+func _on_screen_option_item_selected(index):
+	match index:
+		0:	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+		1:	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+
+
+func _on_settings_pressed():
+	menus_invisible()
+	%SettingsMenu.visible = true
