@@ -27,6 +27,8 @@ var is_on_coyote_floor = false
 var input_jump_pressed = false
 var jumping_timer = 0.0
 
+var direction
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 @export var gravity = 1200
 
@@ -83,11 +85,18 @@ func jump_just_released():
 
 func _on_jumping_timer_timeout():
 	jumping = false
+
+
+func _process(delta):
+	direction = $InputSynchronizer.direction
+	
+	if direction.x < 0:
+		$AnimatedSprite2D.flip_h = true
+	if direction.x > 0:
+		$AnimatedSprite2D.flip_h = false
 	
 
 func _physics_process(delta):
-	var direction = $InputSynchronizer.direction
-	
 	if not is_on_floor():
 		if direction.y > 0:
 			velocity.y += gravity * delta * (direction.y+1)
