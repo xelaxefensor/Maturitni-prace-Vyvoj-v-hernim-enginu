@@ -27,7 +27,7 @@ var is_on_coyote_floor = false
 var input_jump_pressed = false
 var jumping_timer = 0.0
 
-var direction
+var direction = Vector2(0, 0)
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 @export var gravity = 1200

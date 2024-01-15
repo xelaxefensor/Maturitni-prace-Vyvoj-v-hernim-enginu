@@ -5,6 +5,7 @@
 [ext_resource type="SpriteFrames" uid="uid://cy73tmndqsq8p" path="res://sprites/player/player_idle.tres" id="3_wem1c"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2vrrx"]
+radius = 5.25
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_1iofq"]
 properties/0/path = NodePath(".:position")
