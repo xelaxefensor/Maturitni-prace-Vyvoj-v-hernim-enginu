@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ckguryrfvwcbu"
-path="res://.godot/imported/slizak_01_0006.png-bfb6d3e32ecedcec27b4dc9ae4169bd6.ctex"
+uid="uid://cstec7setp53r"
+path="res://.godot/imported/slizak_01_run_0001.png-bd25b591302bee7fa76a1cefe0d7b7b8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/player/slizak_01_0006.png"
-dest_files=["res://.godot/imported/slizak_01_0006.png-bfb6d3e32ecedcec27b4dc9ae4169bd6.ctex"]
+source_file="res://sprites/player/run/slizak_01_run_0001.png"
+dest_files=["res://.godot/imported/slizak_01_run_0001.png-bd25b591302bee7fa76a1cefe0d7b7b8.ctex"]
 
 [params]
 
