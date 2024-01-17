@@ -21,7 +21,7 @@ extends Node
 #				- players can not spawn
 
 
-const DEFAULT_WARMUP_TIME = 120.0
+const DEFAULT_WARMUP_TIME = 10.0
 const DEFAULT_ROUND_START_TIME = 10.0
 const DEFAULT_ROUND_PLAY_TIME = 300.0
 const DEFAULT_ROUND_END_TIME = 5.0
@@ -195,6 +195,12 @@ func spawn_player():
 	%Players.add_child(player, true)
 	
 	
+func despawn_all_players():
+	for i in players.size():
+		var arr = players.keys()
+		despawn_player.rpc_id(1, arr[i])
+			
+	
 @rpc("any_peer", "call_local", "reliable", 2)
 func despawn_player(id):
 	var player = get_tree().get_nodes_in_group("id"+str(id))
@@ -228,6 +234,8 @@ func server_set_round_start(time):
 	server_game_phase = "round_start"
 	can_players_spawn = true
 	
+	despawn_all_players()
+	
 	if time == 0:
 		%PhaseTimer.wait_time = DEFAULT_ROUND_START_TIME
 	else:
@@ -251,6 +259,8 @@ func server_set_round_play(time):
 func server_set_round_end(time):
 	server_game_phase = "round_end"
 	can_players_spawn = false
+	
+	despawn_all_players()
 	
 	if time == 0:
 		%PhaseTimer.wait_time = DEFAULT_ROUND_END_TIME

@@ -28,7 +28,7 @@ func connection_lost():
 func _on_line_edit_text_submitted(new_text):
 	if new_text.is_empty():
 		return
-	send_text_message.rpc("[color=" + str(MultiplayerManager.player_info.color) + "]" + str(MultiplayerManager.player_info.name) + ":[/color] " + new_text)
+	send_text_message.rpc("[color=" + str(MultiplayerManager.player_info.color.to_html()) + "]" + str(MultiplayerManager.player_info.name) + ":[/color] " + new_text)
 	%LineEdit.text = ""
 
 

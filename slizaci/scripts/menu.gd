@@ -3,6 +3,7 @@ extends CanvasLayer
 signal connect_client(address)
 signal host_client()
 signal disconnect_player()
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_node("%MultiplayerMenu/PlayerName").text = PlayerSettings.player_name
@@ -18,7 +19,10 @@ func _on_play_pressed():
 
 func _on_back_pressed():
 	menus_invisible()
-	get_node("%StartMenu").visible = true
+	match GameManager.game_status:
+		"menu":	get_node("%StartMenu").visible = true
+		"in_game":	%PauseMenu.visible = true
+	
 
 
 func _on_exit_pressed():
@@ -98,20 +102,7 @@ func server_disconnected():
 	%ServerDisconnectedMenu.visible = true
 
 
-func _on_player_color_color_changed(color):
-	PlayerSettings.player_color = color.to_html()
-
-
-func _on_max_fps_value_changed(value):
-	Engine.max_fps = value
-
-
-func _on_screen_option_item_selected(index):
-	match index:
-		0:	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-		1:	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-
-
 func _on_settings_pressed():
 	menus_invisible()
+	%SettingsMenu.load_settings()
 	%SettingsMenu.visible = true
