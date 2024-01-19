@@ -15,6 +15,7 @@ func _ready():
 func _on_play_pressed():
 	menus_invisible()
 	get_node("%MultiplayerMenu").visible = true
+	%MultiplayerMenu/PlayerName.text = PlayerSettings.player_name
 
 
 func _on_back_pressed():
@@ -66,12 +67,14 @@ func failed_to_connect():
 func _on_failed_to_connect_back_pressed():
 	menus_invisible()
 	%MultiplayerMenu.visible = true
+	%MultiplayerMenu/PlayerName.text = PlayerSettings.player_name
 
 
 func _on_abort_pressed():
 	disconnect_player.emit()
 	menus_invisible()
 	%MultiplayerMenu.visible = true
+	%MultiplayerMenu/PlayerName.text = PlayerSettings.player_name
 	
 	
 func _input(event):
