@@ -20,17 +20,23 @@ extends Node
 #				- players are forzen in place
 #				- players can not spawn
 
+@export var game_mode = "none"
+#deathmatch		- 
+#				- all vs all, team vs team
 
-const DEFAULT_WARMUP_TIME = 10.0
-const DEFAULT_ROUND_START_TIME = 10.0
-const DEFAULT_ROUND_PLAY_TIME = 300.0
-const DEFAULT_ROUND_END_TIME = 5.0
-const DEFAULT_GAME_END_TIME = 30.0
+#flag			- Capture the flag
+#				- 2 or more teams
+
+const DEFAULT_WARMUP_TIME = 2.0
+const DEFAULT_ROUND_START_TIME = 2.0
+const DEFAULT_ROUND_PLAY_TIME = 2.0
+const DEFAULT_ROUND_END_TIME = 2.0
+const DEFAULT_GAME_END_TIME = 2.0
 
 
 signal game_loaded
 signal game_ended
-signal team_select
+signal team_select(visibility)
 
 
 var number_of_rounds = 1
@@ -42,6 +48,9 @@ var map = "res://scenes/levels/test_01.tscn"
 var minimal_player_size = 2
 var max_team_players = 8
 var round_time = 300.0
+
+var score_to_win_round = 10
+var score_to_win_game = 20
 
 var player_info = {"name" = PlayerSettings.player_name, 
 	"color" = PlayerSettings.player_color, 
@@ -56,7 +65,10 @@ var number_of_teams = 2
 var team_info = {"is_full" = false,
 	 "max_players" = 4,
 	 "players" = 0,
-	 "can_join" = true}
+	 "can_join" = true,
+	 "round_score" = 0,
+	 "game_score" = 0
+	}
 
 @export var teams = {}
 
@@ -139,10 +151,10 @@ func on_game_loaded():
 	GameManager.game_status = "in_game"
 	players_info_changed.rpc(player_info)
 	emit_signal("game_loaded")
-	team_select.emit()
 	team_selected(0)
+	team_select.emit("visible")
 	
-
+	
 @rpc("any_peer", "call_local",  "reliable", 1)
 func players_info_changed(new_player_info):
 	var new_player_id = multiplayer.get_remote_sender_id()
@@ -154,6 +166,7 @@ func team_selected(team):
 		team_changed.rpc_id(1, team)
 		player_info.team = team
 		players_info_changed.rpc(player_info)
+		team_select.emit("invisible")
 		
 		
 @rpc("any_peer", "call_local",  "reliable", 1)
@@ -260,7 +273,7 @@ func server_set_round_end(time):
 	server_game_phase = "round_end"
 	can_players_spawn = false
 	
-	despawn_all_players()
+	#despawn_all_players()
 	
 	if time == 0:
 		%PhaseTimer.wait_time = DEFAULT_ROUND_END_TIME
@@ -282,7 +295,7 @@ func server_set_game_end(time):
 	%PhaseTimer.start()	
 
 
-func _on_game_timer_timeout():
+func _on_phase_timer_timeout():
 	match server_game_phase:
 		"warmup":
 			current_round_number = 1
@@ -303,4 +316,4 @@ func _on_game_timer_timeout():
 	
 func _input(event):
 	if event.is_action_pressed("team_select"):
-		team_select.emit()
+		team_select.emit("switch")

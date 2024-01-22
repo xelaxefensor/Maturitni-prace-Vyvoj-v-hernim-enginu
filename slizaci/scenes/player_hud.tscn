@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://scripts/phase_label.gd" id="2_nl57n"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wxkcq"]
-properties/0/path = NodePath("PhaseTimer:phase_time")
+properties/0/path = NodePath("VBoxContainer/PhaseTimer:phase_time")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 

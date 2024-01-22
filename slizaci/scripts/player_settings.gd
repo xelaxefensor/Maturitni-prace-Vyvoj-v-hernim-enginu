@@ -10,6 +10,7 @@ var config
 func _ready():
 	config =  ConfigFile.new()
 	load_file()
+	apply_settings()
 	
 
 func save_file():
@@ -32,3 +33,11 @@ func load_file():
 	player_color = config.get_value("settings", "player_color")
 	window_mode = config.get_value("settings", "window_mode")
 	max_fps = config.get_value("settings", "max_fps")
+	
+	
+func apply_settings():
+	Engine.max_fps = max_fps
+	
+	match window_mode:
+		0:	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+		1:	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
