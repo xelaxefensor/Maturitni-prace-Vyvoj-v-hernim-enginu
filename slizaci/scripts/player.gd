@@ -32,6 +32,10 @@ var direction = Vector2(0, 0)
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 @export var gravity = 1200
 
+@export var arm_base:Node2D
+@export var arm_end:Node2D
+@export var max_arm_lenght = Vector2(50, 50)
+
 	
 func _ready():
 	if id == multiplayer.get_unique_id():
@@ -103,7 +107,13 @@ func _process(delta):
 		$AnimatedSprite2D.speed_scale = 2
 	else:
 		$AnimatedSprite2D.speed_scale = 1
-
+		
+	var arm_base_screen_cords = arm_base.get_global_transform_with_canvas().get_origin()
+	arm_end.position = (get_viewport().get_mouse_position() - arm_base_screen_cords).clamp(-max_arm_lenght, max_arm_lenght)
+	
+	#$Arm.set_point_position(0,)
+	
+	
 
 func _physics_process(delta):
 	if not is_on_floor():
@@ -149,6 +159,3 @@ func _physics_process(delta):
 
 	
 	move_and_slide()
-
-
-

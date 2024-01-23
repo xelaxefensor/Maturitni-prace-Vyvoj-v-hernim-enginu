@@ -20,18 +20,18 @@ extends Node
 #				- players are forzen in place
 #				- players can not spawn
 
-@export var game_mode = "none"
+@export var game_mode = "deathmatch"
 #deathmatch		- 
 #				- all vs all, team vs team
 
 #flag			- Capture the flag
 #				- 2 or more teams
 
-const DEFAULT_WARMUP_TIME = 2.0
-const DEFAULT_ROUND_START_TIME = 2.0
-const DEFAULT_ROUND_PLAY_TIME = 2.0
-const DEFAULT_ROUND_END_TIME = 2.0
-const DEFAULT_GAME_END_TIME = 2.0
+const DEFAULT_WARMUP_TIME = 100.0
+const DEFAULT_ROUND_START_TIME = 10.0
+const DEFAULT_ROUND_PLAY_TIME = 300.0
+const DEFAULT_ROUND_END_TIME = 5.0
+const DEFAULT_GAME_END_TIME = 10.0
 
 
 signal game_loaded

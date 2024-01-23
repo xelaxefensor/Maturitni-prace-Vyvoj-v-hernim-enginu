@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://b153tcsd2evxl"]
+[gd_scene load_steps=8 format=3 uid="uid://b153tcsd2evxl"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_lje8l"]
 [ext_resource type="SpriteFrames" uid="uid://cy73tmndqsq8p" path="res://sprites/player/player_anim.tres" id="3_1o787"]
 [ext_resource type="Script" path="res://scripts/player_input.gd" id="3_ffrwj"]
+[ext_resource type="Script" path="res://scripts/player_camera.gd" id="3_mq0y3"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2vrrx"]
 radius = 5.25
@@ -29,11 +30,13 @@ properties/1/path = NodePath(".:running")
 properties/1/spawn = true
 properties/1/replication_mode = 1
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("arm_base", "arm_end")]
 scale = Vector2(5, 5)
 script = ExtResource("1_lje8l")
 jumpingTime = 0.1
 gravity = 3000
+arm_base = NodePath("PlayerCanvasCentre")
+arm_end = NodePath("ArmEnd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_2vrrx")
@@ -58,7 +61,12 @@ root_path = NodePath(".")
 replication_config = SubResource("SceneReplicationConfig_2uvcr")
 script = ExtResource("3_ffrwj")
 
-[node name="PlayerCamera" type="Camera2D" parent="."]
+[node name="PlayerCamera" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0
+script = ExtResource("3_mq0y3")
+maxZoomOut = Vector2(70, 50)
+target = NodePath("../PlayerCanvasCentre")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0.649351, -3.24675)
@@ -68,6 +76,16 @@ animation = &"run"
 autoplay = "idle"
 frame_progress = 0.835179
 offset = Vector2(-1.2, 0)
+
+[node name="PlayerCanvasCentre" type="Marker2D" parent="."]
+position = Vector2(0, -8)
+
+[node name="ArmEnd" type="Marker2D" parent="."]
+
+[node name="Arm" type="Line2D" parent="."]
+points = PackedVector2Array(12.2, -5.2, 11.2, 6.2)
+width = 2.0
+default_color = Color(0.0705882, 1, 0.0784314, 1)
 
 [connection signal="timeout" from="JumpingTimer" to="." method="_on_jumping_timer_timeout"]
 [connection signal="timeout" from="UpBufferTimer" to="." method="_on_up_buffer_timer_timeout"]
