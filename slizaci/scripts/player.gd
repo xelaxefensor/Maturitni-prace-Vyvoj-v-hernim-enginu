@@ -111,7 +111,9 @@ func _process(delta):
 	var arm_base_screen_cords = arm_base.get_global_transform_with_canvas().get_origin()
 	arm_end.position = (get_viewport().get_mouse_position() - arm_base_screen_cords).clamp(-max_arm_lenght, max_arm_lenght)
 	
-	#$Arm.set_point_position(0,)
+	$Arm.set_point_position(0,arm_base.position)
+	$Arm.set_point_position(1,arm_end.position)
+	
 	
 	
 
