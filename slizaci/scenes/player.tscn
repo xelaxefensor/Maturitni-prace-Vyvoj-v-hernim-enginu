@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://b153tcsd2evxl"]
+[gd_scene load_steps=9 format=3 uid="uid://b153tcsd2evxl"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_lje8l"]
 [ext_resource type="SpriteFrames" uid="uid://cy73tmndqsq8p" path="res://sprites/player/player_anim.tres" id="3_1o787"]
 [ext_resource type="Script" path="res://scripts/player_input.gd" id="3_ffrwj"]
 [ext_resource type="Script" path="res://scripts/player_camera.gd" id="3_mq0y3"]
+[ext_resource type="Texture2D" uid="uid://b23dqssbqleu8" path="res://sprites/icon.svg" id="5_wh2cv"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2vrrx"]
 radius = 5.25
@@ -81,6 +82,10 @@ offset = Vector2(-1.2, 0)
 position = Vector2(0, -8)
 
 [node name="ArmEnd" type="Marker2D" parent="."]
+
+[node name="Icon" type="Sprite2D" parent="ArmEnd"]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_wh2cv")
 
 [node name="Arm" type="Line2D" parent="."]
 points = PackedVector2Array(12.2, -5.2, 11.2, 6.2)

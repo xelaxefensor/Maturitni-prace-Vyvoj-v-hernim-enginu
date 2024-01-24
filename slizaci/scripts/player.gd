@@ -34,7 +34,7 @@ var direction = Vector2(0, 0)
 
 @export var arm_base:Node2D
 @export var arm_end:Node2D
-@export var max_arm_lenght = Vector2(50, 50)
+@export var max_arm_lenght = 150
 
 	
 func _ready():
@@ -109,12 +109,12 @@ func _process(delta):
 		$AnimatedSprite2D.speed_scale = 1
 		
 	var arm_base_screen_cords = arm_base.get_global_transform_with_canvas().get_origin()
-	arm_end.position = (get_viewport().get_mouse_position() - arm_base_screen_cords).clamp(-max_arm_lenght, max_arm_lenght)
+	arm_end.position = arm_base.position + (get_viewport().get_mouse_position() - arm_base_screen_cords).normalized() * clamp(arm_base.position.distance_to(arm_base.position + (get_viewport().get_mouse_position() - arm_base_screen_cords)), -max_arm_lenght, max_arm_lenght)
 	
 	$Arm.set_point_position(0,arm_base.position)
 	$Arm.set_point_position(1,arm_end.position)
 	
-	
+
 	
 
 func _physics_process(delta):
