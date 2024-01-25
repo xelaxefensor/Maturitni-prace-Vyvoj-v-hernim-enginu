@@ -16,8 +16,8 @@ func _process(delta):
 	arm_end.position = arm_base.position + $"../../InputSynchronizer".mouse_from_centre.normalized() * clamp(arm_base.position.distance_to(arm_base.position + $"../../InputSynchronizer".mouse_from_centre), -arm_lenght, arm_lenght)
 	#item_in_hand.position = arm_end.position
 	
-	$ArmGraphics.set_point_position(0,arm_base.position)
-	$ArmGraphics.set_point_position(1,arm_end.position)
+	%ArmGraphics.set_point_position(0,arm_base.position)
+	%ArmGraphics.set_point_position(1,arm_end.position)
 
 
 	#ArmSprite.position = armBase.position

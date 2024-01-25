@@ -96,18 +96,18 @@ func _process(delta):
 	
 	
 	if move_direction.x:
-		$AnimatedSprite2D.play("run")
+		%AnimatedSprite2D.play("run")
 		if move_direction.x < 0:
-			$AnimatedSprite2D.flip_h = true
+			%AnimatedSprite2D.flip_h = true
 		if move_direction.x > 0:
-			$AnimatedSprite2D.flip_h = false
+			%AnimatedSprite2D.flip_h = false
 	else:
-		$AnimatedSprite2D.play("idle")
+		%AnimatedSprite2D.play("idle")
 	
 	if $InputSynchronizer.running:
-		$AnimatedSprite2D.speed_scale = 2
+		%AnimatedSprite2D.speed_scale = 2
 	else:
-		$AnimatedSprite2D.speed_scale = 1
+		%AnimatedSprite2D.speed_scale = 1
 
 
 func _physics_process(delta):

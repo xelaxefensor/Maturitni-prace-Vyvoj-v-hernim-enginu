@@ -21,6 +21,10 @@ PlayerSettings="*res://scripts/player_settings.gd"
 MultiplayerManager="*res://scripts/multiplayer_manager.gd"
 GameManager="*res://scripts/game_manager.gd"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/smoothing/plugin.cfg")
+
 [input]
 
 pause_menu={
