@@ -44,7 +44,7 @@ var current_round_number = 0
 
 @export var can_players_spawn = false
 
-var map = "res://scenes/levels/test_01.tscn"
+var map = "res://assets/levels/test_01.tscn"
 var minimal_player_size = 2
 var max_team_players = 8
 var round_time = 300.0
@@ -190,7 +190,7 @@ func team_changed(team):
 
 @rpc("any_peer", "call_local", "reliable", 7)
 func spawn_player():
-	var player = preload("res://scenes/player.tscn").instantiate()
+	var player = preload("res://assets/player/player.tscn").instantiate()
 	player.id = multiplayer.get_remote_sender_id()
 
 	var spawn_points = get_tree().get_nodes_in_group("player_spawn_point_team_"+str(players[multiplayer.get_remote_sender_id()]["team"]))

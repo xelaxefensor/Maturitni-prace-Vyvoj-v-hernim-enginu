@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://com86osgfcl14"]
+
+[ext_resource type="Script" path="res://assets/player/arm/player_arm.gd" id="1_xsrbk"]
+
+[node name="Arm" type="Node2D"]
+script = ExtResource("1_xsrbk")
+
+[node name="ArmBase" type="Marker2D" parent="."]
+
+[node name="ArmEnd" type="Marker2D" parent="."]
+
+[node name="ArmGraphics" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 0, 0)
+width = 8.0
+default_color = Color(0, 1, 0.407843, 1)

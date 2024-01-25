@@ -1,24 +1,24 @@
 [gd_scene load_steps=5 format=3 uid="uid://dniv0f850dpf1"]
 
-[ext_resource type="Texture2D" uid="uid://b23dqssbqleu8" path="res://sprites/icon.svg" id="1_y0wmj"]
-[ext_resource type="Script" path="res://scripts/level.gd" id="1_y7cou"]
-[ext_resource type="PackedScene" uid="uid://c80ffgj0t7avt" path="res://scenes/player_spaw_point.tscn" id="2_jlcus"]
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_esnoe"]
+[ext_resource type="Texture2D" uid="uid://b23dqssbqleu8" path="res://sprites/icon.svg" id="2_f7q50"]
+[ext_resource type="PackedScene" uid="uid://c80ffgj0t7avt" path="res://scenes/player_spaw_point.tscn" id="3_0g6ql"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6voww"]
 size = Vector2(1261, 312)
 
 [node name="Map" type="Node2D"]
-script = ExtResource("1_y7cou")
+script = ExtResource("1_esnoe")
 
 [node name="Geometry" type="Node2D" parent="."]
 
 [node name="Icon2" type="Sprite2D" parent="Geometry"]
 position = Vector2(594, -45)
-texture = ExtResource("1_y0wmj")
+texture = ExtResource("2_f7q50")
 
 [node name="Icon3" type="Sprite2D" parent="Geometry"]
 position = Vector2(202, -55)
-texture = ExtResource("1_y0wmj")
+texture = ExtResource("2_f7q50")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Geometry"]
 
@@ -29,24 +29,24 @@ shape = SubResource("RectangleShape2D_6voww")
 [node name="Icon" type="Sprite2D" parent="Geometry/StaticBody2D"]
 position = Vector2(86, 454)
 scale = Vector2(9.90625, 2.45313)
-texture = ExtResource("1_y0wmj")
+texture = ExtResource("2_f7q50")
 
 [node name="PlayerSpawnPoints" type="Node2D" parent="."]
 
 [node name="team1" type="Node2D" parent="PlayerSpawnPoints"]
 
-[node name="PlayerSpawnPoint" parent="PlayerSpawnPoints/team1" groups=["player_spawn_point_team_1"] instance=ExtResource("2_jlcus")]
+[node name="PlayerSpawnPoint" parent="PlayerSpawnPoints/team1" groups=["player_spawn_point_team_1"] instance=ExtResource("3_0g6ql")]
 position = Vector2(-68, 46)
 
-[node name="PlayerSpawnPoint3" parent="PlayerSpawnPoints/team1" groups=["player_spawn_point_team_1"] instance=ExtResource("2_jlcus")]
+[node name="PlayerSpawnPoint3" parent="PlayerSpawnPoints/team1" groups=["player_spawn_point_team_1"] instance=ExtResource("3_0g6ql")]
 position = Vector2(-275, 49)
 
-[node name="PlayerSpawnPoint4" parent="PlayerSpawnPoints/team1" groups=["player_spawn_point_team_1"] instance=ExtResource("2_jlcus")]
+[node name="PlayerSpawnPoint4" parent="PlayerSpawnPoints/team1" groups=["player_spawn_point_team_1"] instance=ExtResource("3_0g6ql")]
 position = Vector2(-495, 55)
 
 [node name="team2" type="Node2D" parent="PlayerSpawnPoints"]
 
-[node name="PlayerSpawnPoint2" parent="PlayerSpawnPoints/team2" groups=["player_spawn_point_team_2"] instance=ExtResource("2_jlcus")]
+[node name="PlayerSpawnPoint2" parent="PlayerSpawnPoints/team2" groups=["player_spawn_point_team_2"] instance=ExtResource("3_0g6ql")]
 position = Vector2(310, 70)
 
 [node name="LevelCamera2D" type="Camera2D" parent="."]

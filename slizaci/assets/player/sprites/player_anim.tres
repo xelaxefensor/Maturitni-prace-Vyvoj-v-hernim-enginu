@@ -1,0 +1,55 @@
+[gd_resource type="SpriteFrames" load_steps=11 format=3 uid="uid://cy73tmndqsq8p"]
+
+[ext_resource type="Texture2D" uid="uid://hlq4unl4k75g" path="res://assets/player/sprites/idle/slizak_01_0001.png" id="1_fj1lb"]
+[ext_resource type="Texture2D" uid="uid://d3txhmxchxy5c" path="res://assets/player/sprites/idle/slizak_01_0002.png" id="2_fdt76"]
+[ext_resource type="Texture2D" uid="uid://bc4eq5vm53lny" path="res://assets/player/sprites/idle/slizak_01_0003.png" id="3_y5fkl"]
+[ext_resource type="Texture2D" uid="uid://ch67dfyayycml" path="res://assets/player/sprites/idle/slizak_01_0004.png" id="4_n0t8h"]
+[ext_resource type="Texture2D" uid="uid://c7dfk2rksgfsi" path="res://assets/player/sprites/idle/slizak_01_0005.png" id="5_mi62v"]
+[ext_resource type="Texture2D" uid="uid://ckguryrfvwcbu" path="res://assets/player/sprites/idle/slizak_01_0006.png" id="6_l2u2s"]
+[ext_resource type="Texture2D" uid="uid://cstec7setp53r" path="res://assets/player/sprites/run/slizak_01_run_0001.png" id="7_be3i1"]
+[ext_resource type="Texture2D" uid="uid://ujyfw86dy5y4" path="res://assets/player/sprites/run/slizak_01_run_0002.png" id="8_njhne"]
+[ext_resource type="Texture2D" uid="uid://buhxd047bqxwm" path="res://assets/player/sprites/run/slizak_01_run_0003.png" id="9_ajrhs"]
+[ext_resource type="Texture2D" uid="uid://bia71stwg45f8" path="res://assets/player/sprites/run/slizak_01_run_0004.png" id="10_gyoup"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_fj1lb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_fdt76")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_y5fkl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_n0t8h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_mi62v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_l2u2s")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_be3i1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_njhne")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ajrhs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_gyoup")
+}],
+"loop": true,
+"name": &"run",
+"speed": 3.0
+}]

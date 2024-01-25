@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://3vc4a3e0tc4w"]
 
-[ext_resource type="Script" path="res://scripts/chat.gd" id="1_u3go2"]
+[ext_resource type="Script" path="res://assets/UI/chat/chat.gd" id="1_2ljpt"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_bry54"]
 properties/0/path = NodePath("RichTextLabel:text")
@@ -13,7 +13,7 @@ anchor_left = 0.0164931
 anchor_top = 0.510802
 anchor_right = 0.296875
 anchor_bottom = 0.958333
-script = ExtResource("1_u3go2")
+script = ExtResource("1_2ljpt")
 metadata/_edit_use_anchors_ = true
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]

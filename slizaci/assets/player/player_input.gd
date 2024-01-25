@@ -3,6 +3,9 @@ extends MultiplayerSynchronizer
 @export var direction = Vector2(0.0, 0.0)
 @export var running = false
 
+@export var mouse_from_centre = Vector2(0.0, 0.0)
+@export var mouse_centre:Node2D
+
 var player
 var can_process = true
 
@@ -37,3 +40,7 @@ func _process(_delta):
 			player.jump_just_released.rpc()
 			
 		running = Input.is_action_pressed("player_run")
+		
+		
+		var mouse_centre_screen_cords = mouse_centre.get_global_transform_with_canvas().get_origin()
+		mouse_from_centre = (get_viewport().get_mouse_position() - mouse_centre_screen_cords)

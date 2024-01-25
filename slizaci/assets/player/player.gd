@@ -27,14 +27,12 @@ var is_on_coyote_floor = false
 var input_jump_pressed = false
 var jumping_timer = 0.0
 
-var direction = Vector2(0, 0)
+var running = false
+var move_direction = Vector2(0, 0)
+var mouse_from_centre_pixels = Vector2(0, 0)
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 @export var gravity = 1200
-
-@export var arm_base:Node2D
-@export var arm_end:Node2D
-@export var max_arm_lenght = 150
 
 	
 func _ready():
@@ -92,13 +90,16 @@ func _on_jumping_timer_timeout():
 
 
 func _process(delta):
-	direction = $InputSynchronizer.direction
+	move_direction = $InputSynchronizer.direction
+	running = $InputSynchronizer.running
+	mouse_from_centre_pixels = $InputSynchronizer.mouse_from_centre
 	
-	if direction.x:
+	
+	if move_direction.x:
 		$AnimatedSprite2D.play("run")
-		if direction.x < 0:
+		if move_direction.x < 0:
 			$AnimatedSprite2D.flip_h = true
-		if direction.x > 0:
+		if move_direction.x > 0:
 			$AnimatedSprite2D.flip_h = false
 	else:
 		$AnimatedSprite2D.play("idle")
@@ -107,20 +108,12 @@ func _process(delta):
 		$AnimatedSprite2D.speed_scale = 2
 	else:
 		$AnimatedSprite2D.speed_scale = 1
-		
-	var arm_base_screen_cords = arm_base.get_global_transform_with_canvas().get_origin()
-	arm_end.position = arm_base.position + (get_viewport().get_mouse_position() - arm_base_screen_cords).normalized() * clamp(arm_base.position.distance_to(arm_base.position + (get_viewport().get_mouse_position() - arm_base_screen_cords)), -max_arm_lenght, max_arm_lenght)
-	
-	$Arm.set_point_position(0,arm_base.position)
-	$Arm.set_point_position(1,arm_end.position)
-	
 
-	
 
 func _physics_process(delta):
 	if not is_on_floor():
-		if direction.y > 0:
-			velocity.y += gravity * delta * (direction.y+1)
+		if move_direction.y > 0:
+			velocity.y += gravity * delta * (move_direction.y+1)
 		else:
 			velocity.y += gravity * delta
 			
@@ -141,17 +134,17 @@ func _physics_process(delta):
 
 		
 	var run
-	if $InputSynchronizer.running:
+	if running:
 		run = 2.0
 	else:
 		run = 1.0
 	
 	
-	if direction.x:
+	if move_direction.x:
 		if is_on_floor():
-			velocity.x += direction.x * speed * delta * run
+			velocity.x += move_direction.x * speed * delta * run
 		else:
-			velocity.x += direction.x * speed * delta * 0.5 * run
+			velocity.x += move_direction.x * speed * delta * 0.5 * run
 	
 	if velocity.x:
 		if is_on_floor():

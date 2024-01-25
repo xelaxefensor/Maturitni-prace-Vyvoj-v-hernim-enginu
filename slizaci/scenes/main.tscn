@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cvrioh23u641c" path="res://scenes/menu.tscn" id="1_tuks5"]
 [ext_resource type="PackedScene" uid="uid://cmmpm655rnpnq" path="res://scenes/game.tscn" id="3_ar0jb"]
-[ext_resource type="PackedScene" uid="uid://bnd5of6lgukop" path="res://scenes/player_hud.tscn" id="3_w5a5w"]
+[ext_resource type="PackedScene" uid="uid://bnd5of6lgukop" path="res://assets/player/hud/player_hud.tscn" id="3_w5a5w"]
 [ext_resource type="PackedScene" uid="uid://sj1hmlvhmycr" path="res://scenes/team_select.tscn" id="4_kav2o"]
 
 [node name="Main" type="Node"]

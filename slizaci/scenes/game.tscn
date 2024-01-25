@@ -20,12 +20,12 @@ properties/3/replication_mode = 2
 script = ExtResource("1_ovdom")
 
 [node name="LevelSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://scenes/levels/test_01.tscn")
+_spawnable_scenes = PackedStringArray("res://assets/levels/test_01.tscn")
 spawn_path = NodePath("../Level")
 spawn_limit = 1
 
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://scenes/player.tscn")
+_spawnable_scenes = PackedStringArray("res://assets/player/player.tscn")
 spawn_path = NodePath("../Players")
 spawn_limit = 32
 

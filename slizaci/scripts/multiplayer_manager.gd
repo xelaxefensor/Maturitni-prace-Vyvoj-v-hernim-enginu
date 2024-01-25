@@ -68,7 +68,7 @@ func create_game():
 	players[1] = player_info
 	player_connected.emit(1, player_info)
 	
-	$/root/Main/Game.server_load_game("res://scenes/levels/test_01.tscn", max_connections, 3000)
+	$/root/Main/Game.server_load_game("res://assets/levels/test_01.tscn", max_connections, 3000)
 	
 	is_online = true
 
