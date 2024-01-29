@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://com86osgfcl14"]
+[gd_scene load_steps=4 format=3 uid="uid://com86osgfcl14"]
 
 [ext_resource type="Script" path="res://assets/player/arm/player_arm.gd" id="1_xsrbk"]
 [ext_resource type="Script" path="res://addons/smoothing/smoothing_2d.gd" id="2_fcv80"]
+[ext_resource type="Texture2D" uid="uid://dpkai6ui1vhia" path="res://assets/player/arm/player_arm.png" id="3_wj114"]
 
 [node name="Arm" type="Node2D"]
 script = ExtResource("1_xsrbk")
@@ -15,6 +16,9 @@ script = ExtResource("2_fcv80")
 
 [node name="ArmGraphics" type="Line2D" parent="Smoothing2D"]
 unique_name_in_owner = true
-points = PackedVector2Array(0, 0, 0, 0)
-width = 8.0
-default_color = Color(0, 1, 0.407843, 1)
+z_index = 10
+z_as_relative = false
+points = PackedVector2Array(0, 0, 31.395, 0)
+width = 70.0
+texture = ExtResource("3_wj114")
+texture_mode = 2

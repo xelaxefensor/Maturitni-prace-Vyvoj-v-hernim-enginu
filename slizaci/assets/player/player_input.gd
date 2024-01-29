@@ -9,6 +9,9 @@ extends MultiplayerSynchronizer
 var player
 var can_process = true
 
+
+signal fire_pressed
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	player = get_parent()
@@ -28,6 +31,12 @@ func can_process_input():
 	can_process = true
 
 
+@rpc("authority", "call_remote", "reliable")
+func fire():
+	fire_pressed.emit()
+
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if can_process:
@@ -40,6 +49,9 @@ func _process(_delta):
 			player.jump_just_released.rpc()
 			
 		running = Input.is_action_pressed("player_run")
+		
+		if Input.is_action_just_pressed("fire"):
+			fire.rpc()
 		
 		
 		var mouse_centre_screen_cords = mouse_centre.get_global_transform_with_canvas().get_origin()

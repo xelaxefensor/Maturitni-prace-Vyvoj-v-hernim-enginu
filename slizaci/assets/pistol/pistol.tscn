@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://bimpwb3wm0kwk"]
+
+[ext_resource type="Script" path="res://assets/pistol/weapon.gd" id="1_hqvrq"]
+[ext_resource type="Texture2D" uid="uid://c7ylws4bri2hk" path="res://assets/pistol/pistol.png" id="1_kjboc"]
+
+[node name="Pistol" type="Node2D" node_paths=PackedStringArray("sprite", "projectile_spawn", "reload_timer")]
+script = ExtResource("1_hqvrq")
+sprite = NodePath("Sprite2D")
+projectile_spawn = NodePath("ProjectileSpawn")
+reload_timer = NodePath("ReloadTimer")
+projectile = "\"res://assets/pistol/bullet.tscn\""
+
+[node name="ProjectileSpawn" type="Marker2D" parent="."]
+position = Vector2(255.155, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(96, -2)
+scale = Vector2(19.045, 19.045)
+texture = ExtResource("1_kjboc")
+
+[node name="ReloadTimer" type="Timer" parent="."]
+
+[connection signal="ammo_changed" from="." to="." method="_on_ammo_changed"]
