@@ -15,6 +15,6 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_x0kqk")
 
 [node name="Bullet" type="Sprite2D" parent="."]
-position = Vector2(0, -4)
+position = Vector2(0, -3)
 scale = Vector2(6.59, 6.59)
 texture = ExtResource("1_w8u3y")

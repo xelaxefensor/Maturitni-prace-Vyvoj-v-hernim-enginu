@@ -8,6 +8,8 @@ extends Node2D
 
 @export var projectile: String
 
+@export var bullet_start_force: float = 3000
+
 @export var magSize: int = 20
 @export var ammoSize: int = 120
 var magCount
@@ -24,6 +26,7 @@ func _ready():
 	ammoCount=ammoSize
 	
 	player_input.fire_pressed.connect(fire)
+	player_input.reload_pressed.connect(reload)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -31,6 +34,17 @@ func _process(delta):
 
 
 func fire():
+	var bullet = preload("res://assets/pistol/bullet/bullet.tscn").instantiate()
+	bullet.innitialize($ProjectileSpawn.global_position, bullet_start_force, rotation)
+	get_node("/root").add_child(bullet)
+	
+	ammo_changed.emit(magCount-1,ammoCount)
+		
+	#fireRateZero = false
+	#fireRateTimer.start()
+	
+	
+func reload():
 	pass
 
 
