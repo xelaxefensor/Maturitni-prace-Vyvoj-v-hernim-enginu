@@ -1,9 +1,9 @@
 extends CharacterBody2D
 
-@export var id := 1 :
-	set(player_id):
-		id = player_id
-		add_to_group("id"+str(id))
+@export var player_id := 1 :
+	set(id):
+		player_id = id
+		add_to_group("player_id_"+str(id))
 		# Give authority over the player input to the appropriate peer.
 		$InputSynchronizer.set_multiplayer_authority(id)
 
@@ -36,7 +36,7 @@ var mouse_from_centre_pixels = Vector2(0, 0)
 
 	
 func _ready():
-	if id == multiplayer.get_unique_id():
+	if player_id == multiplayer.get_unique_id():
 		$PlayerCamera.make_current()
 		
 	upBufferTimer = self.get_node("UpBufferTimer")
@@ -47,6 +47,9 @@ func _ready():
 	
 	#set_physics_process(multiplayer.is_server())
 	
+	add_to_group("team_"+str($/root/Main/Game.players[player_id]["team"]))
+	
+
 
 func player_is_on_floor():
 	if !jumping:

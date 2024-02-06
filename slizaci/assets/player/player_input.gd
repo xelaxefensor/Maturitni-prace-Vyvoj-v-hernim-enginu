@@ -16,7 +16,7 @@ signal reload_pressed
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	player = get_parent()
-	set_process(player.id == multiplayer.get_unique_id())
+	set_process(player.player_id == multiplayer.get_unique_id())
 	
 	$/root/Main/%PlayerHUD/%Chat/%LineEdit.focus_entered.connect(cannot_process_input)
 	$/root/Main/%PlayerHUD/%Chat/%LineEdit.focus_exited.connect(can_process_input)

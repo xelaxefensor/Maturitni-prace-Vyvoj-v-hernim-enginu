@@ -112,7 +112,7 @@ func succeded_to_connect():
 
 	
 func player_disconnected(id, _info):
-	var nd = get_tree().get_nodes_in_group("id"+str(id))
+	var nd = get_tree().get_nodes_in_group("player_id_"+str(id))
 	for c in nd:
 		c.queue_free()
 		
@@ -190,8 +190,11 @@ func team_changed(team):
 
 @rpc("any_peer", "call_local", "reliable", 7)
 func spawn_player():
+	if not multiplayer.is_server():
+		return
+	
 	var player = preload("res://assets/player/player.tscn").instantiate()
-	player.id = multiplayer.get_remote_sender_id()
+	player.player_id = multiplayer.get_remote_sender_id()
 
 	var spawn_points = get_tree().get_nodes_in_group("player_spawn_point_team_"+str(players[multiplayer.get_remote_sender_id()]["team"]))
 

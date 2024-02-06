@@ -1,7 +1,7 @@
 extends RigidBody2D
 
-var dmg
-var start_force
+@export var dmg = 10
+@export var start_force:Vector2
 @export var time_to_live = 5.0
 
 # Called when the node enters the scene tree for the first time.

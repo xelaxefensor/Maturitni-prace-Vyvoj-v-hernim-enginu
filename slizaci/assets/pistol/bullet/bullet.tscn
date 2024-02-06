@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://c1cotq73mudcr"]
+[gd_scene load_steps=5 format=3 uid="uid://c1cotq73mudcr"]
 
 [ext_resource type="Script" path="res://assets/pistol/bullet/projectile.gd" id="1_hivnw"]
 [ext_resource type="Texture2D" uid="uid://0362j5g1ene1" path="res://assets/pistol/bullet/bullet.png" id="1_w8u3y"]
@@ -6,6 +6,14 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x0kqk"]
 radius = 25.0
 height = 104.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_g18qm"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
 
 [node name="Bullet" type="RigidBody2D"]
 script = ExtResource("1_hivnw")
@@ -18,3 +26,6 @@ shape = SubResource("CapsuleShape2D_x0kqk")
 position = Vector2(0, -3)
 scale = Vector2(6.59, 6.59)
 texture = ExtResource("1_w8u3y")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_g18qm")
