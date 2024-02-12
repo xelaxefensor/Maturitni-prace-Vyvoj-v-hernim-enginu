@@ -11,10 +11,10 @@ properties/1/spawn = true
 properties/1/replication_mode = 2
 properties/2/path = NodePath(".:players")
 properties/2/spawn = true
-properties/2/replication_mode = 1
+properties/2/replication_mode = 2
 properties/3/path = NodePath(".:teams")
 properties/3/spawn = true
-properties/3/replication_mode = 1
+properties/3/replication_mode = 2
 
 [node name="Game" type="Node"]
 script = ExtResource("1_ovdom")
@@ -22,7 +22,7 @@ script = ExtResource("1_ovdom")
 [node name="ProjectilesSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://assets/pistol/bullet/bullet.tscn")
 spawn_path = NodePath("../Projectiles")
-spawn_limit = 999
+spawn_limit = 99999
 
 [node name="LevelSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://assets/levels/test_01.tscn")

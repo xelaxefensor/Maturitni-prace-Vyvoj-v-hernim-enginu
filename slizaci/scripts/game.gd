@@ -104,6 +104,10 @@ func connection_lost():
 	for c in del_players.get_children():
 		c.queue_free()
 		
+	var del_projectiles= %Projectiles
+	for c in del_projectiles.get_children():
+		c.queue_free()
+		
 	game_ended.emit()
 
 

@@ -47,7 +47,8 @@ func _ready():
 	
 	#set_physics_process(multiplayer.is_server())
 	
-	add_to_group("team_"+str($/root/Main/Game.players[player_id]["team"]))
+	if multiplayer.is_server():
+		add_to_group("team_"+str($/root/Main/Game.players[player_id]["team"]))
 	
 
 

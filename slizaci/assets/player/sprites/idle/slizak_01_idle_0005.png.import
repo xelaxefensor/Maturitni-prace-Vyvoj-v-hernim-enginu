@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d3txhmxchxy5c"
-path="res://.godot/imported/slizak_01_0002.png-47882e7c63ae5cb92eac0d0c72368b3f.ctex"
+uid="uid://bnrx23xqfi64j"
+path="res://.godot/imported/slizak_01_idle_0005.png-4208acae6496e557333dd38df93ff0c0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/player/sprites/idle/slizak_01_0002.png"
-dest_files=["res://.godot/imported/slizak_01_0002.png-47882e7c63ae5cb92eac0d0c72368b3f.ctex"]
+source_file="res://assets/player/sprites/idle/slizak_01_idle_0005.png"
+dest_files=["res://.godot/imported/slizak_01_idle_0005.png-4208acae6496e557333dd38df93ff0c0.ctex"]
 
 [params]
 

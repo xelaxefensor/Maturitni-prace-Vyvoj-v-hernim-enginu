@@ -78,7 +78,7 @@ position = Vector2(0.035, -27.625)
 
 [node name="Arm" parent="PlayerMouseCentre" node_paths=PackedStringArray("item_in_hand") instance=ExtResource("5_1as08")]
 item_in_hand = NodePath("../../Weapons/Pistol")
-arm_lenght = 80.0
+arm_lenght = 60.0
 
 [node name="Smoothing2D" type="Node2D" parent="."]
 script = ExtResource("5_3vk16")
@@ -86,7 +86,7 @@ target = NodePath("..")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Smoothing2D"]
 unique_name_in_owner = true
-position = Vector2(3, -3)
+position = Vector2(9, -4)
 scale = Vector2(2.802, 2.802)
 sprite_frames = ExtResource("4_vnf4d")
 animation = &"idle"

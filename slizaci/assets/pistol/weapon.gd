@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var player_input:MultiplayerSynchronizer
+@export var player:CharacterBody2D
 
 @export var sprite: Sprite2D
 @export var projectile_spawn: Node2D
@@ -29,6 +30,8 @@ func _ready():
 	
 	player_input.fire_just_pressed.connect(fire)
 	player_input.reload_just_pressed.connect(reload)
+	
+	player = get_parent().get_parent()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -52,7 +55,7 @@ func spawn_projectile():
 		return
 	
 	var bullet = preload("res://assets/pistol/bullet/bullet.tscn").instantiate()
-	bullet.innitialize($ProjectileSpawn.global_position, bullet_start_force, rotation, 1, 1)
+	bullet.innitialize($ProjectileSpawn.global_position, bullet_start_force, rotation, player.player_id, $/root/Main/Game.players[player.player_id]["team"])
 	get_node("/root/Main/Game/Projectiles").add_child(bullet, true)
 	
 	

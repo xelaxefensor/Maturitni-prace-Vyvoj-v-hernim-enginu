@@ -18,6 +18,11 @@ func _process(delta):
 	if item_in_hand:
 		item_in_hand.global_position = arm_end.global_position
 		item_in_hand.rotation = $"../../InputSynchronizer".mouse_from_centre.angle()
+		
+		if item_in_hand.rotation > PI/2 or item_in_hand.rotation < -PI/2:
+			item_in_hand.scale.y = -1
+		else:
+			item_in_hand.scale.y = 1
 	
 	%ArmGraphics.set_point_position(0,arm_base.position)
 	%ArmGraphics.set_point_position(1,arm_end.position)
