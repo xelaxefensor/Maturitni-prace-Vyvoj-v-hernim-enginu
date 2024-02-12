@@ -219,7 +219,7 @@ func despawn_all_players():
 	
 @rpc("any_peer", "call_local", "reliable", 2)
 func despawn_player(id):
-	var player = get_tree().get_nodes_in_group("id"+str(id))
+	var player = get_tree().get_nodes_in_group("player_id_"+str(id))
 	
 	if player.is_empty():
 		return

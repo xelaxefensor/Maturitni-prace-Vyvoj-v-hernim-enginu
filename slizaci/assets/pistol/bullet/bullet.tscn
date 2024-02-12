@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://0362j5g1ene1" path="res://assets/pistol/bullet/bullet.png" id="1_w8u3y"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x0kqk"]
-radius = 25.0
-height = 104.0
+radius = 4.0
+height = 18.0
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_g18qm"]
 properties/0/path = NodePath(".:position")
@@ -14,8 +14,14 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
+properties/2/path = NodePath(".:linear_velocity")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:angular_velocity")
+properties/3/spawn = true
+properties/3/replication_mode = 1
 
-[node name="Bullet" type="RigidBody2D"]
+[node name="Bullet" type="RigidBody2D" groups=["projectile"]]
 script = ExtResource("1_hivnw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -23,8 +29,6 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_x0kqk")
 
 [node name="Bullet" type="Sprite2D" parent="."]
-position = Vector2(0, -3)
-scale = Vector2(6.59, 6.59)
 texture = ExtResource("1_w8u3y")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]

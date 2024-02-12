@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b153tcsd2evxl"]
+[gd_scene load_steps=11 format=3 uid="uid://b153tcsd2evxl"]
 
 [ext_resource type="Script" path="res://assets/player/player.gd" id="1_us2ra"]
 [ext_resource type="Script" path="res://assets/player/player_input.gd" id="2_lvdns"]
@@ -6,6 +6,7 @@
 [ext_resource type="SpriteFrames" uid="uid://cy73tmndqsq8p" path="res://assets/player/sprites/player_anim.tres" id="4_vnf4d"]
 [ext_resource type="PackedScene" uid="uid://com86osgfcl14" path="res://assets/player/arm/player_arm.tscn" id="5_1as08"]
 [ext_resource type="Script" path="res://addons/smoothing/smoothing_2d.gd" id="5_3vk16"]
+[ext_resource type="PackedScene" uid="uid://bimpwb3wm0kwk" path="res://assets/pistol/pistol.tscn" id="7_meewr"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2vrrx"]
 radius = 41.46
@@ -15,13 +16,13 @@ height = 175.9
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
-properties/1/path = NodePath(".:id")
+properties/1/path = NodePath(".:velocity")
 properties/1/spawn = true
-properties/1/replication_mode = 2
-properties/2/path = NodePath(".:velocity")
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Smoothing2D/AnimatedSprite2D:flip_h")
 properties/2/spawn = true
-properties/2/replication_mode = 1
-properties/3/path = NodePath("Smoothing2D/AnimatedSprite2D:flip_h")
+properties/2/replication_mode = 2
+properties/3/path = NodePath(".:player_id")
 properties/3/spawn = true
 properties/3/replication_mode = 2
 
@@ -36,7 +37,7 @@ properties/2/path = NodePath(".:mouse_from_centre")
 properties/2/spawn = true
 properties/2/replication_mode = 1
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_us2ra")
 jumpingTime = 0.1
 gravity = 3000
@@ -75,7 +76,9 @@ target = NodePath("../PlayerMouseCentre")
 [node name="PlayerMouseCentre" type="Marker2D" parent="."]
 position = Vector2(0.035, -27.625)
 
-[node name="Arm" parent="PlayerMouseCentre" instance=ExtResource("5_1as08")]
+[node name="Arm" parent="PlayerMouseCentre" node_paths=PackedStringArray("item_in_hand") instance=ExtResource("5_1as08")]
+item_in_hand = NodePath("../../Weapons/Pistol")
+arm_lenght = 80.0
 
 [node name="Smoothing2D" type="Node2D" parent="."]
 script = ExtResource("5_3vk16")
@@ -89,6 +92,11 @@ sprite_frames = ExtResource("4_vnf4d")
 animation = &"idle"
 autoplay = "idle"
 offset = Vector2(-1.2, 0)
+
+[node name="Weapons" type="Node2D" parent="."]
+
+[node name="Pistol" parent="Weapons" node_paths=PackedStringArray("player_input") instance=ExtResource("7_meewr")]
+player_input = NodePath("../../InputSynchronizer")
 
 [connection signal="timeout" from="JumpingTimer" to="." method="_on_jumping_timer_timeout"]
 [connection signal="timeout" from="UpBufferTimer" to="." method="_on_up_buffer_timer_timeout"]

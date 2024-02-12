@@ -6,6 +6,7 @@
 
 [node name="Arm" type="Node2D"]
 script = ExtResource("1_xsrbk")
+arm_lenght = 100.0
 
 [node name="ArmBase" type="Marker2D" parent="."]
 

@@ -10,8 +10,8 @@ var player
 var can_process = true
 
 
-signal fire_pressed
-signal reload_pressed
+signal fire_just_pressed
+signal reload_just_pressed
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -32,14 +32,14 @@ func can_process_input():
 	can_process = true
 
 
-@rpc("authority", "call_remote", "reliable")
-func fire():
-	fire_pressed.emit()
+@rpc("authority", "call_local", "reliable")
+func fire_pressed():
+	fire_just_pressed.emit()
 
 
-@rpc("authority", "call_remote", "reliable")
-func reload():
-	reload_pressed.emit()
+@rpc("authority", "call_local", "reliable")
+func reload_pressed():
+	reload_just_pressed.emit()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -56,11 +56,10 @@ func _process(_delta):
 		running = Input.is_action_pressed("player_run")
 		
 		if Input.is_action_just_pressed("fire"):
-			fire.rpc()
-		
+			fire_pressed.rpc()
 		
 		if Input.is_action_just_pressed("reload"):
-			reload.rpc()
+			reload_pressed.rpc()
 		
 		var mouse_centre_screen_cords = mouse_centre.get_global_transform_with_canvas().get_origin()
 		mouse_from_centre = (get_viewport().get_mouse_position() - mouse_centre_screen_cords)

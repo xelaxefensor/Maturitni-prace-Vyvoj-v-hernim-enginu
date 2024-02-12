@@ -14,7 +14,10 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	arm_end.position = arm_base.position + $"../../InputSynchronizer".mouse_from_centre.normalized() * clamp(arm_base.position.distance_to(arm_base.position + $"../../InputSynchronizer".mouse_from_centre), -arm_lenght, arm_lenght)
-	#item_in_hand.position = arm_end.position
+	
+	if item_in_hand:
+		item_in_hand.global_position = arm_end.global_position
+		item_in_hand.rotation = $"../../InputSynchronizer".mouse_from_centre.angle()
 	
 	%ArmGraphics.set_point_position(0,arm_base.position)
 	%ArmGraphics.set_point_position(1,arm_end.position)
