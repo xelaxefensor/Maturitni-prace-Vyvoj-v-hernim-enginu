@@ -9,8 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://bimpwb3wm0kwk" path="res://assets/pistol/pistol.tscn" id="7_meewr"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2vrrx"]
-radius = 41.46
-height = 175.9
+radius = 28.0
+height = 147.19
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_1iofq"]
 properties/0/path = NodePath(".:position")
@@ -43,6 +43,11 @@ jumpingTime = 0.1
 gravity = 3000
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 11.79)
+shape = SubResource("CapsuleShape2D_2vrrx")
+
+[node name="HurtBox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 11.79)
 shape = SubResource("CapsuleShape2D_2vrrx")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]

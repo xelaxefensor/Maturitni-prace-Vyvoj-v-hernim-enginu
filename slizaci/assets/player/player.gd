@@ -34,6 +34,9 @@ var mouse_from_centre_pixels = Vector2(0, 0)
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 @export var gravity = 1200
 
+@export var max_health = 100
+@export var health = 100
+
 	
 func _ready():
 	if player_id == multiplayer.get_unique_id():

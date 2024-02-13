@@ -9,7 +9,7 @@ extends Node2D
 
 @export var projectile: String
 
-@export var bullet_start_force: float = 3000
+@export var bullet_start_force: float = 2000
 
 @export var mag_size: int = 20
 @export var ammo_size: int = 120
