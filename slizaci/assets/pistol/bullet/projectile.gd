@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-@export var dmg = 10
+@export var damage = 10
 @export var start_force:float
 @export var time_to_live = 5.0
 
@@ -14,7 +14,10 @@ extends RigidBody2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if not multiplayer.is_server():
-		position = Vector2(9999,9999999)
+		position = replicated_position
+		rotation = replicated_rotation
+		linear_velocity = replicated_linear_velocity
+		angular_velocity = replicated_angular_velocity
 	
 	apply_central_impulse(Vector2(cos(rotation),sin(rotation))*start_force)
 	
