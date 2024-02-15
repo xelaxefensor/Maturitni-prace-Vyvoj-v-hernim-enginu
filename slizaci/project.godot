@@ -106,6 +106,8 @@ reload={
 2d_physics/layer_1="default"
 2d_physics/layer_2="player character"
 2d_physics/layer_3="level"
+2d_physics/layer_4="projectiles"
+2d_physics/layer_5="hurt, hit area"
 
 [rendering]
 

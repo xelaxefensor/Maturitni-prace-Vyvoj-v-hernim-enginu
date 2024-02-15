@@ -38,6 +38,8 @@ properties/2/spawn = true
 properties/2/replication_mode = 1
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_us2ra")
 jumpingTime = 0.1
 gravity = 3000
@@ -46,12 +48,23 @@ gravity = 3000
 position = Vector2(0, 11.79)
 shape = SubResource("CapsuleShape2D_2vrrx")
 
-[node name="HurtBox" type="CollisionShape2D" parent="."]
+[node name="HurtArea" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtArea"]
 position = Vector2(0, 11.79)
 shape = SubResource("CapsuleShape2D_2vrrx")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_1iofq")
+
+[node name="InputSynchronizer" type="MultiplayerSynchronizer" parent="." node_paths=PackedStringArray("mouse_centre")]
+root_path = NodePath(".")
+replication_config = SubResource("SceneReplicationConfig_2uvcr")
+script = ExtResource("2_lvdns")
+mouse_centre = NodePath("../PlayerMouseCentre")
 
 [node name="JumpingTimer" type="Timer" parent="."]
 wait_time = 0.1
@@ -64,12 +77,6 @@ one_shot = true
 [node name="CoyoteTimer" type="Timer" parent="."]
 wait_time = 0.193
 one_shot = true
-
-[node name="InputSynchronizer" type="MultiplayerSynchronizer" parent="." node_paths=PackedStringArray("mouse_centre")]
-root_path = NodePath(".")
-replication_config = SubResource("SceneReplicationConfig_2uvcr")
-script = ExtResource("2_lvdns")
-mouse_centre = NodePath("../PlayerMouseCentre")
 
 [node name="PlayerCamera" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
 position_smoothing_enabled = true
