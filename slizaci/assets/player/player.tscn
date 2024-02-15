@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://b153tcsd2evxl"]
+[gd_scene load_steps=12 format=3 uid="uid://b153tcsd2evxl"]
 
 [ext_resource type="Script" path="res://assets/player/player.gd" id="1_us2ra"]
 [ext_resource type="Script" path="res://assets/player/player_input.gd" id="2_lvdns"]
+[ext_resource type="PackedScene" uid="uid://5h1ihyi0yj52" path="res://assets/hit area/hit_area.tscn" id="2_qjn1s"]
 [ext_resource type="Script" path="res://assets/player/camera/player_camera.gd" id="3_1c552"]
 [ext_resource type="SpriteFrames" uid="uid://cy73tmndqsq8p" path="res://assets/player/sprites/player_anim.tres" id="4_vnf4d"]
 [ext_resource type="PackedScene" uid="uid://com86osgfcl14" path="res://assets/player/arm/player_arm.tscn" id="5_1as08"]
@@ -37,7 +38,7 @@ properties/2/path = NodePath(".:mouse_from_centre")
 properties/2/spawn = true
 properties/2/replication_mode = 1
 
-[node name="Player" type="CharacterBody2D" groups=["player"]]
+[node name="Player" type="CharacterBody2D" groups=["player", "takes_damage"]]
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_us2ra")
@@ -48,14 +49,7 @@ gravity = 3000
 position = Vector2(0, 11.79)
 shape = SubResource("CapsuleShape2D_2vrrx")
 
-[node name="HurtArea" type="Area2D" parent="."]
-collision_layer = 16
-collision_mask = 8
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtArea"]
-position = Vector2(0, 11.79)
-shape = SubResource("CapsuleShape2D_2vrrx")
-debug_color = Color(0, 0.6, 0.701961, 0.419608)
+[node name="HitArea" parent="." instance=ExtResource("2_qjn1s")]
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_1iofq")
