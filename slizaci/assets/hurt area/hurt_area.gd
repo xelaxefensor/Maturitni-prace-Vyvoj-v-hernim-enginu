@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var damage = 10
+@export var damage = {"damage" = 10, "player_id" = 0, "team_id" = 0}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
