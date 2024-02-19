@@ -52,9 +52,13 @@ func _ready():
 	
 	if multiplayer.is_server():
 		add_to_group("team_"+str($/root/Main/Game.players[player_id]["team"]))
+		
+		var children = get_children()
+		for c in self.get_children():
+			c.add_to_group("team_"+str($/root/Main/Game.players[player_id]["team"]))
+			c.add_to_group("player_id_"+str(player_id))
 	
-
-
+	
 func player_is_on_floor():
 	if !jumping:
 		is_on_coyote_floor = true
