@@ -1,7 +1,10 @@
 extends Area2D
 
-signal take_damage()
+@export var healt:Health  
 
 func _on_area_entered(area):
-	if area.has_method("do_damage"):
-		take_damage.emit(area.do_damage())	
+	pass
+
+func take_damage(attack: Attack):
+	if healt:
+		healt.take_damage(attack)

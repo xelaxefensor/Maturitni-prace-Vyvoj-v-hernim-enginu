@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://c1cotq73mudcr"]
+[gd_scene load_steps=7 format=3 uid="uid://c1cotq73mudcr"]
 
 [ext_resource type="Script" path="res://assets/pistol/bullet/projectile.gd" id="1_hivnw"]
 [ext_resource type="Texture2D" uid="uid://0362j5g1ene1" path="res://assets/pistol/bullet/bullet.png" id="1_w8u3y"]
@@ -22,6 +22,9 @@ properties/3/path = NodePath(".:replicated_angular_velocity")
 properties/3/spawn = true
 properties/3/replication_mode = 1
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ls1n1"]
+size = Vector2(18, 8)
+
 [node name="Bullet" type="RigidBody2D" groups=["projectile"]]
 collision_layer = 8
 collision_mask = 5
@@ -40,3 +43,8 @@ texture = ExtResource("1_w8u3y")
 replication_config = SubResource("SceneReplicationConfig_g18qm")
 
 [node name="HurtArea" parent="." instance=ExtResource("3_gi61y")]
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtArea"]
+shape = SubResource("RectangleShape2D_ls1n1")

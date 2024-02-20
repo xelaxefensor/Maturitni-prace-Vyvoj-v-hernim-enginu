@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://b153tcsd2evxl"]
+[gd_scene load_steps=14 format=3 uid="uid://b153tcsd2evxl"]
 
 [ext_resource type="Script" path="res://assets/player/player.gd" id="1_us2ra"]
 [ext_resource type="Script" path="res://assets/player/player_input.gd" id="2_lvdns"]
 [ext_resource type="PackedScene" uid="uid://5h1ihyi0yj52" path="res://assets/hit area/hit_area.tscn" id="2_qjn1s"]
 [ext_resource type="Script" path="res://assets/player/camera/player_camera.gd" id="3_1c552"]
+[ext_resource type="PackedScene" uid="uid://dsus5wmlae3f6" path="res://assets/health/health.tscn" id="3_x7he3"]
 [ext_resource type="SpriteFrames" uid="uid://cy73tmndqsq8p" path="res://assets/player/sprites/player_anim.tres" id="4_vnf4d"]
 [ext_resource type="PackedScene" uid="uid://com86osgfcl14" path="res://assets/player/arm/player_arm.tscn" id="5_1as08"]
 [ext_resource type="Script" path="res://addons/smoothing/smoothing_2d.gd" id="5_3vk16"]
@@ -12,6 +13,10 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2vrrx"]
 radius = 28.0
 height = 147.19
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4n8dl"]
+radius = 33.0
+height = 145.79
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_1iofq"]
 properties/0/path = NodePath(".:position")
@@ -49,7 +54,14 @@ gravity = 3000
 position = Vector2(0, 11.79)
 shape = SubResource("CapsuleShape2D_2vrrx")
 
-[node name="HitArea" parent="." instance=ExtResource("2_qjn1s")]
+[node name="HitArea" parent="." node_paths=PackedStringArray("healt") instance=ExtResource("2_qjn1s")]
+healt = NodePath("../Health")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea"]
+position = Vector2(0, 13.105)
+shape = SubResource("CapsuleShape2D_4n8dl")
+
+[node name="Health" parent="." instance=ExtResource("3_x7he3")]
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_1iofq")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dsus5wmlae3f6"]
+
+[ext_resource type="Script" path="res://assets/health/health.gd" id="1_pncvf"]
+
+[node name="Health" type="Node"]
+script = ExtResource("1_pncvf")
+
+[connection signal="health_changed" from="." to="." method="_on_health_changed"]
