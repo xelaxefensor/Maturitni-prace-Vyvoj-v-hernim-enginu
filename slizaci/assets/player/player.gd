@@ -6,6 +6,8 @@ extends CharacterBody2D
 		add_to_group("player_id_"+str(id))
 		# Give authority over the player input to the appropriate peer.
 		$InputSynchronizer.set_multiplayer_authority(id)
+		
+var team_id := 1
 
 @export var speed:float = 6000.0
 @export var jumpVelocity:float = 10000.0
@@ -34,9 +36,7 @@ var mouse_from_centre_pixels = Vector2(0, 0)
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 @export var gravity = 1200
 
-@export var max_health = 100
-@export var health = 100
-
+@export var hit_area: Area2D
 	
 func _ready():
 	if player_id == multiplayer.get_unique_id():
@@ -52,11 +52,15 @@ func _ready():
 	
 	if multiplayer.is_server():
 		add_to_group("team_"+str($/root/Main/Game.players[player_id]["team"]))
+		team_id = $/root/Main/Game.players[player_id]["team"]
 		
 		var children = get_children()
 		for c in self.get_children():
 			c.add_to_group("team_"+str($/root/Main/Game.players[player_id]["team"]))
 			c.add_to_group("player_id_"+str(player_id))
+			
+	hit_area.player_id = player_id
+	hit_area.team_id = team_id
 	
 	
 func player_is_on_floor():

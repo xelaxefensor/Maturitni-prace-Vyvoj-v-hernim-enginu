@@ -2,8 +2,8 @@ extends Area2D
 
 var attack = Attack.new()
 
-var team_id = 1
 var player_id = 1
+var team_id = 1
 
 
 # Called when the node enters the scene tree for the first time.
@@ -13,10 +13,8 @@ func _ready():
 
 
 func _on_area_entered(area):
-	for c in self.get_groups():
-		for i in area.get_groups():
-			if c == i:
-				return
+	if player_id == area.player_id or team_id == area.team_id:
+		return
 	
 	if area.has_method("take_damage"):
 		area.take_damage(attack)

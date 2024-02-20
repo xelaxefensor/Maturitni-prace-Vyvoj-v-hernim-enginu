@@ -10,6 +10,7 @@ extends RigidBody2D
 @export var replicated_linear_velocity : Vector2
 @export var replicated_angular_velocity : float
 
+@export var hurt_area: Area2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -59,3 +60,6 @@ func innitialize(position, start_force, rotation, player_id, team_id):
 	
 	add_to_group("player_id_"+str(player_id))
 	add_to_group("team_"+str(team_id))
+	
+	hurt_area.player_id = player_id
+	hurt_area.team_id = team_id
