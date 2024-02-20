@@ -59,10 +59,10 @@ func _ready():
 			c.add_to_group("team_"+str($/root/Main/Game.players[player_id]["team"]))
 			c.add_to_group("player_id_"+str(player_id))
 			
-	hit_area.player_id = player_id
-	hit_area.team_id = team_id
+		hit_area.player_id = player_id
+		hit_area.team_id = team_id
 	
-	
+
 func player_is_on_floor():
 	if !jumping:
 		is_on_coyote_floor = true
