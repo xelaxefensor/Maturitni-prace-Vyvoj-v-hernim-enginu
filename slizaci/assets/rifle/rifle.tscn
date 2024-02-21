@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://b1pq4uppopcpp"]
+
+[ext_resource type="Script" path="res://assets/rifle/rifle.gd" id="1_72ob5"]
+[ext_resource type="Script" path="res://addons/smoothing/smoothing_2d.gd" id="2_8p5qs"]
+[ext_resource type="Texture2D" uid="uid://d2xxm8eanu1b3" path="res://assets/rifle/Rifle.png" id="3_fk3wg"]
+
+[node name="Rifle" type="Node2D" node_paths=PackedStringArray("sprite", "projectile_spawn", "reload_timer")]
+script = ExtResource("1_72ob5")
+sprite = NodePath("Smoothing2D/Rifle")
+projectile_spawn = NodePath("ProjectileSpawn")
+reload_timer = NodePath("ReloadTimer")
+projectile = "\"res://assets/pistol/bullet.tscn\""
+fire_rate_delay = 5.0
+
+[node name="ProjectileSpawn" type="Marker2D" parent="."]
+position = Vector2(120, -4)
+
+[node name="ReloadTimer" type="Timer" parent="."]
+
+[node name="Smoothing2D" type="Node2D" parent="."]
+script = ExtResource("2_8p5qs")
+
+[node name="Rifle" type="Sprite2D" parent="Smoothing2D"]
+position = Vector2(44, -4)
+scale = Vector2(4.48438, 4.48438)
+texture = ExtResource("3_fk3wg")
+
+[connection signal="timeout" from="ReloadTimer" to="." method="_on_reload_timer_timeout"]
