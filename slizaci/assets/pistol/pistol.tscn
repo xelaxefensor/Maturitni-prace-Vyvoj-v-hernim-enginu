@@ -25,3 +25,4 @@ scale = Vector2(3.34375, 3.34375)
 texture = ExtResource("1_kjboc")
 
 [connection signal="ammo_changed" from="." to="." method="_on_ammo_changed"]
+[connection signal="timeout" from="ReloadTimer" to="." method="_on_reload_timer_timeout"]

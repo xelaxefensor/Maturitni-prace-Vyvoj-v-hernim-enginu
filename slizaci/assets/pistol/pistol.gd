@@ -18,10 +18,12 @@ var ammo_count
 
 var reloading = false
 
-var fire_rate_time
+@export var fire_rate_delay: float = 0.5
+var current_fire_rate_delay: float = 0
 
 
 signal ammo_changed(currentMagCount,currentAmmoCount)
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -32,15 +34,21 @@ func _ready():
 	player_input.reload_just_pressed.connect(reload)
 	
 	player = get_parent().get_parent()
+	
+	current_fire_rate_delay = fire_rate_delay
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	if fire_rate_delay > current_fire_rate_delay:
+		current_fire_rate_delay += delta
 
 
 func fire():
-	if reloading:
+	if reloading or fire_rate_delay > current_fire_rate_delay:
 		return
+	
+	current_fire_rate_delay = 0
 	
 	spawn_projectile()
 	
@@ -61,6 +69,8 @@ func spawn_projectile():
 	
 func reload():
 	reloading = true
+	
+	reload_timer.start()
 
 
 func _on_reload_timer_timeout():
