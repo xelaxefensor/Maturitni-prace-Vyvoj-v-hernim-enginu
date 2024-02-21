@@ -27,10 +27,10 @@ extends Node
 #flag			- Capture the flag
 #				- 2 or more teams
 
-const DEFAULT_WARMUP_TIME = 100.0
-const DEFAULT_ROUND_START_TIME = 10.0
+const DEFAULT_WARMUP_TIME = 5.0
+const DEFAULT_ROUND_START_TIME = 2.0
 const DEFAULT_ROUND_PLAY_TIME = 300.0
-const DEFAULT_ROUND_END_TIME = 5.0
+const DEFAULT_ROUND_END_TIME = 2.0
 const DEFAULT_GAME_END_TIME = 10.0
 
 
@@ -39,7 +39,7 @@ signal game_ended
 signal team_select(visibility)
 
 
-var number_of_rounds = 6
+var number_of_rounds = 6 #double the rounds to win
 var current_round_number = 0
 
 @export var can_players_spawn = false
@@ -257,6 +257,8 @@ func server_set_warmup(time):
 	server_game_phase = "warmup"
 	can_players_spawn = true
 	
+	reset_score()
+	
 	if time == 0:
 		%PhaseTimer.wait_time = DEFAULT_WARMUP_TIME
 	else:
@@ -269,6 +271,7 @@ func server_set_round_start(time):
 	server_game_phase = "round_start"
 	can_players_spawn = true
 	
+	reset_round_score()
 	despawn_all_players()
 	
 	if time == 0:
@@ -282,6 +285,8 @@ func server_set_round_start(time):
 func server_set_round_play(time):
 	server_game_phase = "round_play"
 	can_players_spawn = true
+	
+	reset_round_score()
 	
 	if time == 0:
 		%PhaseTimer.wait_time = DEFAULT_ROUND_PLAY_TIME
@@ -341,7 +346,7 @@ func _input(event):
 		team_select.emit("switch")
 
 
-@rpc("any_peer", "call_local", "reliable")
+@rpc("authority", "call_local", "reliable")
 func player_died(id):
 	despawn_player.rpc_id(1, id)
 	
@@ -351,15 +356,29 @@ func player_died(id):
 
 
 func check_round_to_win_team_score(team_id):
-	if teams[team_id]["round_score"] >= score_to_win_round:
-		teams[team_id]["game_score"] += 1
-		teams[team_id]["round_score"] = 0
+	if server_game_phase == "round_play":
+		if teams[team_id]["round_score"] >= score_to_win_round:
+			teams[team_id]["game_score"] += 1
+			teams[team_id]["round_score"] = 0
 		
-		server_set_round_end(DEFAULT_ROUND_END_TIME)
+			check_round_to_win_team_game(team_id)
 		
-		check_round_to_win_team_game(team_id)
-
+			if not teams[team_id]["game_score"] >= score_to_win_game:
+				server_set_round_end(DEFAULT_ROUND_END_TIME)
+		
 
 func check_round_to_win_team_game(team_id):
-	if teams[team_id]["game_score"] >= score_to_win_game:
-		server_set_game_end(DEFAULT_GAME_END_TIME)
+	if server_game_phase == "round_play":
+		if teams[team_id]["game_score"] >= score_to_win_game:
+			server_set_game_end(DEFAULT_GAME_END_TIME)
+
+
+func reset_score():
+	for c in teams:
+		teams[c]["round_score"] = 0
+		teams[c]["game_score"] = 0
+
+		
+func reset_round_score():
+	for c in teams:
+		teams[c]["round_score"] = 0

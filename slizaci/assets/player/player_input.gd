@@ -44,7 +44,7 @@ func reload_pressed():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	if can_process:
+	if can_process and not $/root/Main/Game.server_game_phase == "round_start":
 		direction = Input.get_vector("player_left", "player_right", "player_up", "player_down")
 		
 		if Input.is_action_just_pressed("player_jump"):

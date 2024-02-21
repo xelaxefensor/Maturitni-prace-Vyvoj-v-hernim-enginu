@@ -25,4 +25,4 @@ func check_is_healt_zero():
 	if health <= 0:
 		health_zero.emit()
 	
-		$/root/Main/Game.player_died.rpc_id(1, get_parent().player_id)
+		$/root/Main/Game.player_died.rpc_id(1 , get_parent().player_id)
