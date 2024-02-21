@@ -63,7 +63,7 @@ func spawn_projectile():
 	if not multiplayer.is_server():
 		return
 	
-	var bullet = preload("res://assets/pistol/bullet/bullet.tscn").instantiate()
+	var bullet = preload("res://assets/bullet/bullet.tscn").instantiate()
 	bullet.innitialize($ProjectileSpawn.global_position, bullet_start_force, rotation, player.player_id, $/root/Main/Game.players[player.player_id]["team"])
 	get_node("/root/Main/Game/Projectiles").add_child(bullet, true)
 	

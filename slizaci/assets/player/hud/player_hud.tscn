@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bnd5of6lgukop"]
+[gd_scene load_steps=8 format=3 uid="uid://bnd5of6lgukop"]
 
 [ext_resource type="PackedScene" uid="uid://3vc4a3e0tc4w" path="res://assets/UI/chat/chat.tscn" id="1_iwg8h"]
 [ext_resource type="Script" path="res://assets/player/hud/player_hud.gd" id="1_kr1e0"]
 [ext_resource type="Script" path="res://scripts/PhaseTimer.gd" id="2_bc161"]
 [ext_resource type="Script" path="res://scripts/phase_label.gd" id="2_nl57n"]
+[ext_resource type="Script" path="res://assets/player/hud/ammo_hud.gd" id="5_32gd0"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wxkcq"]
 properties/0/path = NodePath("VBoxContainer/PhaseTimer:phase_time")
@@ -14,6 +15,7 @@ properties/0/replication_mode = 1
 font_size = 36
 
 [node name="PlayerHUD" type="CanvasLayer"]
+visible = false
 script = ExtResource("1_kr1e0")
 metadata/_edit_use_anchors_ = true
 
@@ -86,6 +88,8 @@ size_flags_vertical = 1
 size_flags_stretch_ratio = 2.2
 
 [node name="Ammo" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
@@ -93,3 +97,4 @@ text = "7/20"
 label_settings = SubResource("LabelSettings_n3x83")
 horizontal_alignment = 2
 vertical_alignment = 2
+script = ExtResource("5_32gd0")

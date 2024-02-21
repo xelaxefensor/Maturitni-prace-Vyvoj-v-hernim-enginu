@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://c1cotq73mudcr"]
 
-[ext_resource type="Script" path="res://assets/pistol/bullet/projectile.gd" id="1_hivnw"]
-[ext_resource type="Texture2D" uid="uid://0362j5g1ene1" path="res://assets/pistol/bullet/bullet.png" id="1_w8u3y"]
-[ext_resource type="PackedScene" uid="uid://4r4ujnibe14u" path="res://assets/hurt area/hurt_area.tscn" id="3_gi61y"]
+[ext_resource type="Script" path="res://assets/bullet/projectile.gd" id="1_pwr7r"]
+[ext_resource type="Texture2D" uid="uid://0362j5g1ene1" path="res://assets/bullet/bullet.png" id="2_yxdvx"]
+[ext_resource type="PackedScene" uid="uid://4r4ujnibe14u" path="res://assets/hurt area/hurt_area.tscn" id="3_4mi63"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x0kqk"]
 radius = 4.0
@@ -29,7 +29,7 @@ size = Vector2(18, 8)
 collision_layer = 8
 collision_mask = 5
 mass = 0.01
-script = ExtResource("1_hivnw")
+script = ExtResource("1_pwr7r")
 hurt_area = NodePath("HurtArea")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -38,12 +38,12 @@ shape = SubResource("CapsuleShape2D_x0kqk")
 
 [node name="Bullet" type="Sprite2D" parent="."]
 position = Vector2(0, -0.5)
-texture = ExtResource("1_w8u3y")
+texture = ExtResource("2_yxdvx")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_g18qm")
 
-[node name="HurtArea" parent="." instance=ExtResource("3_gi61y")]
+[node name="HurtArea" parent="." instance=ExtResource("3_4mi63")]
 collision_layer = 16
 collision_mask = 16
 
