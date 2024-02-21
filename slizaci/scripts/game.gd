@@ -39,7 +39,7 @@ signal game_ended
 signal team_select(visibility)
 
 
-var number_of_rounds = 1
+var number_of_rounds = 6
 var current_round_number = 0
 
 @export var can_players_spawn = false
@@ -49,8 +49,10 @@ var minimal_player_size = 2
 var max_team_players = 8
 var round_time = 300.0
 
-var score_to_win_round = 10
-var score_to_win_game = 20
+var score_to_win_round = 5
+var score_to_win_game = 3
+
+var rounds_to_win_game = 1
 
 var player_info = {"name" = PlayerSettings.player_name, 
 	"color" = PlayerSettings.player_color, 
@@ -69,8 +71,20 @@ var team_info = {"is_full" = false,
 	 "round_score" = 0,
 	 "game_score" = 0
 	}
-
+	
 @export var teams = {}
+
+##var team_score = {"round_score" = 0,
+##	"game_score" = 0
+#}
+
+#@export var team_scores = {}
+
+#var player_score = {"round_score" = 0,
+#	"game_score" = 0
+#}
+
+#@export var player_scores = {}
 
 
 # Called when the node enters the scene tree for the first time.
@@ -80,6 +94,7 @@ func _ready():
 	MultiplayerManager.succeded_to_connect.connect(succeded_to_connect)
 	$/root/Main/%TeamSelect.team_selected.connect(team_selected)
 
+	score_to_win_game = number_of_rounds/2
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -324,3 +339,27 @@ func _on_phase_timer_timeout():
 func _input(event):
 	if event.is_action_pressed("team_select"):
 		team_select.emit("switch")
+
+
+@rpc("any_peer", "call_local", "reliable")
+func player_died(id):
+	despawn_player.rpc_id(1, id)
+	
+	teams[players[id]["team"]]["round_score"] += 1
+	
+	check_round_to_win_team_score(players[id]["team"])
+
+
+func check_round_to_win_team_score(team_id):
+	if teams[team_id]["round_score"] >= score_to_win_round:
+		teams[team_id]["game_score"] += 1
+		teams[team_id]["round_score"] = 0
+		
+		server_set_round_end(DEFAULT_ROUND_END_TIME)
+		
+		check_round_to_win_team_game(team_id)
+
+
+func check_round_to_win_team_game(team_id):
+	if teams[team_id]["game_score"] >= score_to_win_game:
+		server_set_game_end(DEFAULT_GAME_END_TIME)
