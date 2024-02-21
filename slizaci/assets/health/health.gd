@@ -13,7 +13,7 @@ func _ready():
 
 
 func take_damage(attack: Attack):
-	health =- attack.damage
+	health -= attack.damage
 	health_changed.emit()
 	
 	
