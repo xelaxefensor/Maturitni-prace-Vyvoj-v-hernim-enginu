@@ -20,7 +20,7 @@ properties/3/replication_mode = 2
 script = ExtResource("1_ovdom")
 
 [node name="ProjectilesSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://assets/pistol/bullet/bullet.tscn")
+_spawnable_scenes = PackedStringArray("res://assets/bullet/bullet.tscn")
 spawn_path = NodePath("../Projectiles")
 spawn_limit = 99999
 

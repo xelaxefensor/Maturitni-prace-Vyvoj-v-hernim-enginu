@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b153tcsd2evxl"]
+[gd_scene load_steps=16 format=3 uid="uid://b153tcsd2evxl"]
 
 [ext_resource type="Script" path="res://assets/player/player.gd" id="1_us2ra"]
 [ext_resource type="Script" path="res://assets/player/player_input.gd" id="2_lvdns"]
@@ -8,6 +8,9 @@
 [ext_resource type="SpriteFrames" uid="uid://cy73tmndqsq8p" path="res://assets/player/sprites/player_anim.tres" id="4_vnf4d"]
 [ext_resource type="PackedScene" uid="uid://com86osgfcl14" path="res://assets/player/arm/player_arm.tscn" id="5_1as08"]
 [ext_resource type="Script" path="res://addons/smoothing/smoothing_2d.gd" id="5_3vk16"]
+[ext_resource type="PackedScene" uid="uid://b1pq4uppopcpp" path="res://assets/rifle/rifle.tscn" id="9_51lrv"]
+[ext_resource type="PackedScene" uid="uid://bimpwb3wm0kwk" path="res://assets/pistol/pistol.tscn" id="9_54abd"]
+[ext_resource type="Script" path="res://assets/player/Weapons.gd" id="9_esuap"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2vrrx"]
 radius = 28.0
@@ -94,7 +97,8 @@ target = NodePath("../PlayerMouseCentre")
 [node name="PlayerMouseCentre" type="Marker2D" parent="."]
 position = Vector2(0.035, -27.625)
 
-[node name="Arm" parent="PlayerMouseCentre" instance=ExtResource("5_1as08")]
+[node name="Arm" parent="PlayerMouseCentre" node_paths=PackedStringArray("item_in_hand") instance=ExtResource("5_1as08")]
+item_in_hand = NodePath("../../Weapons/Rifle")
 arm_lenght = 60.0
 
 [node name="Smoothing2D" type="Node2D" parent="."]
@@ -112,7 +116,19 @@ frame = 5
 frame_progress = 0.720529
 offset = Vector2(-1.2, 0)
 
-[node name="Weapons" type="Node2D" parent="."]
+[node name="Weapons" type="Node2D" parent="." node_paths=PackedStringArray("arm", "player_input")]
+script = ExtResource("9_esuap")
+arm = NodePath("../PlayerMouseCentre/Arm")
+player_input = NodePath("../InputSynchronizer")
+
+[node name="Pistol" parent="Weapons" node_paths=PackedStringArray("player_input", "player") instance=ExtResource("9_54abd")]
+player_input = NodePath("../../InputSynchronizer")
+player = NodePath("../..")
+
+[node name="Rifle" parent="Weapons" node_paths=PackedStringArray("player_input", "player") instance=ExtResource("9_51lrv")]
+player_input = NodePath("../../InputSynchronizer")
+player = NodePath("../..")
+fire_rate_delay = 0.125
 
 [connection signal="timeout" from="JumpingTimer" to="." method="_on_jumping_timer_timeout"]
 [connection signal="timeout" from="UpBufferTimer" to="." method="_on_up_buffer_timer_timeout"]

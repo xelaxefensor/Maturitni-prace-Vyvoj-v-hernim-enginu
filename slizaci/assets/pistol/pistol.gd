@@ -24,6 +24,8 @@ var current_fire_rate_delay: float = 0
 
 signal ammo_changed(current_mag_count, current_ammo_count)
 
+var is_active = false
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -44,11 +46,17 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if not is_active:
+		return
+	
 	if fire_rate_delay > current_fire_rate_delay:
 		current_fire_rate_delay += delta
 
 
 func fire():
+	if not is_active:
+		return
+	
 	if reloading or fire_rate_delay > current_fire_rate_delay:
 		return
 	
@@ -63,12 +71,15 @@ func spawn_projectile():
 	if not multiplayer.is_server():
 		return
 	
-	var bullet = preload("res://assets/pistol/bullet/bullet.tscn").instantiate()
+	var bullet = preload("res://assets/bullet/bullet.tscn").instantiate()
 	bullet.innitialize($ProjectileSpawn.global_position, bullet_start_force, rotation, player.player_id, $/root/Main/Game.players[player.player_id]["team"])
 	get_node("/root/Main/Game/Projectiles").add_child(bullet, true)
 	
 	
 func reload():
+	if not is_active:
+		return
+	
 	if reloading == true:
 		return
 	

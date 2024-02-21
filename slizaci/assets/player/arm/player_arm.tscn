@@ -11,6 +11,7 @@ arm_lenght = 100.0
 [node name="ArmBase" type="Marker2D" parent="."]
 
 [node name="ArmEnd" type="Marker2D" parent="."]
+position = Vector2(31.515, 0)
 
 [node name="Smoothing2D" type="Node2D" parent="."]
 script = ExtResource("2_fcv80")

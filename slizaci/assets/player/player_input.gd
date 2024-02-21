@@ -14,6 +14,8 @@ signal fire_just_pressed
 signal reload_just_pressed
 signal fire_pressing
 
+signal weapon_selected(weapon_index)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	player = get_parent()
@@ -46,6 +48,26 @@ func fire():
 @rpc("authority", "call_local", "reliable")
 func reload_pressed():
 	reload_just_pressed.emit()
+	
+
+@rpc("authority", "call_local", "reliable")
+func weapon_1():
+	weapon_selected.emit(0)
+	
+
+@rpc("authority", "call_local", "reliable")
+func weapon_2():
+	weapon_selected.emit(1)
+	
+	
+@rpc("authority", "call_local", "reliable")
+func weapon_3():
+	weapon_selected.emit(2)
+	
+	
+@rpc("authority", "call_local", "reliable")
+func weapon_4():
+	weapon_selected.emit(3)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -69,6 +91,19 @@ func _process(_delta):
 		
 		if Input.is_action_just_pressed("reload"):
 			reload_pressed.rpc()
+			
+		if Input.is_action_just_pressed("weapon_1"):
+			weapon_1.rpc()
+			
+		if Input.is_action_just_pressed("weapon_2"):
+			weapon_2.rpc()	
+			
+		if Input.is_action_just_pressed("weapon_3"):
+			weapon_3.rpc()
+			
+		if Input.is_action_just_pressed("weapon_4"):
+			weapon_4.rpc()		
+		
 		
 		var mouse_centre_screen_cords = mouse_centre.get_global_transform_with_canvas().get_origin()
 		mouse_from_centre = (get_viewport().get_mouse_position() - mouse_centre_screen_cords)
