@@ -54,10 +54,10 @@ func _ready():
 		add_to_group("team_"+str($/root/Main/Game.players[player_id]["team"]))
 		team_id = $/root/Main/Game.players[player_id]["team"]
 		
-		var children = get_children()
-		for c in self.get_children():
-			c.add_to_group("team_"+str($/root/Main/Game.players[player_id]["team"]))
-			c.add_to_group("player_id_"+str(player_id))
+		#var children = get_children()
+		#for c in self.get_children():
+		#	c.add_to_group("team_"+str($/root/Main/Game.players[player_id]["team"]))
+		#	c.add_to_group("player_id_"+str(player_id))
 			
 		hit_area.player_id = player_id
 		hit_area.team_id = team_id

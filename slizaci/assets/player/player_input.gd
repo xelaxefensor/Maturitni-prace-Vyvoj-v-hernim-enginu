@@ -12,6 +12,7 @@ var can_process = true
 
 signal fire_just_pressed
 signal reload_just_pressed
+signal fire_pressing
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -38,6 +39,11 @@ func fire_pressed():
 
 
 @rpc("authority", "call_local", "reliable")
+func fire():
+	fire_pressing.emit()
+
+
+@rpc("authority", "call_local", "reliable")
 func reload_pressed():
 	reload_just_pressed.emit()
 
@@ -57,6 +63,9 @@ func _process(_delta):
 		
 		if Input.is_action_just_pressed("fire"):
 			fire_pressed.rpc()
+			
+		if Input.is_action_pressed("fire"):
+			fire.rpc()
 		
 		if Input.is_action_just_pressed("reload"):
 			reload_pressed.rpc()

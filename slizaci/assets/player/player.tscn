@@ -116,8 +116,9 @@ offset = Vector2(-1.2, 0)
 
 [node name="Weapons" type="Node2D" parent="."]
 
-[node name="Pistol" parent="Weapons" node_paths=PackedStringArray("player_input") instance=ExtResource("7_meewr")]
+[node name="Pistol" parent="Weapons" node_paths=PackedStringArray("player_input", "player") instance=ExtResource("7_meewr")]
 player_input = NodePath("../../InputSynchronizer")
+player = NodePath("../..")
 
 [connection signal="timeout" from="JumpingTimer" to="." method="_on_jumping_timer_timeout"]
 [connection signal="timeout" from="UpBufferTimer" to="." method="_on_up_buffer_timer_timeout"]

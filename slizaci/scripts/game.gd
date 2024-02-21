@@ -236,7 +236,7 @@ func despawn_all_players():
 		despawn_player.rpc_id(1, arr[i])
 			
 	
-@rpc("any_peer", "call_local", "reliable", 2)
+@rpc("authority", "call_local", "reliable", 2)
 func despawn_player(id):
 	var player = get_tree().get_nodes_in_group("player_id_"+str(id))
 	
