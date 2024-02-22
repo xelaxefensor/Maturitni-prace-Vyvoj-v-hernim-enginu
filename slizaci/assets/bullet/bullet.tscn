@@ -23,7 +23,7 @@ properties/3/spawn = true
 properties/3/replication_mode = 1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ls1n1"]
-size = Vector2(18, 8)
+size = Vector2(20, 10)
 
 [node name="Bullet" type="RigidBody2D" node_paths=PackedStringArray("hurt_area") groups=["projectile"]]
 collision_layer = 8
