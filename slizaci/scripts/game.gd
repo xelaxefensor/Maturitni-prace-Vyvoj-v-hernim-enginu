@@ -347,12 +347,12 @@ func _input(event):
 
 
 @rpc("authority", "call_local", "reliable")
-func player_died(id):
-	despawn_player.rpc_id(1, id)
+func player_died(dead_player_id, killer_player_id):
+	despawn_player.rpc_id(1, dead_player_id)
 	
-	teams[players[id]["team"]]["round_score"] += 1
+	teams[players[killer_player_id]["team"]]["round_score"] += 1
 	
-	check_round_to_win_team_score(players[id]["team"])
+	check_round_to_win_team_score(players[killer_player_id]["team"])
 
 
 func check_round_to_win_team_score(team_id):
@@ -364,12 +364,14 @@ func check_round_to_win_team_score(team_id):
 			check_round_to_win_team_game(team_id)
 		
 			if not teams[team_id]["game_score"] >= score_to_win_game:
+				team_won_round(team_id)
 				server_set_round_end(DEFAULT_ROUND_END_TIME)
 		
 
 func check_round_to_win_team_game(team_id):
 	if server_game_phase == "round_play":
 		if teams[team_id]["game_score"] >= score_to_win_game:
+			team_won_game(team_id)
 			server_set_game_end(DEFAULT_GAME_END_TIME)
 
 
@@ -382,3 +384,23 @@ func reset_score():
 func reset_round_score():
 	for c in teams:
 		teams[c]["round_score"] = 0
+
+
+func team_won_round(winning_team_id):
+	do_big_notification.rpc("Tým " + str(winning_team_id) + " vyhrál kolo", 5.0)
+	
+	
+func team_won_game(winning_team_id):
+	do_big_notification.rpc("Tým " + str(winning_team_id) + " vyhrál hru", 5.0)
+
+
+@rpc("any_peer", "call_local", "reliable")
+func do_big_notification(text:String, time_up:float):
+	var notification = $/root/Main/PlayerHUD/%BigNotification
+	
+	notification.text = text
+	notification.visible = true
+	
+	await get_tree().create_timer(time_up).timeout
+
+	notification.visible = false

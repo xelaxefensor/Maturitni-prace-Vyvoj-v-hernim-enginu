@@ -31,6 +31,7 @@ func deactivate_weapon(index):
 	
 	weapons[index].visible = false
 
+
 func switch_weapon(new_weapon_id):
 	for i in weapons.size():
 		deactivate_weapon(i)

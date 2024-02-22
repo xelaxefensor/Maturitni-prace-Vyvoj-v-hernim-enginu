@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bnd5of6lgukop"]
+[gd_scene load_steps=9 format=3 uid="uid://bnd5of6lgukop"]
 
 [ext_resource type="PackedScene" uid="uid://3vc4a3e0tc4w" path="res://assets/UI/chat/chat.tscn" id="1_iwg8h"]
 [ext_resource type="Script" path="res://assets/player/hud/player_hud.gd" id="1_kr1e0"]
@@ -13,6 +13,10 @@ properties/0/replication_mode = 1
 
 [sub_resource type="LabelSettings" id="LabelSettings_n3x83"]
 font_size = 36
+
+[sub_resource type="LabelSettings" id="LabelSettings_3xcjl"]
+font_size = 72
+font_color = Color(0.254902, 1, 0.164706, 1)
 
 [node name="PlayerHUD" type="CanvasLayer"]
 visible = false
@@ -98,3 +102,13 @@ label_settings = SubResource("LabelSettings_n3x83")
 horizontal_alignment = 2
 vertical_alignment = 2
 script = ExtResource("5_32gd0")
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="BigNotification" type="Label" parent="MarginContainer/CenterContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "Tým 1 vyhrál hru"
+label_settings = SubResource("LabelSettings_3xcjl")
