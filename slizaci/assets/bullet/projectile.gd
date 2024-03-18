@@ -63,3 +63,7 @@ func innitialize(position, start_force, rotation, player_id, team_id):
 	
 	hurt_area.player_id = player_id
 	hurt_area.team_id = team_id
+
+
+func _on_body_entered(body):
+	self.queue_free()

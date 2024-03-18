@@ -112,8 +112,6 @@ scale = Vector2(2.802, 2.802)
 sprite_frames = ExtResource("4_vnf4d")
 animation = &"idle"
 autoplay = "idle"
-frame = 5
-frame_progress = 0.720529
 offset = Vector2(-1.2, 0)
 
 [node name="Weapons" type="Node2D" parent="." node_paths=PackedStringArray("arm", "player_input")]
