@@ -44,3 +44,4 @@ func weapon_selected(index):
 		return
 		
 	switch_weapon(index)
+

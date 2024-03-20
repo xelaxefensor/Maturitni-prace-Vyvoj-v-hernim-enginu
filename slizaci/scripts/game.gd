@@ -52,7 +52,7 @@ var round_time = 300.0
 var score_to_win_round = 5
 var score_to_win_game = 3
 
-var rounds_to_win_game = 1
+#var rounds_to_win_game = 1
 
 var player_info = {"name" = PlayerSettings.player_name, 
 	"color" = PlayerSettings.player_color, 

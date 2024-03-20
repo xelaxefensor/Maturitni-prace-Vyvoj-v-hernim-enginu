@@ -131,3 +131,4 @@ fire_rate_delay = 0.125
 [connection signal="timeout" from="JumpingTimer" to="." method="_on_jumping_timer_timeout"]
 [connection signal="timeout" from="UpBufferTimer" to="." method="_on_up_buffer_timer_timeout"]
 [connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
+[connection signal="ammo_changed" from="Weapons/Rifle" to="Weapons/Rifle" method="_on_ammo_changed"]

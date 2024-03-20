@@ -59,6 +59,9 @@ func fire():
 	
 	if reloading or fire_rate_delay > current_fire_rate_delay:
 		return
+		
+	if mag_count <= 0:
+		return
 	
 	current_fire_rate_delay = 0
 	

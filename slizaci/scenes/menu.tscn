@@ -283,6 +283,11 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "Zpět"
 
+[node name="HostMenu" type="VBoxContainer" parent="MarginContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
 [connection signal="pressed" from="MarginContainer/StartMenu/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="MarginContainer/StartMenu/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="MarginContainer/StartMenu/Exit" to="." method="_on_exit_pressed"]
