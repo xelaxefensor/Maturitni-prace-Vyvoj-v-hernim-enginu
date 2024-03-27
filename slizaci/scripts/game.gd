@@ -44,7 +44,7 @@ var current_round_number = 0
 
 @export var can_players_spawn = false
 
-var map = "res://assets/levels/test_01.tscn"
+var map = "res://assets/levels/lab.tscn"
 var minimal_player_size = 2
 var max_team_players = 8
 var round_time = 300.0
