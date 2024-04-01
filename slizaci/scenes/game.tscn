@@ -25,7 +25,7 @@ spawn_path = NodePath("../Projectiles")
 spawn_limit = 99999
 
 [node name="LevelSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://assets/levels/test_01.tscn")
+_spawnable_scenes = PackedStringArray("res://assets/levels/test_01.tscn", "res://assets/levels/lab.tscn")
 spawn_path = NodePath("../Level")
 spawn_limit = 1
 
