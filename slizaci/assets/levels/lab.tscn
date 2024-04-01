@@ -1,14 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://lyorlvlm4nl6"]
+[gd_scene load_steps=4 format=3 uid="uid://lyorlvlm4nl6"]
 
 [ext_resource type="PackedScene" uid="uid://c80ffgj0t7avt" path="res://scenes/player_spaw_point.tscn" id="1_pshn2"]
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_xabak"]
-[ext_resource type="Texture2D" uid="uid://d2xxm8eanu1b3" path="res://assets/rifle/Rifle.png" id="2_ddu7u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_osl6l"]
 size = Vector2(11405, 144)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yt7oi"]
-size = Vector2(1284, 276)
 
 [node name="Map" type="Node2D"]
 script = ExtResource("1_xabak")
@@ -22,14 +18,7 @@ script = ExtResource("1_xabak")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Geometry/StaticBody2D"]
 position = Vector2(568, 256)
 shape = SubResource("RectangleShape2D_osl6l")
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="Geometry"]
-position = Vector2(-124, 293)
-rotation = 0.531253
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Geometry/StaticBody2D2"]
-position = Vector2(-632, 165)
-shape = SubResource("RectangleShape2D_yt7oi")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
 [node name="PlayerSpawnPoints" type="Node2D" parent="."]
 
@@ -42,22 +31,3 @@ position = Vector2(-389, -114)
 
 [node name="PlayerSpawnPoint2" parent="PlayerSpawnPoints/team2" groups=["player_spawn_point_team_2"] instance=ExtResource("1_pshn2")]
 position = Vector2(340, -144)
-
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-
-[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_mirroring = Vector2(2000, 0)
-
-[node name="Rifle" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
-position = Vector2(42, -92)
-scale = Vector2(64.9688, 9.405)
-texture = ExtResource("2_ddu7u")
-
-[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2(2, 1)
-motion_mirroring = Vector2(2000, 0)
-
-[node name="Rifle" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
-position = Vector2(-312, 46)
-scale = Vector2(64.9688, 9.405)
-texture = ExtResource("2_ddu7u")
