@@ -407,12 +407,12 @@ texture = ExtResource("5_a7ifg")
 [node name="team1" type="Node2D" parent="PlayerSpawnPoints"]
 
 [node name="PlayerSpawnPoint" parent="PlayerSpawnPoints/team1" groups=["player_spawn_point_team_1"] instance=ExtResource("1_pshn2")]
-position = Vector2(-389, -114)
+position = Vector2(-1751, -337)
 
 [node name="team2" type="Node2D" parent="PlayerSpawnPoints"]
 
 [node name="PlayerSpawnPoint2" parent="PlayerSpawnPoints/team2" groups=["player_spawn_point_team_2"] instance=ExtResource("1_pshn2")]
-position = Vector2(340, -144)
+position = Vector2(1774, -330)
 
 [node name="TileMap" type="TileMap" parent="."]
 scale = Vector2(2.36, 2.36)
