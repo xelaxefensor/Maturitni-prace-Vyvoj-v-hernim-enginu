@@ -1,0 +1,166 @@
+[gd_scene load_steps=21 format=3 uid="uid://dfa8ypxfhsfgj"]
+
+[ext_resource type="Script" path="res://assets/player/player.gd" id="1_ofmau"]
+[ext_resource type="PackedScene" uid="uid://5h1ihyi0yj52" path="res://assets/hit area/hit_area.tscn" id="2_8uib4"]
+[ext_resource type="PackedScene" uid="uid://dsus5wmlae3f6" path="res://assets/health/health.tscn" id="3_u1ku1"]
+[ext_resource type="Script" path="res://assets/player/player_input.gd" id="4_x0xkc"]
+[ext_resource type="Script" path="res://assets/player/camera/player_camera.gd" id="5_bg6fu"]
+[ext_resource type="PackedScene" uid="uid://com86osgfcl14" path="res://assets/player/arm/player_arm.tscn" id="6_qg4c4"]
+[ext_resource type="Script" path="res://addons/smoothing/smoothing_2d.gd" id="7_3776j"]
+[ext_resource type="SpriteFrames" uid="uid://cy73tmndqsq8p" path="res://assets/player/sprites/player_anim.tres" id="8_dibvt"]
+[ext_resource type="Script" path="res://assets/player/Weapons.gd" id="9_wklnr"]
+[ext_resource type="PackedScene" uid="uid://bimpwb3wm0kwk" path="res://assets/pistol/pistol.tscn" id="10_5eegf"]
+[ext_resource type="PackedScene" uid="uid://b1pq4uppopcpp" path="res://assets/rifle/rifle.tscn" id="11_eq2pw"]
+[ext_resource type="AudioStream" uid="uid://don8s1vauk1g1" path="res://audio/hit_sound.wav" id="12_phixk"]
+[ext_resource type="AudioStream" uid="uid://b541dnye2griy" path="res://audio/death_sound.wav" id="13_8ar7q"]
+[ext_resource type="AudioStream" uid="uid://bxjn2qqxuqdl7" path="res://audio/sludge_step1.wav" id="14_cpa2v"]
+[ext_resource type="AudioStream" uid="uid://d2mjohuhbb6ta" path="res://audio/sludge_step.wav" id="15_1qgmp"]
+[ext_resource type="AudioStream" uid="uid://dtrh4il4dp858" path="res://audio/jump_voice.wav" id="16_ydkv7"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2vrrx"]
+radius = 28.0
+height = 147.19
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4n8dl"]
+radius = 33.0
+height = 145.79
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_1iofq"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:velocity")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Smoothing2D/AnimatedSprite2D:flip_h")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath(".:player_id")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_2uvcr"]
+properties/0/path = NodePath(".:direction")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:running")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:mouse_from_centre")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("hit_area") groups=["player"]]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_ofmau")
+jumpVelocity = 13000.0
+jumpingTime = 0.1
+gravity = 3000
+hit_area = NodePath("HitArea")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 11.79)
+shape = SubResource("CapsuleShape2D_2vrrx")
+
+[node name="HitArea" parent="." node_paths=PackedStringArray("healt") instance=ExtResource("2_8uib4")]
+healt = NodePath("../Health")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea"]
+position = Vector2(0, 13.105)
+shape = SubResource("CapsuleShape2D_4n8dl")
+
+[node name="Health" parent="." instance=ExtResource("3_u1ku1")]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_1iofq")
+
+[node name="InputSynchronizer" type="MultiplayerSynchronizer" parent="." node_paths=PackedStringArray("mouse_centre")]
+root_path = NodePath(".")
+replication_config = SubResource("SceneReplicationConfig_2uvcr")
+script = ExtResource("4_x0xkc")
+mouse_centre = NodePath("../PlayerMouseCentre")
+
+[node name="JumpingTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="UpBufferTimer" type="Timer" parent="."]
+wait_time = 0.073
+one_shot = true
+
+[node name="CoyoteTimer" type="Timer" parent="."]
+wait_time = 0.193
+one_shot = true
+
+[node name="PlayerCamera" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
+offset = Vector2(0, -88.265)
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0
+script = ExtResource("5_bg6fu")
+maxZoomOut = Vector2(200, 150)
+target = NodePath("../PlayerMouseCentre")
+
+[node name="PlayerMouseCentre" type="Marker2D" parent="."]
+position = Vector2(0.035, -27.625)
+
+[node name="Arm" parent="PlayerMouseCentre" node_paths=PackedStringArray("item_in_hand") instance=ExtResource("6_qg4c4")]
+item_in_hand = NodePath("../../Weapons/Rifle")
+arm_lenght = 60.0
+
+[node name="Smoothing2D" type="Node2D" parent="."]
+script = ExtResource("7_3776j")
+target = NodePath("..")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Smoothing2D"]
+unique_name_in_owner = true
+position = Vector2(5, 9)
+scale = Vector2(3.80769, 4.31579)
+sprite_frames = ExtResource("8_dibvt")
+animation = &"idle"
+autoplay = "idle"
+offset = Vector2(-1.2, 0)
+
+[node name="Weapons" type="Node2D" parent="." node_paths=PackedStringArray("arm", "player_input")]
+script = ExtResource("9_wklnr")
+arm = NodePath("../PlayerMouseCentre/Arm")
+player_input = NodePath("../InputSynchronizer")
+
+[node name="Pistol" parent="Weapons" node_paths=PackedStringArray("player_input", "player") instance=ExtResource("10_5eegf")]
+player_input = NodePath("../../InputSynchronizer")
+player = NodePath("../..")
+mag_size = 7
+ammo_size = 99999999
+
+[node name="Rifle" parent="Weapons" node_paths=PackedStringArray("player_input", "player") instance=ExtResource("11_eq2pw")]
+player_input = NodePath("../../InputSynchronizer")
+player = NodePath("../..")
+mag_size = 30
+ammo_size = 99999999
+fire_rate_delay = 0.125
+
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
+
+[node name="HitSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_phixk")
+max_polyphony = 10
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_8ar7q")
+
+[node name="StepSound1" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_cpa2v")
+
+[node name="StepSound3" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("15_1qgmp")
+panning_strength = 10.0
+
+[node name="JumpVoiceSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("16_ydkv7")
+
+[connection signal="timeout" from="JumpingTimer" to="." method="_on_jumping_timer_timeout"]
+[connection signal="timeout" from="UpBufferTimer" to="." method="_on_up_buffer_timer_timeout"]
+[connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
+[connection signal="frame_changed" from="Smoothing2D/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
+[connection signal="ammo_changed" from="Weapons/Rifle" to="Weapons/Rifle" method="_on_ammo_changed"]
+[connection signal="finished" from="DeathSound" to="Health" method="_on_death_sound_finished"]
