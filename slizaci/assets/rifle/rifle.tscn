@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://b1pq4uppopcpp"]
+[gd_scene load_steps=6 format=3 uid="uid://b1pq4uppopcpp"]
 
 [ext_resource type="Script" path="res://assets/rifle/rifle.gd" id="1_72ob5"]
 [ext_resource type="Script" path="res://addons/smoothing/smoothing_2d.gd" id="2_8p5qs"]
 [ext_resource type="Texture2D" uid="uid://d2xxm8eanu1b3" path="res://assets/rifle/Rifle.png" id="3_fk3wg"]
+[ext_resource type="AudioStream" uid="uid://lutkqxyuvos0" path="res://audio/ak47_shot.wav" id="4_2tq7w"]
+[ext_resource type="AudioStream" uid="uid://ba3twelg11rfg" path="res://audio/ak47_reload.wav" id="4_3so7f"]
 
 [node name="Rifle" type="Node2D" node_paths=PackedStringArray("sprite", "projectile_spawn", "reload_timer")]
 script = ExtResource("1_72ob5")
@@ -24,5 +26,12 @@ script = ExtResource("2_8p5qs")
 position = Vector2(44, -4)
 scale = Vector2(4.48438, 4.48438)
 texture = ExtResource("3_fk3wg")
+
+[node name="ReloadSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_3so7f")
+
+[node name="ShotSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_2tq7w")
+max_polyphony = 10
 
 [connection signal="timeout" from="ReloadTimer" to="." method="_on_reload_timer_timeout"]

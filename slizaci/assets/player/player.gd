@@ -41,6 +41,7 @@ var mouse_from_centre_pixels = Vector2(0, 0)
 func _ready():
 	if player_id == multiplayer.get_unique_id():
 		$PlayerCamera.make_current()
+		$AudioListener2D.make_current()
 		
 	upBufferTimer = self.get_node("UpBufferTimer")
 	coyoteTimer = self.get_node("CoyoteTimer")
@@ -92,6 +93,8 @@ func start_jumping():
 		jump_buffer = false
 		is_on_coyote_floor = false
 		jumping = true
+		
+		$JumpVoiceSound.play()
 			
 
 @rpc("any_peer", "call_local", "unreliable", 2)
@@ -169,3 +172,11 @@ func _physics_process(delta):
 
 	
 	move_and_slide()
+
+
+func _on_animated_sprite_2d_frame_changed():
+	if move_direction.x:
+		if $Smoothing2D/AnimatedSprite2D.frame == 1:
+			$StepSound3.play()
+		if $Smoothing2D/AnimatedSprite2D.frame == 3:
+			$StepSound1.play()

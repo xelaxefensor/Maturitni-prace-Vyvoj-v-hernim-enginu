@@ -19,6 +19,8 @@ func take_damage(attack: Attack):
 	health -= attack.damage
 	health_changed.emit()
 	
+	get_parent().get_node("HitSound").play()
+	
 	
 func _on_health_changed():
 	check_is_healt_zero()
@@ -26,6 +28,8 @@ func _on_health_changed():
 
 func check_is_healt_zero():
 	if health <= 0:
+		get_parent().get_node("DeathSound").play()
+		
 		health_zero.emit()
 	
 		$/root/Main/Game.player_died.rpc_id(1 , get_parent().player_id, last_damage_taken_from_player_id)

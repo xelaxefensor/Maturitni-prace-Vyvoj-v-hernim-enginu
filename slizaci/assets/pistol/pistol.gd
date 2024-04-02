@@ -68,6 +68,8 @@ func fire():
 	spawn_projectile()
 	
 	ammo_changed.emit(mag_count-1,ammo_count)
+	
+	$ShotSound.play()
 
 
 func spawn_projectile():
@@ -88,6 +90,8 @@ func reload():
 	
 	reloading = true
 	reload_timer.start()
+	
+	$ReloadSound.play()
 
 
 func _on_reload_timer_timeout():

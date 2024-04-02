@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b153tcsd2evxl"]
+[gd_scene load_steps=21 format=3 uid="uid://b153tcsd2evxl"]
 
 [ext_resource type="Script" path="res://assets/player/player.gd" id="1_us2ra"]
 [ext_resource type="Script" path="res://assets/player/player_input.gd" id="2_lvdns"]
@@ -11,6 +11,11 @@
 [ext_resource type="PackedScene" uid="uid://b1pq4uppopcpp" path="res://assets/rifle/rifle.tscn" id="9_51lrv"]
 [ext_resource type="PackedScene" uid="uid://bimpwb3wm0kwk" path="res://assets/pistol/pistol.tscn" id="9_54abd"]
 [ext_resource type="Script" path="res://assets/player/Weapons.gd" id="9_esuap"]
+[ext_resource type="AudioStream" uid="uid://don8s1vauk1g1" path="res://audio/hit_sound.wav" id="12_h514q"]
+[ext_resource type="AudioStream" uid="uid://b541dnye2griy" path="res://audio/death_sound.wav" id="13_kend8"]
+[ext_resource type="AudioStream" uid="uid://bxjn2qqxuqdl7" path="res://audio/sludge_step1.wav" id="14_cju6u"]
+[ext_resource type="AudioStream" uid="uid://d2mjohuhbb6ta" path="res://audio/sludge_step.wav" id="14_haiaa"]
+[ext_resource type="AudioStream" uid="uid://dtrh4il4dp858" path="res://audio/jump_voice.wav" id="16_f6e2y"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2vrrx"]
 radius = 28.0
@@ -112,7 +117,7 @@ unique_name_in_owner = true
 position = Vector2(9, -4)
 scale = Vector2(2.802, 2.802)
 sprite_frames = ExtResource("4_vnf4d")
-animation = &"idle"
+animation = &"run"
 autoplay = "idle"
 offset = Vector2(-1.2, 0)
 
@@ -124,13 +129,38 @@ player_input = NodePath("../InputSynchronizer")
 [node name="Pistol" parent="Weapons" node_paths=PackedStringArray("player_input", "player") instance=ExtResource("9_54abd")]
 player_input = NodePath("../../InputSynchronizer")
 player = NodePath("../..")
+mag_size = 7
+ammo_size = 99999999
 
 [node name="Rifle" parent="Weapons" node_paths=PackedStringArray("player_input", "player") instance=ExtResource("9_51lrv")]
 player_input = NodePath("../../InputSynchronizer")
 player = NodePath("../..")
+mag_size = 30
+ammo_size = 99999999
 fire_rate_delay = 0.125
+
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
+
+[node name="HitSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_h514q")
+max_polyphony = 10
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_kend8")
+
+[node name="StepSound1" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_cju6u")
+
+[node name="StepSound3" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_haiaa")
+panning_strength = 10.0
+
+[node name="JumpVoiceSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("16_f6e2y")
 
 [connection signal="timeout" from="JumpingTimer" to="." method="_on_jumping_timer_timeout"]
 [connection signal="timeout" from="UpBufferTimer" to="." method="_on_up_buffer_timer_timeout"]
 [connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
+[connection signal="frame_changed" from="Smoothing2D/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
 [connection signal="ammo_changed" from="Weapons/Rifle" to="Weapons/Rifle" method="_on_ammo_changed"]
+[connection signal="finished" from="DeathSound" to="Health" method="_on_death_sound_finished"]

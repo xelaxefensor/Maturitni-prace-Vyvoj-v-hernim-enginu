@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://bimpwb3wm0kwk"]
+[gd_scene load_steps=6 format=3 uid="uid://bimpwb3wm0kwk"]
 
 [ext_resource type="Script" path="res://assets/pistol/pistol.gd" id="1_j3wh1"]
 [ext_resource type="Texture2D" uid="uid://c7ylws4bri2hk" path="res://assets/pistol/pistol.png" id="1_kjboc"]
 [ext_resource type="Script" path="res://addons/smoothing/smoothing_2d.gd" id="2_qld00"]
+[ext_resource type="AudioStream" uid="uid://cjalb4ssvi4x2" path="res://audio/glock_shot.wav" id="4_k22cg"]
+[ext_resource type="AudioStream" uid="uid://p3itv4ycbilf" path="res://audio/glock_reload.wav" id="5_3vw2j"]
 
 [node name="Pistol" type="Node2D" node_paths=PackedStringArray("sprite", "projectile_spawn", "reload_timer")]
 script = ExtResource("1_j3wh1")
@@ -23,6 +25,13 @@ script = ExtResource("2_qld00")
 position = Vector2(15, -10)
 scale = Vector2(3.34375, 3.34375)
 texture = ExtResource("1_kjboc")
+
+[node name="ShotSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_k22cg")
+max_polyphony = 10
+
+[node name="ReloadSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_3vw2j")
 
 [connection signal="ammo_changed" from="." to="." method="_on_ammo_changed"]
 [connection signal="timeout" from="ReloadTimer" to="." method="_on_reload_timer_timeout"]
