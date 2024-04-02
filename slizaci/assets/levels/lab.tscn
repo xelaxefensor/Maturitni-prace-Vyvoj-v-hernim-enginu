@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://lyorlvlm4nl6"]
+[gd_scene load_steps=16 format=3 uid="uid://lyorlvlm4nl6"]
 
 [ext_resource type="PackedScene" uid="uid://c80ffgj0t7avt" path="res://scenes/player_spaw_point.tscn" id="1_pshn2"]
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_xabak"]
@@ -12,6 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://bhkxnpbs13ei0" path="res://audio/factory_ambient1.wav" id="10_2mewr"]
 [ext_resource type="AudioStream" uid="uid://b338h5e5ri2fq" path="res://audio/factory_ambient2.wav" id="11_phkwo"]
 [ext_resource type="AudioStream" uid="uid://dqceukxkqfjpn" path="res://audio/factory_ambient3.wav" id="12_ut5h4"]
+[ext_resource type="AudioStream" uid="uid://dt0jc0tuxnlw6" path="res://audio/arcade_music.wav" id="13_tyfxa"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1kitq"]
 texture = ExtResource("3_252aj")
@@ -439,15 +440,20 @@ layer_0/tile_data = PackedInt32Array(262143, 262145, 3, 262142, 262145, 3, 26214
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_2mewr")
-volume_db = -35.25
+volume_db = -24.007
 autoplay = true
 
 [node name="AudioStreamPlayer3" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_phkwo")
-volume_db = -35.25
+volume_db = -24.007
 autoplay = true
 
 [node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("12_ut5h4")
-volume_db = -35.25
+volume_db = -24.007
+autoplay = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_tyfxa")
+volume_db = -16.963
 autoplay = true
