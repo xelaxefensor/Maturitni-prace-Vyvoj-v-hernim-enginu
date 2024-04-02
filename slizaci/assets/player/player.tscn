@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://b153tcsd2evxl"]
+[gd_scene load_steps=23 format=3 uid="uid://b153tcsd2evxl"]
 
 [ext_resource type="Script" path="res://assets/player/player.gd" id="1_us2ra"]
 [ext_resource type="Script" path="res://assets/player/player_input.gd" id="2_lvdns"]
@@ -13,7 +13,10 @@
 [ext_resource type="Script" path="res://assets/player/Weapons.gd" id="9_esuap"]
 [ext_resource type="AudioStream" uid="uid://don8s1vauk1g1" path="res://audio/hit_sound.wav" id="12_h514q"]
 [ext_resource type="AudioStream" uid="uid://b541dnye2griy" path="res://audio/death_sound.wav" id="13_kend8"]
+[ext_resource type="AudioStream" uid="uid://jme71fv3ja8a" path="res://audio/metal_footstep1.wav" id="14_fp4ax"]
+[ext_resource type="AudioStream" uid="uid://bi73vhxql427x" path="res://audio/metal_footstep2.wav" id="15_3sjce"]
 [ext_resource type="AudioStream" uid="uid://dtrh4il4dp858" path="res://audio/jump_voice.wav" id="16_f6e2y"]
+[ext_resource type="AudioStream" uid="uid://bohy4336unb7l" path="res://audio/metal_footstep3.wav" id="16_x6x1o"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2vrrx"]
 radius = 28.0
@@ -47,6 +50,10 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath(".:mouse_from_centre")
 properties/2/spawn = true
 properties/2/replication_mode = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_lsbtc"]
+font_size = 36
+font_color = Color(0, 1, 0, 1)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("hit_area") groups=["player"]]
 collision_layer = 2
@@ -100,7 +107,7 @@ maxZoomOut = Vector2(200, 150)
 target = NodePath("../PlayerMouseCentre")
 
 [node name="PlayerMouseCentre" type="Marker2D" parent="."]
-position = Vector2(0.035, -27.625)
+position = Vector2(0, -19)
 
 [node name="Arm" parent="PlayerMouseCentre" node_paths=PackedStringArray("item_in_hand") instance=ExtResource("5_1as08")]
 item_in_hand = NodePath("../../Weapons/Rifle")
@@ -112,12 +119,22 @@ target = NodePath("..")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Smoothing2D"]
 unique_name_in_owner = true
-position = Vector2(5, 9)
+position = Vector2(2, 6)
 scale = Vector2(3.80769, 4.31579)
 sprite_frames = ExtResource("4_vnf4d")
 animation = &"idle"
 autoplay = "idle"
 offset = Vector2(-1.2, 0)
+
+[node name="PlayerLabel" type="Label" parent="Smoothing2D"]
+offset_left = -93.0
+offset_top = -121.0
+offset_right = 96.0
+offset_bottom = -72.0
+text = "Player"
+label_settings = SubResource("LabelSettings_lsbtc")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Weapons" type="Node2D" parent="." node_paths=PackedStringArray("arm", "player_input")]
 script = ExtResource("9_esuap")
@@ -147,16 +164,24 @@ max_polyphony = 10
 stream = ExtResource("13_kend8")
 
 [node name="StepSound1" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_fp4ax")
+volume_db = -10.306
+
+[node name="StepSound2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("15_3sjce")
+volume_db = -10.306
 
 [node name="StepSound3" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("16_x6x1o")
+volume_db = -10.306
 panning_strength = 10.0
 
 [node name="JumpVoiceSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("16_f6e2y")
 
+[connection signal="health_zero" from="Health" to="." method="_on_health_health_zero"]
 [connection signal="timeout" from="JumpingTimer" to="." method="_on_jumping_timer_timeout"]
 [connection signal="timeout" from="UpBufferTimer" to="." method="_on_up_buffer_timer_timeout"]
 [connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
 [connection signal="frame_changed" from="Smoothing2D/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
 [connection signal="ammo_changed" from="Weapons/Rifle" to="Weapons/Rifle" method="_on_ammo_changed"]
-[connection signal="finished" from="DeathSound" to="Health" method="_on_death_sound_finished"]

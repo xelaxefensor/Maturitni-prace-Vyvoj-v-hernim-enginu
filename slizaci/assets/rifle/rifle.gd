@@ -8,6 +8,7 @@ extends Node2D
 @export var reload_timer: Timer
 
 @export var projectile: String
+const PROJECTILE = "res://assets/rifle/bullet.tscn"
 
 @export var bullet_start_force: float = 2000
 
@@ -42,6 +43,8 @@ func _ready():
 	if player.player_id == multiplayer.get_unique_id():
 		$/root/Main/PlayerHUD/%Ammo.ammo_visible()
 		$/root/Main/PlayerHUD/%Ammo.update_ammmo(mag_count, ammo_count)
+		
+	
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -76,7 +79,7 @@ func spawn_projectile():
 	if not multiplayer.is_server():
 		return
 	
-	var bullet = preload("res://assets/bullet/bullet.tscn").instantiate()
+	var bullet = preload(PROJECTILE).instantiate()
 	bullet.innitialize($ProjectileSpawn.global_position, bullet_start_force, rotation, player.player_id, $/root/Main/Game.players[player.player_id]["team"])
 	get_node("/root/Main/Game/Projectiles").add_child(bullet, true)
 	
@@ -97,7 +100,6 @@ func reload():
 func _on_reload_timer_timeout():
 	var ghost_bullets = clamp(ammo_count,0,mag_size-mag_count)
 	ammo_changed.emit(mag_count+ghost_bullets,ammo_count-ghost_bullets)
-	
 	reloading = false
 
 

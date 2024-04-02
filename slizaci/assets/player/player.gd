@@ -37,12 +37,17 @@ var mouse_from_centre_pixels = Vector2(0, 0)
 @export var gravity = 1200
 
 @export var hit_area: Area2D
+
+var is_dead = false
 	
 func _ready():
 	if player_id == multiplayer.get_unique_id():
 		$PlayerCamera.make_current()
 		$AudioListener2D.make_current()
 		
+		change_player_name.rpc(PlayerSettings.player_name, PlayerSettings.player_color.to_html())
+
+
 	upBufferTimer = self.get_node("UpBufferTimer")
 	coyoteTimer = self.get_node("CoyoteTimer")
 	
@@ -62,6 +67,12 @@ func _ready():
 			
 		hit_area.player_id = player_id
 		hit_area.team_id = team_id
+
+
+@rpc("any_peer", "call_local", "reliable")
+func change_player_name(name, color):
+	$Smoothing2D/PlayerLabel.text = str(name)
+	$Smoothing2D/PlayerLabel.label_settings.font_color = Color(str(color))
 	
 
 func player_is_on_floor():
@@ -94,7 +105,6 @@ func start_jumping():
 		is_on_coyote_floor = false
 		jumping = true
 		
-		%AnimatedSprite2D.play("jump_start")
 		$JumpVoiceSound.play()
 			
 
@@ -119,18 +129,27 @@ func _process(delta):
 			%AnimatedSprite2D.flip_h = true
 		if move_direction.x > 0:
 			%AnimatedSprite2D.flip_h = false
-	else:
-		if is_on_floor():
-			%AnimatedSprite2D.play("idle")
 	
 	if $InputSynchronizer.running:
-		if is_on_floor():
-			%AnimatedSprite2D.play("run")
 		%AnimatedSprite2D.speed_scale = 2
 	else:
-		if is_on_floor():
-			%AnimatedSprite2D.play("walk")
 		%AnimatedSprite2D.speed_scale = 1
+		
+	if not is_dead:	
+		if is_on_floor():
+			if move_direction.x:
+				if $InputSynchronizer.running:
+					%AnimatedSprite2D.play("run")
+				else:
+					%AnimatedSprite2D.play("walk")
+			else:
+				%AnimatedSprite2D.play("idle")	
+		else:
+			if velocity.y < 0:
+				%AnimatedSprite2D.play("jump_start")
+			else:
+				%AnimatedSprite2D.play("jump_end")
+				
 
 
 func _physics_process(delta):
@@ -139,9 +158,9 @@ func _physics_process(delta):
 			velocity.y += gravity * delta * (move_direction.y+1)
 		else:
 			velocity.y += gravity * delta
-			
 		if velocity.y > 0:
 			velocity.y -= velocity.y * gravDrag * delta
+			
 			
 	if is_on_floor():
 		player_is_on_floor()
@@ -180,8 +199,26 @@ func _physics_process(delta):
 
 
 func _on_animated_sprite_2d_frame_changed():
-	if move_direction.x:
-		if $Smoothing2D/AnimatedSprite2D.frame == 1:
-			$StepSound3.play()
-		if $Smoothing2D/AnimatedSprite2D.frame == 3:
+	if move_direction.x and is_on_floor() and not is_dead:
+		if $Smoothing2D/AnimatedSprite2D.frame == 6:
 			$StepSound1.play()
+		if $Smoothing2D/AnimatedSprite2D.frame == 2:
+			$StepSound2.play()
+		if $Smoothing2D/AnimatedSprite2D.frame == 5:
+			$StepSound3.play()
+
+
+func _on_health_health_zero():
+	on_dead.rpc()
+	
+	
+@rpc("any_peer", "call_local")
+func on_dead():
+	is_dead = true
+	$PlayerMouseCentre/Arm.visible = false
+	$Weapons.visible = false
+	
+	$InputSynchronizer.cannot_process_input()
+			
+	get_node("DeathSound").play()
+	get_node("Smoothing2D/AnimatedSprite2D").play("death")
