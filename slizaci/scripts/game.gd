@@ -27,7 +27,7 @@ extends Node
 #flag			- Capture the flag
 #				- 2 or more teams
 
-const DEFAULT_WARMUP_TIME = 5.0
+const DEFAULT_WARMUP_TIME = 30.0
 const DEFAULT_ROUND_START_TIME = 2.0
 const DEFAULT_ROUND_PLAY_TIME = 300.0
 const DEFAULT_ROUND_END_TIME = 2.0

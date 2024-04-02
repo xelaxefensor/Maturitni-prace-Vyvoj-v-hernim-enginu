@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://b153tcsd2evxl"]
+[gd_scene load_steps=24 format=3 uid="uid://b153tcsd2evxl"]
 
 [ext_resource type="Script" path="res://assets/player/player.gd" id="1_us2ra"]
 [ext_resource type="Script" path="res://assets/player/player_input.gd" id="2_lvdns"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://b1pq4uppopcpp" path="res://assets/rifle/rifle.tscn" id="9_51lrv"]
 [ext_resource type="PackedScene" uid="uid://bimpwb3wm0kwk" path="res://assets/pistol/pistol.tscn" id="9_54abd"]
 [ext_resource type="Script" path="res://assets/player/Weapons.gd" id="9_esuap"]
+[ext_resource type="SystemFont" uid="uid://0gj1p3c0075j" path="res://themes_fonts/new_system_font.tres" id="9_gjqn3"]
 [ext_resource type="AudioStream" uid="uid://don8s1vauk1g1" path="res://audio/hit_sound.wav" id="12_h514q"]
 [ext_resource type="AudioStream" uid="uid://b541dnye2griy" path="res://audio/death_sound.wav" id="13_kend8"]
 [ext_resource type="AudioStream" uid="uid://jme71fv3ja8a" path="res://audio/metal_footstep1.wav" id="14_fp4ax"]
@@ -39,6 +40,9 @@ properties/2/replication_mode = 2
 properties/3/path = NodePath(".:player_id")
 properties/3/spawn = true
 properties/3/replication_mode = 2
+properties/4/path = NodePath("Smoothing2D/PlayerLabel:text")
+properties/4/spawn = true
+properties/4/replication_mode = 2
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_2uvcr"]
 properties/0/path = NodePath(".:direction")
@@ -52,8 +56,11 @@ properties/2/spawn = true
 properties/2/replication_mode = 1
 
 [sub_resource type="LabelSettings" id="LabelSettings_lsbtc"]
+font = ExtResource("9_gjqn3")
 font_size = 36
 font_color = Color(0, 1, 0, 1)
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("hit_area") groups=["player"]]
 collision_layer = 2
@@ -103,11 +110,11 @@ offset = Vector2(0, -88.265)
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
 script = ExtResource("3_1c552")
-maxZoomOut = Vector2(200, 150)
+maxZoomOut = Vector2(400, 300)
 target = NodePath("../PlayerMouseCentre")
 
 [node name="PlayerMouseCentre" type="Marker2D" parent="."]
-position = Vector2(0, -19)
+position = Vector2(0, -6)
 
 [node name="Arm" parent="PlayerMouseCentre" node_paths=PackedStringArray("item_in_hand") instance=ExtResource("5_1as08")]
 item_in_hand = NodePath("../../Weapons/Rifle")
@@ -119,10 +126,10 @@ target = NodePath("..")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Smoothing2D"]
 unique_name_in_owner = true
-position = Vector2(2, 6)
+position = Vector2(4, -17)
 scale = Vector2(3.80769, 4.31579)
 sprite_frames = ExtResource("4_vnf4d")
-animation = &"idle"
+animation = &"death"
 autoplay = "idle"
 offset = Vector2(-1.2, 0)
 
@@ -162,6 +169,7 @@ max_polyphony = 10
 
 [node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("13_kend8")
+volume_db = -7.924
 
 [node name="StepSound1" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("14_fp4ax")

@@ -11,13 +11,13 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if is_visible_in_tree():
-		game_phase = "zahřívací kolo"
+		game_phase = "Zahřívací kolo"
 		if MultiplayerManager.is_online:
 			match game.server_game_phase:
-				"warmpup":		game_phase = "zahřívací kolo"
-				"round_start": 	game_phase = "začínám kolo"
-				"round_play": 	game_phase = "kolo v průběhu"
-				"round_end": 	game_phase = "konec kola"
-				"game_end": 	game_phase = "konec hry"
+				"warmpup":		game_phase = "Zahřívací kolo"
+				"round_start": 	game_phase = "Začínám kolo"
+				"round_play": 	game_phase = "Kolo v průběhu"
+				"round_end": 	game_phase = "Konec kola"
+				"game_end": 	game_phase = "Konec hry"
 			
 			text = str(game_phase)

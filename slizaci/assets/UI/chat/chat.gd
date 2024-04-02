@@ -46,3 +46,6 @@ func _input(event: InputEvent):
 		var evLocal = make_input_local(event)
 		if !Rect2(Vector2(0,0), $LineEdit.size).has_point(evLocal.position):
 			$LineEdit.release_focus()
+	
+	if event.is_action_pressed("chat"):
+		$LineEdit.grab_focus()

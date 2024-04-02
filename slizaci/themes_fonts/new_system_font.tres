@@ -1,0 +1,5 @@
+[gd_resource type="SystemFont" format=3 uid="uid://0gj1p3c0075j"]
+
+[resource]
+font_names = PackedStringArray("Fantasy")
+font_weight = 450

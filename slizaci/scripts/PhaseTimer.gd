@@ -15,4 +15,4 @@ func _process(_delta):
 			phase_time = timer.time_left
 		
 		if MultiplayerManager.is_online:
-			text = str(snapped(phase_time,0.01))
+			text = str(snapped(phase_time,1))

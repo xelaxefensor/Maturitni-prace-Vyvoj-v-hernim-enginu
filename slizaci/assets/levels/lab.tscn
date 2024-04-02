@@ -402,6 +402,8 @@ position = Vector2(76, -327.5)
 texture = ExtResource("5_a7ifg")
 
 [node name="LevelCamera2D" type="Camera2D" parent="."]
+position = Vector2(4, -414)
+zoom = Vector2(0.5, 0.5)
 
 [node name="Geometry" type="Node2D" parent="."]
 
@@ -410,12 +412,24 @@ texture = ExtResource("5_a7ifg")
 [node name="team1" type="Node2D" parent="PlayerSpawnPoints"]
 
 [node name="PlayerSpawnPoint" parent="PlayerSpawnPoints/team1" groups=["player_spawn_point_team_1"] instance=ExtResource("1_pshn2")]
-position = Vector2(-1751, -337)
+position = Vector2(-1803, -338)
+
+[node name="PlayerSpawnPoint3" parent="PlayerSpawnPoints/team1" groups=["player_spawn_point_team_1"] instance=ExtResource("1_pshn2")]
+position = Vector2(-1714, -338)
+
+[node name="PlayerSpawnPoint2" parent="PlayerSpawnPoints/team1" groups=["player_spawn_point_team_1"] instance=ExtResource("1_pshn2")]
+position = Vector2(-1630, -337)
 
 [node name="team2" type="Node2D" parent="PlayerSpawnPoints"]
 
 [node name="PlayerSpawnPoint2" parent="PlayerSpawnPoints/team2" groups=["player_spawn_point_team_2"] instance=ExtResource("1_pshn2")]
-position = Vector2(1774, -330)
+position = Vector2(1731, -330)
+
+[node name="PlayerSpawnPoint4" parent="PlayerSpawnPoints/team2" groups=["player_spawn_point_team_2"] instance=ExtResource("1_pshn2")]
+position = Vector2(1636, -331)
+
+[node name="PlayerSpawnPoint3" parent="PlayerSpawnPoints/team2" groups=["player_spawn_point_team_2"] instance=ExtResource("1_pshn2")]
+position = Vector2(1832, -330)
 
 [node name="TileMap" type="TileMap" parent="."]
 scale = Vector2(2.36, 2.36)

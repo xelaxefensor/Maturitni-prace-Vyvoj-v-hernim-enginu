@@ -45,7 +45,7 @@ func _ready():
 		$PlayerCamera.make_current()
 		$AudioListener2D.make_current()
 		
-		change_player_name.rpc(PlayerSettings.player_name, PlayerSettings.player_color.to_html())
+		change_player_name.rpc(PlayerSettings.player_name)
 
 
 	upBufferTimer = self.get_node("UpBufferTimer")
@@ -70,9 +70,8 @@ func _ready():
 
 
 @rpc("any_peer", "call_local", "reliable")
-func change_player_name(name, color):
+func change_player_name(name):
 	$Smoothing2D/PlayerLabel.text = str(name)
-	$Smoothing2D/PlayerLabel.label_settings.font_color = Color(str(color))
 	
 
 func player_is_on_floor():
@@ -130,10 +129,6 @@ func _process(delta):
 		if move_direction.x > 0:
 			%AnimatedSprite2D.flip_h = false
 	
-	if $InputSynchronizer.running:
-		%AnimatedSprite2D.speed_scale = 2
-	else:
-		%AnimatedSprite2D.speed_scale = 1
 		
 	if not is_dead:	
 		if is_on_floor():
