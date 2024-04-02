@@ -114,10 +114,10 @@ target = NodePath("..")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Smoothing2D"]
 unique_name_in_owner = true
-position = Vector2(9, -4)
-scale = Vector2(2.802, 2.802)
+position = Vector2(5, 9)
+scale = Vector2(3.80769, 4.31579)
 sprite_frames = ExtResource("4_vnf4d")
-animation = &"run"
+animation = &"idle"
 autoplay = "idle"
 offset = Vector2(-1.2, 0)
 

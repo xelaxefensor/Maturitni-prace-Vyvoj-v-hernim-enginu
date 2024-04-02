@@ -94,6 +94,7 @@ func start_jumping():
 		is_on_coyote_floor = false
 		jumping = true
 		
+		%AnimatedSprite2D.play("jump_start")
 		$JumpVoiceSound.play()
 			
 
@@ -114,17 +115,21 @@ func _process(delta):
 	
 	
 	if move_direction.x:
-		%AnimatedSprite2D.play("run")
 		if move_direction.x < 0:
 			%AnimatedSprite2D.flip_h = true
 		if move_direction.x > 0:
 			%AnimatedSprite2D.flip_h = false
 	else:
-		%AnimatedSprite2D.play("idle")
+		if is_on_floor():
+			%AnimatedSprite2D.play("idle")
 	
 	if $InputSynchronizer.running:
+		if is_on_floor():
+			%AnimatedSprite2D.play("run")
 		%AnimatedSprite2D.speed_scale = 2
 	else:
+		if is_on_floor():
+			%AnimatedSprite2D.play("walk")
 		%AnimatedSprite2D.speed_scale = 1
 
 
