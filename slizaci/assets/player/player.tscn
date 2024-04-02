@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://b153tcsd2evxl"]
+[gd_scene load_steps=19 format=3 uid="uid://b153tcsd2evxl"]
 
 [ext_resource type="Script" path="res://assets/player/player.gd" id="1_us2ra"]
 [ext_resource type="Script" path="res://assets/player/player_input.gd" id="2_lvdns"]
@@ -13,8 +13,6 @@
 [ext_resource type="Script" path="res://assets/player/Weapons.gd" id="9_esuap"]
 [ext_resource type="AudioStream" uid="uid://don8s1vauk1g1" path="res://audio/hit_sound.wav" id="12_h514q"]
 [ext_resource type="AudioStream" uid="uid://b541dnye2griy" path="res://audio/death_sound.wav" id="13_kend8"]
-[ext_resource type="AudioStream" uid="uid://bxjn2qqxuqdl7" path="res://audio/sludge_step1.wav" id="14_cju6u"]
-[ext_resource type="AudioStream" uid="uid://d2mjohuhbb6ta" path="res://audio/sludge_step.wav" id="14_haiaa"]
 [ext_resource type="AudioStream" uid="uid://dtrh4il4dp858" path="res://audio/jump_voice.wav" id="16_f6e2y"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2vrrx"]
@@ -149,10 +147,8 @@ max_polyphony = 10
 stream = ExtResource("13_kend8")
 
 [node name="StepSound1" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("14_cju6u")
 
 [node name="StepSound3" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("14_haiaa")
 panning_strength = 10.0
 
 [node name="JumpVoiceSound" type="AudioStreamPlayer2D" parent="."]
