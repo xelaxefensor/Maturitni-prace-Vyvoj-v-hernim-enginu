@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://sj1hmlvhmycr"]
+[gd_scene load_steps=3 format=3 uid="uid://sj1hmlvhmycr"]
 
 [ext_resource type="Script" path="res://scripts/team_select.gd" id="1_cdojn"]
+[ext_resource type="Theme" uid="uid://bjr6aax8yg3qr" path="res://themes_fonts/menu_theme.tres" id="2_2cwxv"]
 
 [node name="TeamSelect" type="CanvasLayer"]
 script = ExtResource("1_cdojn")
@@ -11,6 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_2cwxv")
 theme_override_constants/margin_left = 200
 theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 200
@@ -27,7 +29,7 @@ size_flags_vertical = 3
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Modří"
+text = "Tým 1"
 
 [node name="VSeparator" type="VSeparator" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -36,7 +38,7 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Červení"
+text = "Tým 2"
 
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2

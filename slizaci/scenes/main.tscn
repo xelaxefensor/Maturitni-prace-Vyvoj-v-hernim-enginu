@@ -1,9 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://b7awkek7726bo"]
+[gd_scene load_steps=11 format=3 uid="uid://b7awkek7726bo"]
 
 [ext_resource type="PackedScene" uid="uid://cvrioh23u641c" path="res://scenes/menu.tscn" id="1_tuks5"]
 [ext_resource type="PackedScene" uid="uid://cmmpm655rnpnq" path="res://scenes/game.tscn" id="3_ar0jb"]
 [ext_resource type="PackedScene" uid="uid://bnd5of6lgukop" path="res://assets/player/hud/player_hud.tscn" id="3_w5a5w"]
 [ext_resource type="PackedScene" uid="uid://sj1hmlvhmycr" path="res://scenes/team_select.tscn" id="4_kav2o"]
+[ext_resource type="Texture2D" uid="uid://ca2fakq3uisgm" path="res://assets/craftpix-net-965049-free-industrial-zone-tileset-pixel-art/2 Background/1.png" id="5_1fpcy"]
+[ext_resource type="Script" path="res://assets/levels/CloudLayer.gd" id="6_muigc"]
+[ext_resource type="Texture2D" uid="uid://g7w0rp3tsdfy" path="res://assets/craftpix-net-965049-free-industrial-zone-tileset-pixel-art/2 Background/22.png" id="7_btbb6"]
+[ext_resource type="Texture2D" uid="uid://cddpjonmugb14" path="res://assets/craftpix-net-965049-free-industrial-zone-tileset-pixel-art/2 Background/33.png" id="8_d5k8h"]
+[ext_resource type="Texture2D" uid="uid://mxpdemhdq8qm" path="res://assets/craftpix-net-965049-free-industrial-zone-tileset-pixel-art/2 Background/44.png" id="9_3hkab"]
+[ext_resource type="Texture2D" uid="uid://dsxplsrob66iw" path="res://assets/craftpix-net-965049-free-industrial-zone-tileset-pixel-art/2 Background/55.png" id="10_dgqap"]
 
 [node name="Main" type="Node"]
 
@@ -20,3 +26,59 @@ layer = 2
 [node name="TeamSelect" parent="." instance=ExtResource("4_kav2o")]
 unique_name_in_owner = true
 visible = false
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+layer = -128
+offset = Vector2(0, 500)
+transform = Transform2D(1, 0, 0, 1, 0, 500)
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="ColorRect" type="ColorRect" parent="ParallaxBackground/ParallaxLayer"]
+offset_left = -10935.0
+offset_top = -10806.0
+offset_right = 11327.0
+offset_bottom = -1077.0
+color = Color(0.800183, 0.886656, 0.88275, 1)
+
+[node name="ParallaxLayer1" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="1" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer1"]
+position = Vector2(630, 1669.5)
+scale = Vector2(36.4444, 16.9414)
+texture = ExtResource("5_1fpcy")
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.2, 1)
+motion_mirroring = Vector2(8000, 0)
+script = ExtResource("6_muigc")
+
+[node name="22" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+position = Vector2(62, -532)
+texture = ExtResource("7_btbb6")
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.4, 1)
+motion_mirroring = Vector2(8000, 0)
+
+[node name="33" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
+position = Vector2(76, -327.5)
+texture = ExtResource("8_d5k8h")
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.6, 1)
+motion_mirroring = Vector2(8000, 0)
+
+[node name="44" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
+position = Vector2(76, -327.5)
+texture = ExtResource("9_3hkab")
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.8, 1)
+motion_mirroring = Vector2(8000, 0)
+
+[node name="55" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer5"]
+position = Vector2(76, -327.5)
+texture = ExtResource("10_dgqap")
+
+[node name="Camera2D" type="Camera2D" parent="."]

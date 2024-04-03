@@ -371,7 +371,7 @@ texture = ExtResource("2_bipa8")
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.2, 1)
-motion_mirroring = Vector2(3994.6, 0)
+motion_mirroring = Vector2(8000, 0)
 script = ExtResource("3_yr1g6")
 
 [node name="22" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
@@ -380,7 +380,7 @@ texture = ExtResource("2_pubio")
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.4, 1)
-motion_mirroring = Vector2(3994.6, 0)
+motion_mirroring = Vector2(8000, 0)
 
 [node name="33" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
 position = Vector2(76, -327.5)
@@ -388,7 +388,7 @@ texture = ExtResource("3_qcpwd")
 
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.6, 1)
-motion_mirroring = Vector2(3994.6, 0)
+motion_mirroring = Vector2(8000, 0)
 
 [node name="44" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
 position = Vector2(76, -327.5)
@@ -396,7 +396,7 @@ texture = ExtResource("4_gialg")
 
 [node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.8, 1)
-motion_mirroring = Vector2(3994.6, 0)
+motion_mirroring = Vector2(8000, 0)
 
 [node name="55" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer5"]
 position = Vector2(76, -327.5)
@@ -427,7 +427,7 @@ position = Vector2(-860, -25)
 position = Vector2(778, -35)
 
 [node name="PlayerSpawnPoint4" parent="PlayerSpawnPoints/team2" groups=["player_spawn_point_team_2"] instance=ExtResource("1_pshn2")]
-position = Vector2(1802, -948)
+position = Vector2(1755, -372)
 
 [node name="PlayerSpawnPoint3" parent="PlayerSpawnPoints/team2" groups=["player_spawn_point_team_2"] instance=ExtResource("1_pshn2")]
 position = Vector2(822, -598)

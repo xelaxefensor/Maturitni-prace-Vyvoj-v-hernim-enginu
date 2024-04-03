@@ -39,7 +39,7 @@ signal game_ended
 signal team_select(visibility)
 
 
-var number_of_rounds = 6 #double the rounds to win
+var number_of_rounds = 1 #double the rounds to win
 var current_round_number = 0
 
 @export var can_players_spawn = false
@@ -380,7 +380,9 @@ func reset_score():
 	for c in teams:
 		teams[c]["round_score"] = 0
 		teams[c]["game_score"] = 0
-
+		
+		get_node("/root/Main/PlayerHUD/MarginContainer/VBoxContainer/HBoxContainer2/Team"+str(1)).text = "0"
+		get_node("/root/Main/PlayerHUD/MarginContainer/VBoxContainer/HBoxContainer2/Team"+str(2)).text = "0"
 		
 func reset_round_score():
 	for c in teams:

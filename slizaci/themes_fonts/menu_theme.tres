@@ -1,0 +1,25 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://bjr6aax8yg3qr"]
+
+[ext_resource type="SystemFont" uid="uid://0gj1p3c0075j" path="res://themes_fonts/new_system_font.tres" id="1_0ujjt"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_urryo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_eqa4i"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_es65e"]
+
+[resource]
+default_font = ExtResource("1_0ujjt")
+default_font_size = 48
+Button/colors/font_color = Color(0, 1, 0, 1)
+HSeparator/styles/separator = SubResource("StyleBoxEmpty_urryo")
+Label/colors/font_color = Color(0, 1, 0, 1)
+Label/colors/font_outline_color = Color(1, 1, 1, 1)
+Label/colors/font_shadow_color = Color(0, 0, 0, 0)
+Label/constants/line_spacing = 3
+Label/constants/outline_size = 0
+Label/constants/shadow_offset_x = 1
+Label/constants/shadow_offset_y = 1
+Label/constants/shadow_outline_size = 1
+Label/styles/normal = SubResource("StyleBoxEmpty_eqa4i")
+VSeparator/styles/separator = SubResource("StyleBoxEmpty_es65e")

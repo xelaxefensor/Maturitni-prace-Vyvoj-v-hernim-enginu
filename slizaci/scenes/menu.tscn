@@ -1,7 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://cvrioh23u641c"]
+[gd_scene load_steps=6 format=3 uid="uid://cvrioh23u641c"]
 
 [ext_resource type="Script" path="res://scripts/menu.gd" id="1_i0hbu"]
 [ext_resource type="Script" path="res://scripts/settings_menu.gd" id="2_4ny8u"]
+[ext_resource type="Theme" uid="uid://bjr6aax8yg3qr" path="res://themes_fonts/menu_theme.tres" id="2_811ec"]
+[ext_resource type="SystemFont" uid="uid://0gj1p3c0075j" path="res://themes_fonts/new_system_font.tres" id="3_l2ylp"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_li7mr"]
+font = ExtResource("3_l2ylp")
+font_size = 106
+font_color = Color(0.172549, 0.92549, 1, 1)
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
 
 [node name="Menu" type="CanvasLayer"]
 script = ExtResource("1_i0hbu")
@@ -12,15 +21,27 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 300
+theme = ExtResource("2_811ec")
+theme_override_constants/margin_left = 500
 theme_override_constants/margin_top = 50
-theme_override_constants/margin_right = 300
+theme_override_constants/margin_right = 500
 theme_override_constants/margin_bottom = 50
 
 [node name="StartMenu" type="VBoxContainer" parent="MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/StartMenu"]
+layout_mode = 2
+text = "CyberMania"
+label_settings = SubResource("LabelSettings_li7mr")
+horizontal_alignment = 1
+
+[node name="HSeparator3" type="HSeparator" parent="MarginContainer/StartMenu"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.39
 
 [node name="Play" type="Button" parent="MarginContainer/StartMenu"]
 layout_mode = 2
@@ -193,7 +214,7 @@ size_flags_stretch_ratio = 0.39
 [node name="Back" type="Button" parent="MarginContainer/MultiplayerMenu"]
 layout_mode = 2
 size_flags_vertical = 3
-text = "Zpét"
+text = "Zpět"
 
 [node name="FailedToConnectMenu" type="VBoxContainer" parent="MarginContainer"]
 unique_name_in_owner = true
