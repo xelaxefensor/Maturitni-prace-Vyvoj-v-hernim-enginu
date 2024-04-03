@@ -1,0 +1,10 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://csugminhleqr7"]
+
+[ext_resource type="SystemFont" uid="uid://0gj1p3c0075j" path="res://themes_fonts/new_system_font.tres" id="1_gavou"]
+
+[resource]
+font = ExtResource("1_gavou")
+font_size = 36
+font_color = Color(1, 0, 0, 1)
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)

@@ -45,7 +45,7 @@ func _ready():
 		$PlayerCamera.make_current()
 		$AudioListener2D.make_current()
 		
-		change_player_name.rpc(PlayerSettings.player_name)
+		change_player_name.rpc(PlayerSettings.player_name, $/root/Main/Game.players[player_id]["team"])
 
 
 	upBufferTimer = self.get_node("UpBufferTimer")
@@ -70,8 +70,14 @@ func _ready():
 
 
 @rpc("any_peer", "call_local", "reliable")
-func change_player_name(name):
+func change_player_name(name, team):
 	$Smoothing2D/PlayerLabel.text = str(name)
+	if team == 1:
+		var team_label_settings:LabelSettings = load("res://themes_fonts/team1_label_settings.tres")
+		$Smoothing2D/PlayerLabel.set_label_settings(team_label_settings)
+	if team == 2:
+		var team_label_settings:LabelSettings = load("res://themes_fonts/team2_label_settings.tres")
+		$Smoothing2D/PlayerLabel.set_label_settings(team_label_settings)
 	
 
 func player_is_on_floor():

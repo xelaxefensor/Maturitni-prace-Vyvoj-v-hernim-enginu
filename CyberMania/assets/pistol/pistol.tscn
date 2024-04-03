@@ -29,10 +29,12 @@ texture = ExtResource("3_bs01u")
 
 [node name="ShotSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_k22cg")
+volume_db = -2.971
 max_polyphony = 10
 
 [node name="ReloadSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_3vw2j")
+volume_db = -2.971
 
 [connection signal="ammo_changed" from="." to="." method="_on_ammo_changed"]
 [connection signal="timeout" from="ReloadTimer" to="." method="_on_reload_timer_timeout"]

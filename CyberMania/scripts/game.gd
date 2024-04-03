@@ -27,10 +27,10 @@ extends Node
 #flag			- Capture the flag
 #				- 2 or more teams
 
-const DEFAULT_WARMUP_TIME = 5.0
-const DEFAULT_ROUND_START_TIME = 2.0
+const DEFAULT_WARMUP_TIME = 30.0
+const DEFAULT_ROUND_START_TIME = 5.0
 const DEFAULT_ROUND_PLAY_TIME = 300.0
-const DEFAULT_ROUND_END_TIME = 2.0
+const DEFAULT_ROUND_END_TIME = 5.0
 const DEFAULT_GAME_END_TIME = 10.0
 
 
@@ -45,11 +45,11 @@ var current_round_number = 0
 @export var can_players_spawn = false
 
 var map = "res://assets/levels/lab.tscn"
-var minimal_player_size = 2
-var max_team_players = 8
+var minimal_player_size = 1
+var max_team_players = 999
 var round_time = 300.0
 
-var score_to_win_round = 3
+var score_to_win_round = 50
 var score_to_win_game = 1
 
 #var rounds_to_win_game = 1

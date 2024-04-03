@@ -1,7 +1,7 @@
 extends Node
 
 var player_name = "Bob"
-var player_color = "yellow"
+var player_color = Color(0, 1, 0, 1)
 var window_mode = 0
 var max_fps = 0
 

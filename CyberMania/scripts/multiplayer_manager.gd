@@ -13,7 +13,7 @@ signal succeded_to_connect
 signal connection_lost
 
 
-var max_connections = 16
+var max_connections = 144
 const PORT = 7000
 const DEFAULT_SERVER_IP = "localhost"
 
