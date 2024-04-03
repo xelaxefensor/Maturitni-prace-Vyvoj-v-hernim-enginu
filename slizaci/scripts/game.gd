@@ -27,7 +27,7 @@ extends Node
 #flag			- Capture the flag
 #				- 2 or more teams
 
-const DEFAULT_WARMUP_TIME = 30.0
+const DEFAULT_WARMUP_TIME = 5.0
 const DEFAULT_ROUND_START_TIME = 2.0
 const DEFAULT_ROUND_PLAY_TIME = 300.0
 const DEFAULT_ROUND_END_TIME = 2.0
@@ -49,8 +49,8 @@ var minimal_player_size = 2
 var max_team_players = 8
 var round_time = 300.0
 
-var score_to_win_round = 5
-var score_to_win_game = 3
+var score_to_win_round = 3
+var score_to_win_game = 1
 
 #var rounds_to_win_game = 1
 
@@ -72,7 +72,7 @@ var team_info = {"is_full" = false,
 	 "game_score" = 0
 	}
 	
-@export var teams = {}
+@export var teams = {}	
 
 ##var team_score = {"round_score" = 0,
 ##	"game_score" = 0
@@ -94,7 +94,7 @@ func _ready():
 	MultiplayerManager.succeded_to_connect.connect(succeded_to_connect)
 	$/root/Main/%TeamSelect.team_selected.connect(team_selected)
 
-	score_to_win_game = number_of_rounds/2
+	#score_to_win_game = number_of_rounds/2
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -357,6 +357,7 @@ func player_died(dead_player_id, killer_player_id):
 
 func check_round_to_win_team_score(team_id):
 	if server_game_phase == "round_play":
+		get_node("/root/Main/PlayerHUD/MarginContainer/VBoxContainer/HBoxContainer2/Team"+str(team_id)).text = str(teams[team_id]["round_score"])
 		if teams[team_id]["round_score"] >= score_to_win_round:
 			teams[team_id]["game_score"] += 1
 			teams[team_id]["round_score"] = 0

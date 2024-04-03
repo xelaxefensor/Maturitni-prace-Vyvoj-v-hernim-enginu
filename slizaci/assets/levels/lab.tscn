@@ -416,21 +416,21 @@ zoom = Vector2(0.5, 0.5)
 position = Vector2(-1803, -338)
 
 [node name="PlayerSpawnPoint3" parent="PlayerSpawnPoints/team1" groups=["player_spawn_point_team_1"] instance=ExtResource("1_pshn2")]
-position = Vector2(-1714, -338)
+position = Vector2(-866, -589)
 
 [node name="PlayerSpawnPoint2" parent="PlayerSpawnPoints/team1" groups=["player_spawn_point_team_1"] instance=ExtResource("1_pshn2")]
-position = Vector2(-1630, -337)
+position = Vector2(-860, -25)
 
 [node name="team2" type="Node2D" parent="PlayerSpawnPoints"]
 
 [node name="PlayerSpawnPoint2" parent="PlayerSpawnPoints/team2" groups=["player_spawn_point_team_2"] instance=ExtResource("1_pshn2")]
-position = Vector2(1731, -330)
+position = Vector2(778, -35)
 
 [node name="PlayerSpawnPoint4" parent="PlayerSpawnPoints/team2" groups=["player_spawn_point_team_2"] instance=ExtResource("1_pshn2")]
-position = Vector2(1636, -331)
+position = Vector2(1802, -948)
 
 [node name="PlayerSpawnPoint3" parent="PlayerSpawnPoints/team2" groups=["player_spawn_point_team_2"] instance=ExtResource("1_pshn2")]
-position = Vector2(1832, -330)
+position = Vector2(822, -598)
 
 [node name="TileMap" type="TileMap" parent="."]
 scale = Vector2(2.36, 2.36)
