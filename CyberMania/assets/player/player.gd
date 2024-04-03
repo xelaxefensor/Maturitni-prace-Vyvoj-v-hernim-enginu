@@ -7,7 +7,7 @@ extends CharacterBody2D
 		# Give authority over the player input to the appropriate peer.
 		$InputSynchronizer.set_multiplayer_authority(id)
 		
-var team_id := 1
+@export var team_id := 1
 
 @export var speed:float = 6000.0
 @export var jumpVelocity:float = 10000.0
@@ -40,14 +40,7 @@ var mouse_from_centre_pixels = Vector2(0, 0)
 
 var is_dead = false
 	
-func _ready():
-	if player_id == multiplayer.get_unique_id():
-		$PlayerCamera.make_current()
-		$AudioListener2D.make_current()
-		
-		change_player_name.rpc(PlayerSettings.player_name, $/root/Main/Game.players[player_id]["team"])
-
-
+func _ready():	
 	upBufferTimer = self.get_node("UpBufferTimer")
 	coyoteTimer = self.get_node("CoyoteTimer")
 	
@@ -68,10 +61,33 @@ func _ready():
 		hit_area.player_id = player_id
 		hit_area.team_id = team_id
 
+	if player_id == multiplayer.get_unique_id():
+			$PlayerCamera.make_current()
+			$AudioListener2D.make_current()
+			
+			change_player_name.rpc(PlayerSettings.player_name)
+			
+	update_team_id.rpc_id(1)
+	
+	change_player_team.rpc(team_id)
+	
 
 @rpc("any_peer", "call_local", "reliable")
-func change_player_name(name, team):
+func update_team_id():
+	update_team_id_end.rpc_id(multiplayer.get_remote_sender_id())
+
+@rpc("any_peer","call_local","reliable")
+func update_team_id_end(team):
+	team_id = team
+	
+
+@rpc("any_peer", "call_local", "reliable")
+func change_player_name(name):
 	$Smoothing2D/PlayerLabel.text = str(name)
+
+	
+@rpc("any_peer", "call_local", "reliable")
+func change_player_team(team):
 	if team == 1:
 		var team_label_settings:LabelSettings = load("res://themes_fonts/team1_label_settings.tres")
 		$Smoothing2D/PlayerLabel.set_label_settings(team_label_settings)
