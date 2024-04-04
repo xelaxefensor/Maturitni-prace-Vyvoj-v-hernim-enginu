@@ -319,8 +319,15 @@ func server_set_game_end(time):
 	else:
 		%PhaseTimer.wait_time = time
 
-	%PhaseTimer.start()	
-
+	%PhaseTimer.start()
+	
+	if teams[1]["round_score"] > teams[2]["round_score"]:
+		do_big_notification.rpc("Tým 1 vyhrál hru", 5.0)
+	elif teams[1]["round_score"] < teams[2]["round_score"]:
+		do_big_notification.rpc("Tým 2 vyhrál hru", 5.0)
+	else:
+		do_big_notification.rpc("Remíza", 5.0)
+		
 
 func _on_phase_timer_timeout():
 	match server_game_phase:

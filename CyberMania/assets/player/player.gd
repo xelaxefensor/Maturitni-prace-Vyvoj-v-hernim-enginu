@@ -67,18 +67,18 @@ func _ready():
 			
 			change_player_name.rpc(PlayerSettings.player_name)
 			
-	update_team_id.rpc_id(1)
+	#update_team_id.rpc_id(1)
 	
 	change_player_team.rpc(team_id)
 	
 
 @rpc("any_peer", "call_local", "reliable")
 func update_team_id():
-	update_team_id_end.rpc_id(multiplayer.get_remote_sender_id())
+	update_team_id_end.rpc($/root/Main/Game.players[multiplayer.get_remote_sender_id()]["team"])
 
 @rpc("any_peer","call_local","reliable")
-func update_team_id_end(team):
-	team_id = team
+func update_team_id_end(id):
+	team_id = id
 	
 
 @rpc("any_peer", "call_local", "reliable")
