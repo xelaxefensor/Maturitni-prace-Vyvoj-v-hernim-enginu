@@ -78,37 +78,37 @@ script = ExtResource("2_4ny8u")
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Player" type="MarginContainer" parent="MarginContainer/SettingsMenu/TabContainer"]
+[node name="Hráč" type="MarginContainer" parent="MarginContainer/SettingsMenu/TabContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/SettingsMenu/TabContainer/Player"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/SettingsMenu/TabContainer/Hráč"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/SettingsMenu/TabContainer/Player/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/SettingsMenu/TabContainer/Hráč/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/SettingsMenu/TabContainer/Player/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="MarginContainer/SettingsMenu/TabContainer/Hráč/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "Přezdívka hráče:"
 
-[node name="PlayerName" type="LineEdit" parent="MarginContainer/SettingsMenu/TabContainer/Player/VBoxContainer/HBoxContainer"]
+[node name="PlayerName" type="LineEdit" parent="MarginContainer/SettingsMenu/TabContainer/Hráč/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/SettingsMenu/TabContainer/Player/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/SettingsMenu/TabContainer/Hráč/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/SettingsMenu/TabContainer/Player/VBoxContainer/HBoxContainer2"]
+[node name="Label" type="Label" parent="MarginContainer/SettingsMenu/TabContainer/Hráč/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 text = "Barva hráče:"
 
-[node name="PlayerColor" type="ColorPicker" parent="MarginContainer/SettingsMenu/TabContainer/Player/VBoxContainer/HBoxContainer2"]
+[node name="PlayerColor" type="ColorPicker" parent="MarginContainer/SettingsMenu/TabContainer/Hráč/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -121,7 +121,7 @@ sliders_visible = false
 hex_visible = false
 presets_visible = false
 
-[node name="Display" type="MarginContainer" parent="MarginContainer/SettingsMenu/TabContainer"]
+[node name="Obrazovka" type="MarginContainer" parent="MarginContainer/SettingsMenu/TabContainer"]
 visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
@@ -129,31 +129,31 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/SettingsMenu/TabContainer/Display"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/SettingsMenu/TabContainer/Obrazovka"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/SettingsMenu/TabContainer/Display/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/SettingsMenu/TabContainer/Obrazovka/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/SettingsMenu/TabContainer/Display/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="MarginContainer/SettingsMenu/TabContainer/Obrazovka/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "Maximální počet FPS:"
 
-[node name="MaxFps" type="SpinBox" parent="MarginContainer/SettingsMenu/TabContainer/Display/VBoxContainer/HBoxContainer"]
+[node name="MaxFps" type="SpinBox" parent="MarginContainer/SettingsMenu/TabContainer/Obrazovka/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 max_value = 999.0
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/SettingsMenu/TabContainer/Display/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/SettingsMenu/TabContainer/Obrazovka/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/SettingsMenu/TabContainer/Display/VBoxContainer/HBoxContainer2"]
+[node name="Label" type="Label" parent="MarginContainer/SettingsMenu/TabContainer/Obrazovka/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 text = "Okno hry:"
 
-[node name="WindowMode" type="OptionButton" parent="MarginContainer/SettingsMenu/TabContainer/Display/VBoxContainer/HBoxContainer2"]
+[node name="WindowMode" type="OptionButton" parent="MarginContainer/SettingsMenu/TabContainer/Obrazovka/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
@@ -312,10 +312,10 @@ layout_mode = 2
 [connection signal="pressed" from="MarginContainer/StartMenu/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="MarginContainer/StartMenu/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="MarginContainer/StartMenu/Exit" to="." method="_on_exit_pressed"]
-[connection signal="text_changed" from="MarginContainer/SettingsMenu/TabContainer/Player/VBoxContainer/HBoxContainer/PlayerName" to="MarginContainer/SettingsMenu" method="_on_player_name_text_changed"]
-[connection signal="color_changed" from="MarginContainer/SettingsMenu/TabContainer/Player/VBoxContainer/HBoxContainer2/PlayerColor" to="MarginContainer/SettingsMenu" method="_on_player_color_color_changed"]
-[connection signal="value_changed" from="MarginContainer/SettingsMenu/TabContainer/Display/VBoxContainer/HBoxContainer/MaxFps" to="MarginContainer/SettingsMenu" method="_on_max_fps_value_changed"]
-[connection signal="item_selected" from="MarginContainer/SettingsMenu/TabContainer/Display/VBoxContainer/HBoxContainer2/WindowMode" to="MarginContainer/SettingsMenu" method="_on_screen_option_item_selected"]
+[connection signal="text_changed" from="MarginContainer/SettingsMenu/TabContainer/Hráč/VBoxContainer/HBoxContainer/PlayerName" to="MarginContainer/SettingsMenu" method="_on_player_name_text_changed"]
+[connection signal="color_changed" from="MarginContainer/SettingsMenu/TabContainer/Hráč/VBoxContainer/HBoxContainer2/PlayerColor" to="MarginContainer/SettingsMenu" method="_on_player_color_color_changed"]
+[connection signal="value_changed" from="MarginContainer/SettingsMenu/TabContainer/Obrazovka/VBoxContainer/HBoxContainer/MaxFps" to="MarginContainer/SettingsMenu" method="_on_max_fps_value_changed"]
+[connection signal="item_selected" from="MarginContainer/SettingsMenu/TabContainer/Obrazovka/VBoxContainer/HBoxContainer2/WindowMode" to="MarginContainer/SettingsMenu" method="_on_screen_option_item_selected"]
 [connection signal="pressed" from="MarginContainer/SettingsMenu/Back" to="." method="_on_back_pressed"]
 [connection signal="text_changed" from="MarginContainer/MultiplayerMenu/PlayerName" to="." method="_on_player_name_text_changed"]
 [connection signal="pressed" from="MarginContainer/MultiplayerMenu/Connect" to="." method="_on_connect_pressed"]
