@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=5 format=3 uid="uid://bjr6aax8yg3qr"]
 
-[ext_resource type="SystemFont" uid="uid://0gj1p3c0075j" path="res://themes_fonts/new_system_font.tres" id="1_0ujjt"]
+[ext_resource type="FontFile" uid="uid://bd8w1djgvgqoo" path="res://themes_fonts/Roboto/Roboto-Medium.ttf" id="1_wbe3k"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_urryo"]
 
@@ -9,17 +9,25 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_es65e"]
 
 [resource]
-default_font = ExtResource("1_0ujjt")
-default_font_size = 48
+default_font = ExtResource("1_wbe3k")
+default_font_size = 36
 Button/colors/font_color = Color(0, 1, 0, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/constants/outline_size = 5
 HSeparator/styles/separator = SubResource("StyleBoxEmpty_urryo")
 Label/colors/font_color = Color(0, 1, 0, 1)
-Label/colors/font_outline_color = Color(1, 1, 1, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
 Label/colors/font_shadow_color = Color(0, 0, 0, 0)
 Label/constants/line_spacing = 3
-Label/constants/outline_size = 0
+Label/constants/outline_size = 5
 Label/constants/shadow_offset_x = 1
 Label/constants/shadow_offset_y = 1
 Label/constants/shadow_outline_size = 1
 Label/styles/normal = SubResource("StyleBoxEmpty_eqa4i")
+LineEdit/colors/font_color = Color(0, 1, 0, 1)
+LineEdit/colors/font_outline_color = Color(0, 0, 0, 1)
+LineEdit/constants/outline_size = 5
+RichTextLabel/colors/default_color = Color(0, 1, 0, 1)
+RichTextLabel/colors/font_outline_color = Color(0, 0, 0, 1)
+RichTextLabel/constants/outline_size = 5
 VSeparator/styles/separator = SubResource("StyleBoxEmpty_es65e")

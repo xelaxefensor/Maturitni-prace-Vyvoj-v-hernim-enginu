@@ -1,43 +1,37 @@
-[gd_scene load_steps=16 format=3 uid="uid://bnd5of6lgukop"]
+[gd_scene load_steps=15 format=3 uid="uid://bnd5of6lgukop"]
 
 [ext_resource type="PackedScene" uid="uid://3vc4a3e0tc4w" path="res://assets/UI/chat/chat.tscn" id="1_iwg8h"]
 [ext_resource type="Script" path="res://assets/player/hud/player_hud.gd" id="1_kr1e0"]
 [ext_resource type="Script" path="res://scripts/PhaseTimer.gd" id="2_bc161"]
-[ext_resource type="SystemFont" uid="uid://0gj1p3c0075j" path="res://themes_fonts/new_system_font.tres" id="2_ko56l"]
 [ext_resource type="Script" path="res://scripts/phase_label.gd" id="2_nl57n"]
 [ext_resource type="Theme" uid="uid://bjr6aax8yg3qr" path="res://themes_fonts/menu_theme.tres" id="3_37b75"]
 [ext_resource type="Script" path="res://assets/player/hud/ammo_hud.gd" id="5_32gd0"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_3kl6h"]
-font = ExtResource("2_ko56l")
 font_size = 64
 font_color = Color(0.286275, 0.607843, 1, 1)
 outline_size = 8
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_erbug"]
-font = ExtResource("2_ko56l")
 font_size = 54
 font_color = Color(1, 1, 0, 1)
 outline_size = 8
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_cy3iw"]
-font = ExtResource("2_ko56l")
 font_size = 44
 font_color = Color(1, 1, 0, 1)
 outline_size = 8
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_wl2ql"]
-font = ExtResource("2_ko56l")
 font_size = 64
 font_color = Color(1, 0, 0, 1)
 outline_size = 8
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_hhpiv"]
-font = ExtResource("2_ko56l")
 font_size = 24
 font_color = Color(0, 1, 0, 1)
 outline_size = 4
@@ -55,14 +49,12 @@ properties/2/spawn = true
 properties/2/replication_mode = 2
 
 [sub_resource type="LabelSettings" id="LabelSettings_n3x83"]
-font = ExtResource("2_ko56l")
 font_size = 48
 font_color = Color(0, 1, 0, 1)
 outline_size = 8
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_3xcjl"]
-font = ExtResource("2_ko56l")
 font_size = 144
 font_color = Color(0.254902, 1, 0.164706, 1)
 outline_size = 16
@@ -81,6 +73,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
+theme = ExtResource("3_37b75")
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20

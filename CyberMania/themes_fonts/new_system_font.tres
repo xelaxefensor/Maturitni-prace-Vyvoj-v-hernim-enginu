@@ -1,9 +1,0 @@
-[gd_resource type="SystemFont" load_steps=2 format=3 uid="uid://0gj1p3c0075j"]
-
-[sub_resource type="SystemFont" id="SystemFont_vg6tb"]
-font_weight = 450
-
-[resource]
-fallbacks = Array[Font]([SubResource("SystemFont_vg6tb")])
-font_names = PackedStringArray("Fantasy")
-font_weight = 450

@@ -1,12 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://cvrioh23u641c"]
+[gd_scene load_steps=5 format=3 uid="uid://cvrioh23u641c"]
 
 [ext_resource type="Script" path="res://scripts/menu.gd" id="1_i0hbu"]
 [ext_resource type="Script" path="res://scripts/settings_menu.gd" id="2_4ny8u"]
 [ext_resource type="Theme" uid="uid://bjr6aax8yg3qr" path="res://themes_fonts/menu_theme.tres" id="2_811ec"]
-[ext_resource type="SystemFont" uid="uid://0gj1p3c0075j" path="res://themes_fonts/new_system_font.tres" id="3_l2ylp"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_li7mr"]
-font = ExtResource("3_l2ylp")
 font_size = 106
 font_color = Color(0.172549, 0.92549, 1, 1)
 outline_size = 8
