@@ -12,11 +12,13 @@ sprite = NodePath("Smoothing2D/Sprite2D")
 projectile_spawn = NodePath("ProjectileSpawn")
 reload_timer = NodePath("ReloadTimer")
 projectile = "\"res://assets/pistol/bullet.tscn\""
+bullet_start_force = 4000.0
 
 [node name="ProjectileSpawn" type="Marker2D" parent="."]
 position = Vector2(42, -4)
 
 [node name="ReloadTimer" type="Timer" parent="."]
+wait_time = 0.527
 one_shot = true
 
 [node name="Smoothing2D" type="Node2D" parent="."]

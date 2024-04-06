@@ -42,7 +42,7 @@ func _ready():
 	
 	if player.player_id == multiplayer.get_unique_id():
 		$/root/Main/PlayerHUD/%Ammo.ammo_visible()
-		$/root/Main/PlayerHUD/%Ammo.update_ammmo(mag_count, ammo_count)
+		$/root/Main/PlayerHUD/%Ammo.update_ammmo(mag_count, mag_size)
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -107,7 +107,7 @@ func _on_ammo_changed(current_mag_count, current_ammo_count):
 	ammo_count = current_ammo_count
 	
 	if player.player_id == multiplayer.get_unique_id():
-		$/root/Main/PlayerHUD/%Ammo.update_ammmo(mag_count, ammo_count)
+		$/root/Main/PlayerHUD/%Ammo.update_ammmo(mag_count, mag_size)
 
 
 func _on_tree_exiting():

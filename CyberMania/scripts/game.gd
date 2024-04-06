@@ -349,7 +349,7 @@ func _on_phase_timer_timeout():
 		
 	
 func _input(event):
-	if event.is_action_pressed("team_select"):
+	if event.is_action_pressed("team_select") and not $/root/Main/PlayerHUD/%Chat/LineEdit.has_focus():
 		team_select.emit("switch")
 
 

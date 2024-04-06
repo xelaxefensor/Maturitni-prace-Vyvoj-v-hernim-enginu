@@ -12,6 +12,7 @@ sprite = NodePath("Smoothing2D/Rifle")
 projectile_spawn = NodePath("ProjectileSpawn")
 reload_timer = NodePath("ReloadTimer")
 projectile = "\"res://assets/rifle/bullet.tscn\""
+bullet_start_force = 4000.0
 fire_rate_delay = 5.0
 
 [node name="ProjectileSpawn" type="Marker2D" parent="."]

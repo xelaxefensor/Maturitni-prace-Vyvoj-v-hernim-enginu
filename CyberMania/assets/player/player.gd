@@ -97,6 +97,9 @@ func change_player_team(team):
 	
 
 func player_is_on_floor():
+	if not is_on_coyote_floor:
+		$StepSound1.play()
+	
 	if !jumping:
 		is_on_coyote_floor = true
 		coyoteTimer.start()

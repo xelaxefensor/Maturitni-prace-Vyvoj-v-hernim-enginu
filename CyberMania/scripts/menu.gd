@@ -78,7 +78,7 @@ func _on_abort_pressed():
 	
 	
 func _input(event):
-	if event.is_action_pressed("pause_menu") && GameManager.game_status != "menu":
+	if event.is_action_pressed("pause_menu") && GameManager.game_status != "menu" and not $/root/Main/PlayerHUD/%Chat/LineEdit.has_focus():
 		if %PauseMenu.visible == false:
 			menus_invisible()
 			visible = true

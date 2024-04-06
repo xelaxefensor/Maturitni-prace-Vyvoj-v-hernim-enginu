@@ -72,7 +72,7 @@ func weapon_4():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	if can_process and not $/root/Main/Game.server_game_phase == "round_start":
+	if can_process and not $/root/Main/Game.server_game_phase == "round_start" and not $/root/Main/PlayerHUD/%Chat/LineEdit.has_focus():
 		direction = Input.get_vector("player_left", "player_right", "player_up", "player_down")
 		
 		if Input.is_action_just_pressed("player_jump"):

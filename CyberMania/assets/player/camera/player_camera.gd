@@ -7,7 +7,7 @@ extends Camera2D
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if (Input.is_action_pressed("camera_focus")):
+	if (Input.is_action_pressed("camera_focus")) and not $/root/Main/PlayerHUD/%Chat/LineEdit.has_focus():
 		
 		position = Vector2(0, 0)
 		position =+ ($"../InputSynchronizer".mouse_from_centre * move_amount).clamp(-maxZoomOut,maxZoomOut)

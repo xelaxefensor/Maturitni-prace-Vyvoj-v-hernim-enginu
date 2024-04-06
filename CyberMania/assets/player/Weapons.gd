@@ -24,7 +24,7 @@ func activate_weapon(index):
 	
 	weapons[index].visible = true
 	
-	$/root/Main/PlayerHUD/%Ammo.update_ammmo(weapons[index].mag_count, weapons[index].ammo_count)
+	$/root/Main/PlayerHUD/%Ammo.update_ammmo(weapons[index].mag_count, weapons[index].mag_size)
 
 
 func deactivate_weapon(index):
