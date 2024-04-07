@@ -1,10 +1,5 @@
 extends Node
 
-#rpc channels
-#1 - multiplayer inner workings
-#2 - game chat
-#3 - gameplay
-
 signal player_connected(peer_id, player_info)
 signal player_disconnected(peer_id, player_info)
 signal server_disconnected
@@ -89,7 +84,7 @@ func _on_player_connected(id):
 
 
 #registers new player in players[]
-@rpc("any_peer", "call_remote",  "reliable", 1)
+@rpc("any_peer", "call_remote", "reliable", 1)
 func _register_player(new_player_info):
 	var new_player_id = multiplayer.get_remote_sender_id()
 	players[new_player_id] = new_player_info
@@ -127,16 +122,16 @@ func latency_ping():
 	if is_online:
 		latency_counter_is_stopped = false
 		send_latency_signal = false
-		server_received_latance_ping.rpc_id(1)
+		server_received_latency_ping.rpc_id(1)
 	
 	
 @rpc("any_peer", "call_local", "reliable", 5)
-func server_received_latance_ping():
-	client_received_latance_ping.rpc_id(multiplayer.get_remote_sender_id())
+func server_received_latency_ping():
+	client_received_latency_ping.rpc_id(multiplayer.get_remote_sender_id())
 
 
 @rpc("authority", "call_local", "reliable", 5)
-func client_received_latance_ping():
+func client_received_latency_ping():
 	latency_counter_is_stopped = true
 	$/root/Main/%PlayerHUD/%Latency.text = str(snapped(latency_time_elapsed*1000,1))+" ms"
 	latency_time_elapsed = 0.0

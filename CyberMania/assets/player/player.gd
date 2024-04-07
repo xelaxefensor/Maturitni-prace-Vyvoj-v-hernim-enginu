@@ -103,6 +103,9 @@ func player_is_on_floor():
 	if !jumping:
 		is_on_coyote_floor = true
 		coyoteTimer.start()
+		
+		if jump_buffer:
+			start_jumping()
 
 
 @rpc("any_peer", "call_local", "unreliable", 2)

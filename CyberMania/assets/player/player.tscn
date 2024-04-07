@@ -64,6 +64,8 @@ collision_mask = 5
 script = ExtResource("1_us2ra")
 jumpVelocity = 13000.0
 jumpingTime = 0.1
+upBufferTime = 0.203
+coyoteTime = 0.093
 gravity = 3000
 hit_area = NodePath("HitArea")
 
@@ -94,7 +96,7 @@ wait_time = 0.1
 one_shot = true
 
 [node name="UpBufferTimer" type="Timer" parent="."]
-wait_time = 0.073
+wait_time = 3.7
 one_shot = true
 
 [node name="CoyoteTimer" type="Timer" parent="."]
@@ -130,6 +132,7 @@ autoplay = "idle"
 offset = Vector2(-1.2, 0)
 
 [node name="PlayerLabel" type="Label" parent="Smoothing2D"]
+z_index = 165
 offset_left = -93.0
 offset_top = -121.0
 offset_right = 96.0
@@ -147,7 +150,7 @@ player_input = NodePath("../InputSynchronizer")
 [node name="Pistol" parent="Weapons" node_paths=PackedStringArray("player_input", "player") instance=ExtResource("9_54abd")]
 player_input = NodePath("../../InputSynchronizer")
 player = NodePath("../..")
-mag_size = 7
+mag_size = 17
 ammo_size = 99999999
 
 [node name="Rifle" parent="Weapons" node_paths=PackedStringArray("player_input", "player") instance=ExtResource("9_51lrv")]

@@ -17,9 +17,9 @@ const PROJECTILE = "res://assets/pistol/bullet.tscn"
 var mag_count
 var ammo_count
 
-var reloading = false
+@export var reloading = false
 
-@export var fire_rate_delay: float = 0.5
+@export var fire_rate_delay: float = 0.3
 var current_fire_rate_delay: float = 0
 
 

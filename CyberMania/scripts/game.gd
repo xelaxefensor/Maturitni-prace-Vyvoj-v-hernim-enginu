@@ -30,7 +30,7 @@ extends Node
 const DEFAULT_WARMUP_TIME = 30.0
 const DEFAULT_ROUND_START_TIME = 5.0
 const DEFAULT_ROUND_PLAY_TIME = 300.0
-const DEFAULT_ROUND_END_TIME = 5.0
+const DEFAULT_ROUND_END_TIME = 0.01
 const DEFAULT_GAME_END_TIME = 10.0
 
 
@@ -309,10 +309,12 @@ func server_set_round_end(time):
 		
 	%PhaseTimer.start()	
 
-
+@rpc("authority", "call_local")
 func server_set_game_end(time):
 	server_game_phase = "game_end"
 	can_players_spawn = false
+	
+	$Level/Map/LevelCamera2D.make_current()
 
 	if time == 0:
 		%PhaseTimer.wait_time = DEFAULT_GAME_END_TIME
@@ -321,12 +323,13 @@ func server_set_game_end(time):
 
 	%PhaseTimer.start()
 	
-	if teams[1]["round_score"] > teams[2]["round_score"]:
-		do_big_notification.rpc("Tým 1 vyhrál hru", 5.0)
-	elif teams[1]["round_score"] < teams[2]["round_score"]:
-		do_big_notification.rpc("Tým 2 vyhrál hru", 5.0)
-	else:
-		do_big_notification.rpc("Remíza", 5.0)
+	if multiplayer.is_server():
+		if teams[1]["game_score"] > teams[2]["game_score"]:
+			do_big_notification.rpc("Tým 1 vyhrál hru", 5.0)
+		elif teams[1]["game_score"] < teams[2]["game_score"]:
+			do_big_notification.rpc("Tým 2 vyhrál hru", 5.0)
+		else:
+			do_big_notification.rpc("Remíza", 5.0)
 		
 
 func _on_phase_timer_timeout():
@@ -337,10 +340,15 @@ func _on_phase_timer_timeout():
 		"round_start":
 			server_set_round_play(DEFAULT_ROUND_PLAY_TIME)
 		"round_play":
+			if teams[1]["round_score"] > teams[2]["round_score"]:
+				teams[1]["game_score"] += 1
+			elif teams[1]["round_score"] < teams[2]["round_score"]:
+				teams[2]["game_score"] += 1
+				
 			server_set_round_end(DEFAULT_ROUND_END_TIME)
 		"round_end":
 			if current_round_number == number_of_rounds:
-				server_set_game_end(DEFAULT_GAME_END_TIME)
+				server_set_game_end.rpc(DEFAULT_GAME_END_TIME)
 			else:
 				current_round_number += 1
 				server_set_round_start(DEFAULT_ROUND_START_TIME)
@@ -380,7 +388,7 @@ func check_round_to_win_team_game(team_id):
 	if server_game_phase == "round_play":
 		if teams[team_id]["game_score"] >= score_to_win_game:
 			team_won_game(team_id)
-			server_set_game_end(DEFAULT_GAME_END_TIME)
+			server_set_game_end.rpc(DEFAULT_GAME_END_TIME)
 
 
 func reset_score():

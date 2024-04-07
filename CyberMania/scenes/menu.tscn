@@ -6,7 +6,7 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_li7mr"]
 font_size = 106
-font_color = Color(0.172549, 0.92549, 1, 1)
+font_color = Color(0.172549, 0.509804, 1, 1)
 outline_size = 8
 outline_color = Color(0, 0, 0, 1)
 

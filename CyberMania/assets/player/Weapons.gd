@@ -35,6 +35,9 @@ func deactivate_weapon(index):
 
 
 func switch_weapon(new_weapon_id):
+	if weapons[0].reloading or  weapons[1].reloading:
+		return
+	
 	for i in weapons.size():
 		deactivate_weapon(i)
 		
