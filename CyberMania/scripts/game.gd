@@ -147,6 +147,10 @@ func server_load_game(map, player_size, time):
 	round_time = time
 		
 	var game_load = load(map).instantiate()
+	
+	if %Level/Map:
+		%Level/Map.queue_free()
+	
 	%Level.add_child(game_load, true)
 	
 
@@ -333,6 +337,9 @@ func server_set_game_end(time):
 		
 
 func _on_phase_timer_timeout():
+	if not multiplayer.is_server():
+		return
+	
 	match server_game_phase:
 		"warmup":
 			current_round_number = 1
