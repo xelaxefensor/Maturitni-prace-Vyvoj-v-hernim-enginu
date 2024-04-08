@@ -42,16 +42,19 @@ func clear_chat():
 
 
 func _input(event: InputEvent):
-	if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1:
-		var evLocal = make_input_local(event)
-		if !Rect2(Vector2(0,0), $LineEdit.size).has_point(evLocal.position):
-			$LineEdit.release_focus()
+	if $/root/Main/PlayerHUD.visible:
 	
-	if event.is_action_pressed("chat") and not $LineEdit.has_focus():
-		$LineEdit.grab_focus()
+		if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1:
+			var evLocal = make_input_local(event)
+			if !Rect2(Vector2(0,0), $LineEdit.size).has_point(evLocal.position):
+				$LineEdit.release_focus()
 		
-		await get_tree().create_timer(0.001).timeout
-		
-		if $LineEdit.text[$LineEdit.text.length()-1] == "t" or $LineEdit.text[$LineEdit.text.length()-1] == "T":
-			$LineEdit.delete_char_at_caret()
+		if event.is_action_pressed("chat") and not $LineEdit.has_focus():
+			$LineEdit.grab_focus()
+			
+			await get_tree().create_timer(0.001).timeout
+			
+			
+			if $LineEdit.text[$LineEdit.text.length()-1] == "t" or $LineEdit.text[$LineEdit.text.length()-1] == "T":
+				$LineEdit.delete_char_at_caret()
 

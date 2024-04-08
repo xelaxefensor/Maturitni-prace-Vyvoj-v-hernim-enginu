@@ -5,7 +5,7 @@
 [ext_resource type="Theme" uid="uid://bjr6aax8yg3qr" path="res://themes_fonts/menu_theme.tres" id="2_811ec"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_li7mr"]
-font_size = 106
+font_size = 150
 font_color = Color(0.172549, 0.509804, 1, 1)
 outline_size = 8
 outline_color = Color(0, 0, 0, 1)
@@ -43,7 +43,9 @@ size_flags_stretch_ratio = 0.39
 
 [node name="Play" type="Button" parent="MarginContainer/StartMenu"]
 layout_mode = 2
+size_flags_horizontal = 5
 size_flags_vertical = 3
+theme_override_font_sizes/font_size = 64
 text = "Hrát"
 
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/StartMenu"]
@@ -53,7 +55,9 @@ size_flags_stretch_ratio = 0.39
 
 [node name="Settings" type="Button" parent="MarginContainer/StartMenu"]
 layout_mode = 2
+size_flags_horizontal = 5
 size_flags_vertical = 3
+theme_override_font_sizes/font_size = 64
 text = "Nastavení"
 
 [node name="HSeparator2" type="HSeparator" parent="MarginContainer/StartMenu"]
@@ -63,7 +67,9 @@ size_flags_stretch_ratio = 0.39
 
 [node name="Exit" type="Button" parent="MarginContainer/StartMenu"]
 layout_mode = 2
+size_flags_horizontal = 5
 size_flags_vertical = 3
+theme_override_font_sizes/font_size = 64
 text = "Odejít"
 
 [node name="SettingsMenu" type="VBoxContainer" parent="MarginContainer"]
@@ -176,6 +182,7 @@ metadata/_edit_use_anchors_ = true
 [node name="PlayerName" type="LineEdit" parent="MarginContainer/MultiplayerMenu"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_font_sizes/font_size = 64
 alignment = 1
 
 [node name="HSeparator2" type="HSeparator" parent="MarginContainer/MultiplayerMenu"]
@@ -186,12 +193,14 @@ size_flags_stretch_ratio = 0.39
 [node name="Address" type="LineEdit" parent="MarginContainer/MultiplayerMenu"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_font_sizes/font_size = 64
 placeholder_text = "1.1.1.1"
 alignment = 1
 
 [node name="Connect" type="Button" parent="MarginContainer/MultiplayerMenu"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_font_sizes/font_size = 64
 text = "Připojit"
 
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/MultiplayerMenu"]
@@ -202,6 +211,7 @@ size_flags_stretch_ratio = 0.39
 [node name="Host" type="Button" parent="MarginContainer/MultiplayerMenu"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_font_sizes/font_size = 64
 text = "Hostovat"
 
 [node name="HSeparator3" type="HSeparator" parent="MarginContainer/MultiplayerMenu"]
@@ -212,6 +222,7 @@ size_flags_stretch_ratio = 0.39
 [node name="Back" type="Button" parent="MarginContainer/MultiplayerMenu"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_font_sizes/font_size = 64
 text = "Zpět"
 
 [node name="FailedToConnectMenu" type="VBoxContainer" parent="MarginContainer"]
@@ -224,6 +235,7 @@ metadata/_edit_use_anchors_ = true
 [node name="Label" type="Label" parent="MarginContainer/FailedToConnectMenu"]
 layout_mode = 2
 size_flags_vertical = 6
+theme_override_font_sizes/font_size = 64
 text = "Nepodařilo se navázat spojení"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -231,6 +243,7 @@ vertical_alignment = 1
 [node name="Back" type="Button" parent="MarginContainer/FailedToConnectMenu"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_font_sizes/font_size = 64
 text = "Zpět"
 
 [node name="ConnectingMenu" type="VBoxContainer" parent="MarginContainer"]
@@ -243,6 +256,7 @@ metadata/_edit_use_anchors_ = true
 [node name="Label" type="Label" parent="MarginContainer/ConnectingMenu"]
 layout_mode = 2
 size_flags_vertical = 6
+theme_override_font_sizes/font_size = 64
 text = "Připojuji..."
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -250,6 +264,7 @@ vertical_alignment = 1
 [node name="Abort" type="Button" parent="MarginContainer/ConnectingMenu"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_font_sizes/font_size = 64
 text = "Přerušit"
 
 [node name="PauseMenu" type="VBoxContainer" parent="MarginContainer"]
@@ -261,6 +276,7 @@ metadata/_edit_use_anchors_ = true
 [node name="resume" type="Button" parent="MarginContainer/PauseMenu"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_font_sizes/font_size = 64
 text = "Zpět do hry"
 
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/PauseMenu"]
@@ -271,6 +287,7 @@ size_flags_stretch_ratio = 0.14
 [node name="settings" type="Button" parent="MarginContainer/PauseMenu"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_font_sizes/font_size = 64
 text = "Nastavení"
 
 [node name="HSeparator2" type="HSeparator" parent="MarginContainer/PauseMenu"]
@@ -281,6 +298,7 @@ size_flags_stretch_ratio = 0.14
 [node name="disconnect" type="Button" parent="MarginContainer/PauseMenu"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_font_sizes/font_size = 64
 text = "Odpojit se"
 
 [node name="ServerDisconnectedMenu" type="VBoxContainer" parent="MarginContainer"]
@@ -293,6 +311,7 @@ metadata/_edit_use_anchors_ = true
 [node name="Label" type="Label" parent="MarginContainer/ServerDisconnectedMenu"]
 layout_mode = 2
 size_flags_vertical = 6
+theme_override_font_sizes/font_size = 64
 text = "Spojení se servrem přerušeno"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -300,12 +319,8 @@ vertical_alignment = 1
 [node name="Back" type="Button" parent="MarginContainer/ServerDisconnectedMenu"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_font_sizes/font_size = 64
 text = "Zpět"
-
-[node name="HostMenu" type="VBoxContainer" parent="MarginContainer"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
 
 [connection signal="pressed" from="MarginContainer/StartMenu/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="MarginContainer/StartMenu/Settings" to="." method="_on_settings_pressed"]

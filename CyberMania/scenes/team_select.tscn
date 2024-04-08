@@ -30,6 +30,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.286275, 0.607843, 1, 1)
+theme_override_font_sizes/font_size = 64
 text = "Tým 1"
 
 [node name="VSeparator" type="VSeparator" parent="MarginContainer/VBoxContainer/HBoxContainer"]
@@ -40,6 +41,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 64
 text = "Tým 2"
 
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
@@ -50,6 +52,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.25
+theme_override_font_sizes/font_size = 64
 text = "Sledovat"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Team1" to="." method="_on_team_1_pressed"]
